@@ -2,1324 +2,1516 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>คำนวณเกรดรายวิชาปี 2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>MED YEAR 2 · Academic Progress Suite</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
 <style>
-/* =====================================================
-   DESIGN TOKENS — Old Money Minimal
-   ===================================================== */
-:root {
-  --bg:         #F6F1E8;
-  --surface:    #FBF8F2;
-  --surface-2:  #F1ECE3;
-  --charcoal:   #1F1F1D;
-  --teal:       #2F5F5A;
-  --teal-mid:   #3E746E;
-  --teal-light: #DDEAE5;
-  --navy:       #1F1F1D;
-  --navy-mid:   #343431;
-  --navy-light: #2F5F5A;
-  --gold:       #8A7C62;
-  --gold-2:     #2F5F5A;
-  --gold-pale:  #DDD3BF;
-  --text:       #1F1F1D;
-  --text-2:     #393834;
-  --text-3:     #777166;
-  --border:     #CFC5B4;
-  --border-2:   #DED5C6;
-  --border-3:   #E9E1D4;
-  --green-d:    #234D35;
-  --green-m:    #2F6B48;
-  --green-l:    #5A9B70;
-  --amber:      #7A5010;
-  --amber-l:    #9B6818;
-  --red-d:      #5C1E1C;
-  --red-m:      #8A2C28;
-  --r-sm: 8px;
-  --r-md: 12px;
-  --r-lg: 16px;
-  --r-xl: 20px;
-  --focus-ring: 0 0 0 3px rgba(47,95,90,.16);
-  --sh-xs: 0 1px 2px rgba(31,31,29,.05);
-  --sh-sm: 0 1px 4px rgba(31,31,29,.07), 0 1px 2px rgba(31,31,29,.04);
-  --sh-md: 0 6px 18px rgba(31,31,29,.10), 0 2px 4px rgba(31,31,29,.05);
+/* ============================================================
+   MED YEAR 2 · ACADEMIC PROGRESS SUITE
+   Design language: "Ivy Clinical" — deep pine, warm ivory,
+   antique gold. Editorial serif display, precise sans body.
+   ============================================================ */
+:root{
+  /* Base surfaces */
+  --ivory:      #F5F1E8;
+  --ivory-2:    #EFE9DC;
+  --paper:      #FCFAF4;
+  --paper-2:    #F8F4EA;
+  --ink:        #1A211F;
+  --ink-2:      #333B38;
+  --ink-3:      #6B726B;
+  --ink-4:      #97968A;
+
+  /* Brand */
+  --pine:       #103B36;
+  --pine-2:     #16514A;
+  --pine-3:     #1E6A60;
+  --pine-soft:  #D9E6E1;
+  --pine-mist:  #E8F0EC;
+
+  --gold:       #B08A4A;
+  --gold-2:     #C9A24B;
+  --gold-soft:  #E7D9BC;
+  --gold-pale:  #F0E7D2;
+
+  /* Semantic */
+  --pass:       #1E6A60;
+  --pass-2:     #2E8B7E;
+  --warn:       #B07A1E;
+  --warn-2:     #C99A3A;
+  --fail:       #9A3B33;
+  --fail-2:     #B85248;
+
+  /* Grade scale colors */
+  --g-a:  #1E6A60;
+  --g-b:  #2E8B7E;
+  --g-c:  #B07A1E;
+  --g-d:  #B85248;
+  --g-f:  #7A2820;
+
+  --line:   #DDD4C2;
+  --line-2: #E7DFCF;
+  --line-3: #EFE9DB;
+
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+
+  --sh-xs: 0 1px 2px rgba(26,33,31,.05);
+  --sh-sm: 0 2px 8px rgba(26,33,31,.06), 0 1px 2px rgba(26,33,31,.04);
+  --sh-md: 0 10px 30px rgba(26,33,31,.09), 0 3px 8px rgba(26,33,31,.05);
+  --sh-lg: 0 24px 60px rgba(16,59,54,.16), 0 8px 20px rgba(26,33,31,.08);
+  --ring:  0 0 0 3px rgba(30,106,96,.15);
+
+  --ease: cubic-bezier(.22,.61,.36,1);
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
 
-body {
-  font-family: 'Inter', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  font-size: 16px;
-  line-height: 1.6;
-  -webkit-overflow-scrolling: touch;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html{ scroll-behavior:smooth; }
+body{
+  font-family:'Inter','Noto Sans Thai',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:
+    radial-gradient(1200px 700px at 80% -10%, rgba(176,138,74,.10), transparent 60%),
+    radial-gradient(1000px 800px at -10% 20%, rgba(30,106,96,.08), transparent 55%),
+    var(--ivory);
+  color:var(--ink);
+  font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  min-height:100vh;
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{ animation-duration:.01ms!important; transition-duration:.01ms!important; scroll-behavior:auto!important; }
 }
 
-@keyframes pageFadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
+::selection{ background:var(--pine-soft); color:var(--pine); }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes rise{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);} }
+@keyframes fadeIn{ from{opacity:0;} to{opacity:1;} }
+@keyframes popNum{ 0%{transform:scale(.94); opacity:.6;} 50%{transform:scale(1.04);} 100%{transform:scale(1); opacity:1;} }
+@keyframes shimmer{ 0%{background-position:-200% 0;} 100%{background-position:200% 0;} }
+@keyframes floatBadge{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-4px);} }
+
+/* ============================================================
+   TOP NAVIGATION
+   ============================================================ */
+#topbar{
+  position:sticky; top:0; z-index:100;
+  background:rgba(252,250,244,.82);
+  backdrop-filter:saturate(160%) blur(16px);
+  -webkit-backdrop-filter:saturate(160%) blur(16px);
+  border-bottom:1px solid var(--line-2);
 }
-@keyframes pageFadeOut {
-  from { opacity: 1; transform: translateY(0); }
-  to   { opacity: 0; transform: translateY(6px); }
+.nav-inner{
+  max-width:1240px; margin:0 auto; padding:12px 22px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
 }
-@keyframes scorePop {
-  0%   { transform: scale(.96); opacity: .72; }
-  45%  { transform: scale(1.045); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
+.brand{
+  display:flex; align-items:center; gap:10px; cursor:pointer; min-width:0;
+  padding:7px 14px; border-radius:14px;
+  background:var(--paper-2); border:1px solid var(--line-2);
+  box-shadow:var(--sh-xs);
+  transition:background .18s var(--ease), border-color .18s var(--ease), box-shadow .18s var(--ease), transform .18s var(--ease);
+  -webkit-tap-highlight-color:transparent;
 }
-@keyframes pillGlow {
-  0%   { transform: scale(.94); }
-  55%  { transform: scale(1.08); }
-  100% { transform: scale(1); }
+.brand::after{
+  content:"\2039\2003\203A"; /* subtle affordance */
+  display:none;
 }
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: .01ms !important;
+.brand:hover{ background:var(--pine-mist); border-color:var(--pine-soft); box-shadow:var(--sh-sm); transform:translateY(-1px); }
+.brand:active{ transform:translateY(0) scale(.98); }
+.brand-home-ic{ flex-shrink:0; width:24px; height:24px; border-radius:7px; background:linear-gradient(145deg,var(--pine-3),var(--pine)); display:flex; align-items:center; justify-content:center; }
+.brand-home-ic svg{ width:13px; height:13px; }
+.brand-mark{
+  width:40px; height:40px; border-radius:11px; flex-shrink:0;
+  background:linear-gradient(145deg,var(--pine-2),var(--pine));
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 14px rgba(16,59,54,.30), inset 0 1px 0 rgba(255,255,255,.14);
+  position:relative;
+}
+.brand-mark::after{
+  content:""; position:absolute; inset:0; border-radius:11px;
+  border:1px solid rgba(201,162,75,.45);
+}
+.brand-mark span{ font-family:'Fraunces',serif; font-weight:700; font-size:1.15rem; color:var(--gold-2); letter-spacing:.02em; }
+.brand-text{ display:flex; flex-direction:column; min-width:0; line-height:1.15; }
+.brand-title{ font-family:'Fraunces',serif; font-weight:600; font-size:1.02rem; color:var(--ink); letter-spacing:.01em; white-space:nowrap; }
+.brand-sub{ font-size:.62rem; font-weight:600; letter-spacing:.02em; color:var(--gold); }
+
+.nav-tabs{ display:flex; gap:4px; background:var(--paper-2); border:1px solid var(--line-2); border-radius:999px; padding:4px; box-shadow:var(--sh-xs); }
+.nav-tab{
+  border:none; background:transparent; cursor:pointer; font-family:inherit;
+  padding:8px 18px; border-radius:999px; font-size:.85rem; font-weight:600;
+  color:var(--ink-3); white-space:nowrap; letter-spacing:.01em;
+  transition:color .2s var(--ease), background .2s var(--ease), box-shadow .2s var(--ease);
+  -webkit-tap-highlight-color:transparent;
+}
+.nav-tab:hover{ color:var(--pine); }
+.nav-tab.active{ background:var(--pine); color:#fff; box-shadow:0 4px 12px rgba(16,59,54,.24); }
+
+/* ============================================================
+   PAGE LAYOUT
+   ============================================================ */
+.page{ max-width:1240px; margin:0 auto; padding:34px 22px 90px; display:none; }
+.page.active{ display:block; animation:fadeIn .3s var(--ease); }
+
+.section-eyebrow{ font-size:.66rem; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; display:flex; align-items:center; gap:10px; }
+.section-eyebrow::before{ content:""; width:26px; height:1.5px; background:linear-gradient(90deg,var(--gold),transparent); }
+.display-h{ font-family:'Fraunces',serif; font-weight:600; letter-spacing:-.01em; color:var(--ink); line-height:1.12; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative; overflow:hidden;
+  background:linear-gradient(150deg,var(--pine) 0%, var(--pine-2) 55%, #0C302C 100%);
+  border-radius:var(--r-xl); padding:44px 40px 40px; color:#fff;
+  box-shadow:var(--sh-lg);
+  margin-bottom:26px;
+}
+.hero::before{
+  content:""; position:absolute; inset:0;
+  background:
+    radial-gradient(700px 380px at 88% 6%, rgba(201,162,75,.22), transparent 62%),
+    radial-gradient(500px 400px at 6% 100%, rgba(46,139,126,.28), transparent 60%);
+  pointer-events:none;
+}
+.hero::after{
+  content:""; position:absolute; top:-40%; right:-8%; width:340px; height:340px;
+  border-radius:50%; border:1px solid rgba(201,162,75,.20);
+  box-shadow:0 0 0 40px rgba(201,162,75,.05);
+  pointer-events:none;
+}
+.hero-inner{ position:relative; z-index:1; max-width:640px; }
+.hero-eyebrow{ font-size:.66rem; font-weight:700; letter-spacing:.26em; text-transform:uppercase; color:var(--gold-2); margin-bottom:14px; }
+.hero-title{ font-family:'Fraunces',serif; font-weight:600; font-size:clamp(1.9rem,4.4vw,2.9rem); line-height:1.08; letter-spacing:-.015em; margin-bottom:14px; }
+.hero-title em{ font-style:italic; color:var(--gold-2); }
+.hero-desc{ font-size:1rem; color:rgba(255,255,255,.74); font-weight:400; max-width:520px; line-height:1.7; }
+.hero-stats{ display:flex; gap:30px; margin-top:26px; flex-wrap:wrap; }
+.hstat-num{ font-family:'Fraunces',serif; font-size:1.75rem; font-weight:600; color:#fff; line-height:1; }
+.hstat-lbl{ font-size:.72rem; color:rgba(255,255,255,.6); letter-spacing:.06em; margin-top:5px; text-transform:uppercase; font-weight:500; }
+.hstat-sep{ width:1px; background:rgba(255,255,255,.16); align-self:stretch; }
+
+/* ============================================================
+   PROMOTION SIMULATOR
+   ============================================================ */
+.promo-grid{ display:grid; grid-template-columns:1fr; gap:22px; }
+@media(min-width:1200px){ .promo-grid{ grid-template-columns:1.55fr 1fr; align-items:start; } }
+
+/* Verdict panel (sticky on desktop) */
+.verdict-col{ display:flex; flex-direction:column; gap:14px; }
+@media(min-width:1200px){ .verdict-col{ position:sticky; top:74px; } }
+
+/* === ALWAYS-VISIBLE SUMMARY: PC sidebar (above) · iPad+iPhone fixed bottom bar === */
+#promo-sticky{ display:none; }
+@media(max-width:1199px){
+  .verdict-col{ display:none; }           /* replaced by fixed bar on tablet/phone */
+  body[data-page="promotion"]{ padding-bottom:118px; }
+  body[data-page="promotion"] #promo-sticky{
+    display:flex; align-items:center; gap:14px;
+    position:fixed; left:0; right:0; bottom:0; z-index:95;
+    padding:10px 18px calc(10px + env(safe-area-inset-bottom));
+    background:linear-gradient(180deg, rgba(18,67,61,.97), rgba(12,46,41,.98));
+    -webkit-backdrop-filter:saturate(150%) blur(12px); backdrop-filter:saturate(150%) blur(12px);
+    border-top:1px solid rgba(201,162,75,.32);
+    box-shadow:0 -8px 28px rgba(16,59,54,.30);
   }
+  .pst-left{ flex:1; min-width:0; }
+  .pst-label{ font-size:.6rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.55); }
+  .pst-row{ display:flex; align-items:baseline; gap:10px; margin-top:2px; }
+  .pst-gpa{ font-family:'Fraunces',serif; font-size:2rem; font-weight:700; color:#fff; line-height:1; }
+  .pst-max{ font-size:.72rem; color:rgba(255,255,255,.5); }
+  .pst-badge{ font-size:.66rem; font-weight:700; padding:4px 11px; border-radius:999px; letter-spacing:.02em; white-space:nowrap; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.22); color:#fff; }
+  .pst-badge.is-pass{ background:rgba(63,162,146,.9); border-color:transparent; }
+  .pst-badge.is-warn{ background:rgba(201,154,58,.92); border-color:transparent; }
+  .pst-badge.is-fail{ background:rgba(184,82,72,.92); border-color:transparent; }
+  .pst-chart{ width:150px; height:64px; flex-shrink:0; }
+}
+@media(max-width:420px){
+  .pst-chart{ width:120px; }
+  .pst-gpa{ font-size:1.7rem; }
 }
 
-/* BACK BAR */
-#back-bar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  background: var(--charcoal); display: none; align-items: center; gap: 10px;
-  padding: 8px 16px;
-  padding-top: calc(8px + constant(safe-area-inset-top));
-  padding-top: calc(8px + env(safe-area-inset-top));
-  box-shadow: 0 1px 0 rgba(255,255,255,.08), 0 4px 12px rgba(0,0,0,.28);
-  -webkit-transform: translateZ(0); transform: translateZ(0);
+.verdict-card{
+  border-radius:var(--r-lg); padding:26px 24px 24px; color:#fff; position:relative; overflow:hidden;
+  background:linear-gradient(155deg,var(--pine-2),var(--pine) 90%);
+  box-shadow:var(--sh-md);
+  transition:background .5s var(--ease);
 }
-.back-btn {
-  background: rgba(246,241,232,.08); color: rgba(255,255,255,.9);
-  border: 1px solid rgba(246,241,232,.16); border-radius: var(--r-sm);
-  padding: 6px 12px; font-size: 0.82rem; font-weight: 500; font-family: inherit;
-  cursor: pointer; white-space: nowrap; flex-shrink: 0; min-height: 34px;
-  letter-spacing: 0.01em; -webkit-tap-highlight-color: transparent; touch-action: manipulation;
-  transition: background 0.16s ease, transform 0.16s ease, border-color 0.16s ease;
+.verdict-card.is-pass{ background:linear-gradient(155deg,#1E6A60,#0F4038 90%); }
+.verdict-card.is-warn{ background:linear-gradient(155deg,#8A6220,#5E3F12 90%); }
+.verdict-card.is-fail{ background:linear-gradient(155deg,#8A362E,#5C201A 90%); }
+.verdict-card::after{ content:""; position:absolute; top:-50%; right:-20%; width:230px; height:230px; border-radius:50%; background:rgba(255,255,255,.05); pointer-events:none; }
+
+.vc-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; position:relative; z-index:1; }
+.vc-label{ font-size:.66rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.6); }
+.vc-badge{ font-size:.66rem; font-weight:700; letter-spacing:.08em; padding:5px 12px; border-radius:999px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.22); text-transform:uppercase; }
+.vc-gpa-wrap{ display:flex; align-items:baseline; gap:10px; margin:14px 0 6px; position:relative; z-index:1; }
+.vc-gpa{ font-family:'Fraunces',serif; font-size:3.6rem; font-weight:600; line-height:.9; letter-spacing:-.02em; }
+.vc-gpa.pop{ animation:popNum .4s var(--ease); }
+.vc-gpa-max{ font-size:1rem; color:rgba(255,255,255,.5); font-weight:500; }
+.vc-verdict-text{ font-size:.92rem; font-weight:600; color:#fff; position:relative; z-index:1; display:flex; align-items:center; gap:8px; }
+.vc-verdict-sub{ font-size:.78rem; color:rgba(255,255,255,.66); margin-top:5px; position:relative; z-index:1; line-height:1.55; }
+
+/* threshold progress */
+.thresh-wrap{ margin-top:20px; position:relative; z-index:1; }
+.thresh-head{ display:flex; justify-content:space-between; font-size:.72rem; color:rgba(255,255,255,.62); margin-bottom:7px; font-weight:500; }
+.thresh-track{ height:10px; border-radius:999px; background:rgba(255,255,255,.14); position:relative; overflow:hidden; }
+.thresh-fill{ height:100%; border-radius:999px; width:0%; background:linear-gradient(90deg,var(--gold-2),#E4C578); transition:width .55s var(--ease), background .4s var(--ease); }
+.thresh-marker{ position:absolute; top:-4px; bottom:-4px; width:2px; background:rgba(255,255,255,.85); left:50%; }
+.thresh-marker::after{ content:"2.00"; position:absolute; top:-17px; left:50%; transform:translateX(-50%); font-size:.6rem; font-weight:700; color:rgba(255,255,255,.8); letter-spacing:.04em; }
+
+.vc-mini-row{ display:flex; gap:10px; margin-top:20px; position:relative; z-index:1; }
+.vc-mini{ flex:1; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.13); border-radius:var(--r-sm); padding:11px 12px; }
+.vc-mini-lbl{ font-size:.63rem; color:rgba(255,255,255,.58); letter-spacing:.08em; text-transform:uppercase; font-weight:600; }
+.vc-mini-val{ font-family:'Fraunces',serif; font-size:1.32rem; font-weight:600; margin-top:3px; }
+
+/* CHART CARD */
+.chart-card{ background:var(--paper); border:1px solid var(--line-2); border-radius:var(--r-lg); padding:20px 22px 18px; box-shadow:var(--sh-sm); }
+.feature-chart{
+  padding:24px 24px 20px;
+  border:1px solid var(--gold-soft);
+  box-shadow:var(--sh-md);
+  background:linear-gradient(180deg,#FEFCF7,var(--paper));
+  position:relative; overflow:hidden;
 }
-.back-btn:active { background: rgba(246,241,232,.18); transform: scale(.98); }
-.back-info { flex: 1; min-width: 0; overflow: hidden; }
-.back-code { font-size: 0.88rem; font-weight: 700; color: #fff; letter-spacing: 0.04em; display: inline; }
-.back-name { font-size: 0.78rem; font-weight: 400; color: rgba(255,255,255,.6); margin-left: 6px; display: inline; }
-.back-tagline { font-size: 0.68rem; color: rgba(255,255,255,.38); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; letter-spacing: 0.02em; }
+.feature-chart::before{ content:""; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--pine-3),var(--gold-2)); }
+.chart-title{ font-size:.68rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin-bottom:14px; }
+.feature-chart .chart-title{ font-size:.72rem; color:var(--pine); }
+.chart-sub{ font-size:.74rem; color:var(--ink-4); margin-bottom:14px; }
+.chart-svg{ width:100%; height:auto; display:block; overflow:visible; }
+.chart-legend{ display:flex; gap:16px; margin-top:14px; flex-wrap:wrap; }
+.leg-item{ display:flex; align-items:center; gap:7px; font-size:.75rem; color:var(--ink-2); font-weight:500; }
+.leg-dot{ width:11px; height:11px; border-radius:3px; flex-shrink:0; }
 
-/* STICKY HEADER */
-#header {
-  position: fixed; top: 0; left: 0; right: 0; background: var(--navy); z-index: 100;
-  box-shadow: 0 1px 0 rgba(246,241,232,.08), 0 4px 16px rgba(31,31,29,.20);
-  -webkit-transform: translateZ(0); transform: translateZ(0);
+/* SUBJECT INPUT PANEL */
+.input-card{ background:var(--paper); border:1px solid var(--line-2); border-radius:var(--r-lg); box-shadow:var(--sh-sm); overflow:hidden; }
+.ic-head{ padding:18px 22px 16px; border-bottom:1px solid var(--line-3); display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+.ic-head-l{ min-width:0; }
+.ic-title{ font-family:'Fraunces',serif; font-size:1.24rem; font-weight:600; color:var(--ink); }
+.ic-desc{ font-size:.78rem; color:var(--ink-3); margin-top:2px; }
+.ic-actions{ display:flex; gap:8px; flex-shrink:0; }
+.btn-ghost{ font-family:inherit; font-size:.76rem; font-weight:600; padding:8px 14px; border-radius:var(--r-sm); border:1px solid var(--line); background:var(--paper-2); color:var(--ink-2); cursor:pointer; transition:all .16s var(--ease); -webkit-tap-highlight-color:transparent; white-space:nowrap; }
+.btn-ghost:hover{ border-color:var(--pine-3); color:var(--pine); background:var(--pine-mist); }
+.btn-ghost:active{ transform:scale(.97); }
+.btn-solid{ font-family:inherit; font-size:.76rem; font-weight:600; padding:8px 14px; border-radius:var(--r-sm); border:none; background:var(--pine); color:#fff; cursor:pointer; transition:all .16s var(--ease); -webkit-tap-highlight-color:transparent; white-space:nowrap; }
+.btn-solid:hover{ background:var(--pine-2); }
+.btn-solid:active{ transform:scale(.97); }
+
+/* module group */
+.mod-group{ border-bottom:1px solid var(--line-3); }
+.mod-group:last-child{ border-bottom:none; }
+.mod-label{ padding:12px 22px 8px; font-size:.62rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); }
+
+.subj-row{ display:flex; flex-direction:column; gap:11px; padding:14px 22px; border-top:1px solid var(--line-3); transition:background .16s var(--ease); }
+.subj-row:hover{ background:var(--paper-2); }
+.subj-row.filled{ background:linear-gradient(90deg,rgba(30,106,96,.05),transparent 45%); }
+.sr-head{ display:flex; align-items:center; gap:12px; }
+.sr-emoji{ width:34px; height:34px; border-radius:9px; background:var(--paper-2); border:1px solid var(--line-2); display:flex; align-items:center; justify-content:center; font-size:1.08rem; flex-shrink:0; }
+.sr-main{ flex:1; min-width:0; display:flex; align-items:baseline; gap:0; }
+.sr-code{ font-size:.95rem; font-weight:700; color:var(--ink); letter-spacing:.02em; }
+.sr-cr{ font-size:.68rem; font-weight:600; color:var(--gold); margin-left:9px; letter-spacing:.02em; }
+
+.grade-chips{ display:flex; gap:5px; }
+.gchip{
+  flex:1; min-width:0; height:38px; padding:0; border:1.5px solid var(--line); border-radius:9px;
+  background:var(--paper-2); color:var(--ink-3); font-size:.82rem; font-weight:700; font-family:inherit;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  -webkit-tap-highlight-color:transparent; touch-action:manipulation;
+  transition:background .14s var(--ease), border-color .14s var(--ease), color .14s var(--ease), transform .1s var(--ease);
 }
-.header-top { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; gap: 10px; }
-.header-left { display: flex; align-items: center; gap: 9px; min-width: 0; }
-.header-title { font-size: 0.9rem; font-weight: 600; color: #fff; white-space: nowrap; letter-spacing: 0.01em; }
-.device-badge { font-size: 0.6rem; font-weight: 700; padding: 2px 7px; border-radius: 999px; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
-.device-badge.iphone { background: rgba(59,130,246,.7);  color: #fff; }
-.device-badge.ipad   { background: rgba(139,92,246,.7);  color: #fff; }
-.device-badge.pc     { background: rgba(22,163,74,.7);   color: #fff; }
-.header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.header-score { font-size: 0.78rem; color: rgba(255,255,255,.55); white-space: nowrap; font-weight: 400; }
-.header-score strong { color: #fff; font-size: 0.9rem; font-weight: 600; }
-.grade-pill {
-  background: rgba(246,241,232,.12); border: 1px solid rgba(246,241,232,.22);
-  color: #fff; font-weight: 700; font-size: 1rem; padding: 3px 12px;
-  border-radius: 999px; min-width: 46px; text-align: center; flex-shrink: 0;
-  letter-spacing: 0.02em;
-  transition: background-color .28s ease, color .28s ease, border-color .28s ease, transform .18s ease;
-}
-.grade-pill.grade-pop, .gpa-grade.grade-pop { animation: pillGlow .34s ease; }
-.progress-track { height: 5px; background: rgba(255,255,255,.1); }
-#progress-fill { height: 100%; width: 0%; transition: width 0.35s ease, background 0.35s ease; background: var(--gold-2); }
+.gchip:hover{ border-color:var(--pine-3); color:var(--pine); }
+.gchip:active{ transform:scale(.92); }
+.gchip.on{ box-shadow:var(--sh-xs); }
 
-/* SELECTOR VIEW */
-#view-selector {
-  position: fixed; inset: 0; z-index: 50; background: var(--bg);
-  display: none; flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch;
-}
-.sel-top {
-  position: sticky; top: 0; background: var(--navy); z-index: 10;
-  padding: 20px 18px 16px;
-  padding-top: calc(20px + constant(safe-area-inset-top));
-  padding-top: calc(20px + env(safe-area-inset-top));
-  box-shadow: 0 1px 0 rgba(255,255,255,.06), 0 4px 12px rgba(0,0,0,.22);
-  -webkit-transform: translateZ(0); transform: translateZ(0);
-}
-.sel-eyebrow { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal-light); margin-bottom: 4px; }
-.sel-title { font-family: 'Playfair Display', 'Noto Sans Thai', serif; font-size: 1.1rem; font-weight: 700; color: #fff; line-height: 1.3; letter-spacing: -0.01em; }
-.sel-subtitle { font-size: 0.78rem; color: rgba(255,255,255,.48); margin-top: 3px; font-weight: 400; }
-.sel-body { flex: 1; padding: 0 0 40px; }
-.sel-search-wrap { padding: 14px 16px 8px; }
-.sel-search {
-  width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-2);
-  border-radius: var(--r-md); font-size: 16px; font-family: inherit;
-  background: var(--surface); color: var(--text); outline: none;
-  -webkit-appearance: none; appearance: none; box-shadow: var(--sh-xs);
-  transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
-}
-.sel-search:focus { border-color: var(--teal); box-shadow: var(--focus-ring); background: #fff; }
-.sel-search::placeholder { color: var(--text-3); font-size: 0.9rem; }
-.no-results { text-align: center; padding: 48px 24px; color: var(--text-3); font-size: 0.88rem; display: none; }
-.no-results .nr-sub { font-size: 0.76rem; color: var(--border); margin-top: 4px; }
-
-/* SUBJECT GRID & CARDS */
-.subject-grid { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 4px 16px 8px; }
-.subject-card {
-  border-radius: var(--r-xl); padding: 22px 20px 20px; cursor: pointer;
-  position: relative; overflow: hidden; background: var(--surface);
-  box-shadow: var(--sh-sm);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease, border-color 0.18s ease;
-  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
-  border: 1px solid var(--border-2); text-align: left; display: block; width: 100%; font-family: inherit;
-}
-.subject-card:active { transform: scale(0.98); box-shadow: var(--sh-xs); }
-.subject-card.cs { opacity: 0.48; }
-.subject-card.cs:active { opacity: 0.6; }
-.card-badge { position: absolute; top: 14px; right: 14px; font-size: 0.6rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; letter-spacing: 0.06em; white-space: nowrap; text-transform: uppercase; }
-.badge-available { background: var(--teal-light); color: var(--teal); }
-.badge-soon      { background: var(--surface-2); color: var(--text-3); border: 1px solid var(--border-3); }
-.card-emoji  { font-size: 2.2rem; line-height: 1; margin-bottom: 14px; display: block; }
-.card-code   { font-size: 1.2rem; font-weight: 800; color: var(--text); letter-spacing: 0.03em; line-height: 1.1; }
-.card-name   { font-size: 0.82rem; font-weight: 400; color: var(--text-2); margin-top: 3px; line-height: 1.4; }
-.card-tagline { font-size: 0.72rem; color: var(--text-3); margin-top: 6px; font-weight: 400; }
-.card-modules { font-size: 0.67rem; color: var(--text-3); margin-top: 4px; letter-spacing: 0.02em; }
-.card-btn { margin-top: 18px; padding: 8px 16px; border-radius: var(--r-sm); font-size: 0.8rem; font-weight: 600; border: none; cursor: default; pointer-events: none; font-family: inherit; display: inline-block; letter-spacing: 0.01em; }
-.btn-available { background: var(--charcoal); color: var(--surface); }
-.btn-soon      { background: var(--surface-2); color: var(--text-3); border: 1px solid var(--border-2); }
-
-.theme-anatomy, .theme-histology, .theme-immuno, .theme-physio,
-.theme-msk, .theme-cardio, .theme-resp, .theme-gi, .theme-repro,
-.theme-renal, .theme-neuro, .theme-micro, .theme-para, .theme-path,
-.theme-pharma, .theme-pbl, .theme-pmli { background: var(--surface); }
-
-/* CALCULATOR OUTER */
-.calc-outer { padding: 14px 14px 60px; }
-.app-wrapper { display: block; }
-
-/* CALC CARDS */
-.card {
-  background: var(--surface); border: 1px solid var(--border-2);
-  border-radius: var(--r-md); padding: 14px 16px; margin-bottom: 10px;
-  box-shadow: var(--sh-sm);
-  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
-}
-.card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border-3); }
-.ch-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.ch-dot.navy  { background: var(--navy-light); }
-.ch-dot.slate { background: #5A6478; }
-.ch-dot.green { background: var(--green-m); }
-.ch-dot.gold  { background: var(--gold); }
-.card-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-2); flex: 1; }
-.card-pct   { font-size: 0.7rem; color: var(--text-3); font-weight: 500; letter-spacing: 0.02em; }
-
-.row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border-3); }
-.row:last-child { border-bottom: none; }
-.row-label { flex: 1; font-size: 0.9rem; color: var(--text-2); font-weight: 400; min-width: 0; }
-.row-label .pct { font-size: 0.72rem; color: var(--text-3); margin-left: 3px; font-weight: 400; }
-.row-sub { font-size: 0.72rem; color: var(--text-3); margin-top: 1px; font-weight: 400; }
-
-/* SELECT DROPDOWNS */
-select {
-  -webkit-appearance: none; appearance: none;
-  background: var(--surface-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23998C7A' d='M5 6L0 0h10z'/%3E%3C/svg%3E") no-repeat right 10px center;
-  border: 1.5px solid var(--border-2); border-radius: var(--r-sm);
-  padding: 9px 28px 9px 11px; font-size: 16px; font-family: inherit;
-  color: var(--text); cursor: pointer; min-width: 68px; min-height: 44px;
-  transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
-  -webkit-tap-highlight-color: transparent; font-weight: 500;
-}
-select:focus { outline: none; border-color: var(--teal); box-shadow: var(--focus-ring); background-color: #fff; }
-.status-select { min-width: 0; flex: 1; font-size: 16px; }
-
-/* TOGGLE BUTTONS */
-.toggle-wrap { display: flex; gap: 7px; }
-.toggle-btn {
-  padding: 9px 14px; border: 1.5px solid var(--border-2); border-radius: var(--r-sm);
-  font-size: 0.86rem; font-weight: 600; cursor: pointer; background: var(--surface-2);
-  color: var(--text-3); min-height: 44px; min-width: 48px; font-family: inherit;
-  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
-  transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
-}
-.toggle-btn:active { transform: scale(.97); }
-.toggle-btn.s-on { border-color: var(--teal); background: var(--teal-light); color: var(--teal); font-weight: 700; }
-.toggle-btn.u-on { border-color: var(--red-m);   background: #F9EEEE; color: var(--red-m);   font-weight: 700; }
-.att-note { font-size: 0.78rem; flex: 1; color: var(--text-3); }
-.att-note.s { color: var(--green-m); }
-.att-note.u { color: var(--red-m); font-weight: 600; }
-
-/* DISSECTION WARNING */
-.dis-warn { display: none; margin-top: 10px; background: #FBF5E4; border: 1px solid var(--gold-pale); border-radius: var(--r-sm); padding: 8px 12px; font-size: 0.8rem; color: var(--amber); }
-.dis-warn.on { display: block; }
-.struck { text-decoration: line-through; color: var(--text-3); margin-right: 4px; }
-.after-val { font-weight: 700; color: var(--red-m); }
-
-/* FORMATIVE ASSESSMENT ROWS */
-.fa-row { display: flex; align-items: center; gap: 7px; padding: 8px 0; border-bottom: 1px solid var(--border-3); flex-wrap: wrap; }
-.fa-row:last-child { border-bottom: none; }
-.fa-label { min-width: 62px; font-size: 0.9rem; color: var(--text-2); font-weight: 400; }
-
-/* SCORE NUMBER INPUT */
-.score-input-wrap { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
-.score-input {
-  -webkit-appearance: none; appearance: none; width: 76px;
-  border: 1.5px solid var(--border-2); border-radius: var(--r-sm);
-  padding: 9px 8px; font-size: 16px; font-family: inherit; color: var(--text);
-  background: var(--surface-2); text-align: center; min-height: 44px; font-weight: 500;
-  transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
-  -webkit-tap-highlight-color: transparent;
-}
-.score-input:focus { outline: none; border-color: var(--teal); box-shadow: var(--focus-ring); background-color: #fff; }
-.score-input::placeholder { color: var(--border); font-weight: 400; }
-.score-input::-webkit-inner-spin-button, .score-input::-webkit-outer-spin-button { -webkit-appearance: none; appearance: none; }
-.score-input { -moz-appearance: textfield; }
-.score-unit { font-size: 0.82rem; color: var(--text-3); font-weight: 500; }
-
-/* COUNTER (+/-) */
-.ctr-wrap { display: flex; align-items: stretch; border: 1.5px solid var(--border-2); border-radius: var(--r-sm); overflow: hidden; flex-shrink: 0; }
-.ctr-btn { width: 38px; min-height: 44px; border: none; background: var(--surface-2); color: var(--teal); font-size: 1.1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: inherit; -webkit-tap-highlight-color: transparent; touch-action: manipulation; -webkit-touch-callout: none; user-select: none; transition: background 0.14s ease, transform 0.14s ease, color 0.14s ease; }
-.ctr-btn:active { background: var(--teal-light); transform: scale(.96); }
-.ctr-val { min-width: 50px; text-align: center; font-size: 0.98rem; font-weight: 700; color: var(--charcoal); background: var(--surface); display: flex; align-items: center; justify-content: center; border-left: 1px solid var(--border-2); border-right: 1px solid var(--border-2); }
-.ctr-max { font-size: 0.7rem; color: var(--text-3); font-weight: 400; margin-top: 1px; }
-
-/* SELF-REFLECTION TOGGLE */
-.sr-wrap { display: flex; border: 1.5px solid var(--border-2); border-radius: var(--r-sm); overflow: hidden; flex-shrink: 0; }
-.sr-btn { padding: 8px 13px; min-height: 44px; border: none; background: var(--surface); color: var(--text-3); font-size: 0.84rem; font-weight: 500; cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: transparent; touch-action: manipulation; white-space: nowrap; transition: background-color 0.16s ease, color 0.16s ease, transform 0.16s ease; }
-.sr-btn:active { transform: scale(.98); }
-.sr-btn + .sr-btn { border-left: 1px solid var(--border-2); }
-.sr-btn.active-yes { background: var(--teal);  color: #fff; font-weight: 600; }
-.sr-btn.active-no  { background: #F2EAEA; color: var(--red-d); font-weight: 600; }
-
-/* RESULT PANEL */
-.result-panel { margin-top: 0; }
-.summary-card { background: var(--charcoal); border-radius: var(--r-md); padding: 18px 18px; margin-bottom: 10px; box-shadow: var(--sh-md); }
-.summary-card .card-title { color: rgba(255,255,255,.42); border-bottom-color: rgba(255,255,255,.09); font-size: 0.68rem; margin-bottom: 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,.09); }
-.gpa-display { display: flex; align-items: baseline; justify-content: center; gap: 7px; padding: 14px 0 16px; }
-.gpa-value { font-size: 3rem; font-weight: 800; color: #fff; line-height: 1; letter-spacing: -0.02em; transform-origin: center; transition: color .25s ease; }
-.gpa-value.score-pop { animation: scorePop .34s ease; }
-.gpa-max  { font-size: 0.88rem; color: rgba(255,255,255,.45); font-weight: 400; }
-.gpa-grade { font-size: 1rem; font-weight: 700; color: rgba(255,255,255,.9); margin-left: 3px; display: inline-block; transition: color .28s ease, background-color .28s ease, transform .18s ease; }
-.sum-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 0.82rem; border-bottom: 1px solid rgba(255,255,255,.07); }
-.sum-row span:first-child { color: rgba(255,255,255,.5); font-weight: 400; }
-.sum-row span:last-child  { color: rgba(255,255,255,.88); font-weight: 600; }
-.sum-total { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 0; font-size: 0.86rem; margin-top: 2px; }
-.sum-total span:first-child { color: rgba(255,255,255,.55); font-weight: 500; }
-.sum-total span:last-child  { color: #fff; font-weight: 700; font-size: 0.9rem; }
-
-/* GRADE TABLE */
-.grade-table-card { background: var(--surface); border: 1px solid var(--border-2); border-radius: var(--r-md); padding: 14px 16px; margin-bottom: 10px; box-shadow: var(--sh-sm); }
-.gtc-title { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-3); margin-bottom: 10px; }
-.grade-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
-.grade-table th { text-align: left; color: var(--text-3); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 5px 6px; border-bottom: 1px solid var(--border-2); }
-.grade-table td { padding: 6px 6px; color: var(--text-2); border-bottom: 1px solid var(--border-3); font-weight: 400; vertical-align: middle; }
-.grade-table tbody tr:last-child td { border-bottom: none; }
-.grade-table tbody tr.hl td { color: var(--teal); font-weight: 600; background: var(--teal-light); transition: background-color .22s ease, color .22s ease; }
-.grade-table tbody tr.hl td:first-child { font-weight: 800; font-size: 0.9rem; }
-.g-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; vertical-align: middle; flex-shrink: 0; }
-
-/* RESET BUTTON */
-.reset-wrap { padding: 4px 0 0; }
-.reset-btn { width: 100%; padding: 12px; background: var(--surface); color: var(--text-2); border: 1.5px solid var(--border-2); border-radius: var(--r-md); font-size: 0.88rem; font-weight: 500; font-family: inherit; cursor: pointer; min-height: 46px; letter-spacing: 0.01em; -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease; }
-.reset-btn:active { background: var(--surface-2); border-color: var(--border); transform: scale(.99); }
-.ex-btn { padding: 3px 12px; border: none; border-radius: var(--r-sm); background: var(--charcoal); color: #fff; font-size: 0.72rem; font-weight: 600; font-family: inherit; cursor: pointer; white-space: nowrap; min-height: 28px; letter-spacing: 0.03em; -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: background 0.14s ease, opacity 0.14s ease, transform 0.14s ease; }
-.ex-btn:active, .ex-btn:hover { background: var(--teal); opacity: 0.95; transform: translateY(-1px); }
-
-/* COMING SOON */
-#view-coming-soon { position: fixed; inset: 0; z-index: 50; background: var(--bg); display: none; flex-direction: column; align-items: center; justify-content: center; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 80px 24px 40px; }
-.cs-box { background: var(--surface); border: 1px solid var(--border-2); border-radius: var(--r-xl); padding: 36px 28px 30px; max-width: 400px; width: 100%; box-shadow: var(--sh-md); text-align: center; }
-.cs-emoji-lg { font-size: 3rem; margin-bottom: 16px; display: block; }
-.cs-subj-code { font-size: 1.3rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; letter-spacing: 0.02em; }
-.cs-subj-name { font-size: 0.86rem; color: var(--text-3); margin-bottom: 18px; line-height: 1.5; font-weight: 400; }
-.cs-divider { border: none; border-top: 1px solid var(--border-3); margin: 0 0 18px; }
-.cs-title { font-size: 0.98rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; letter-spacing: -0.01em; }
-.cs-desc  { font-size: 0.84rem; color: var(--text-3); line-height: 1.65; margin-bottom: 24px; font-weight: 400; }
-.cs-highlight { font-weight: 700; color: var(--navy); }
-.cs-back-btn { width: 100%; padding: 13px; background: var(--charcoal); color: #fff; border: none; border-radius: var(--r-md); font-size: 0.92rem; font-weight: 600; font-family: inherit; cursor: pointer; min-height: 48px; letter-spacing: 0.01em; -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: background 0.15s ease, transform 0.15s ease; }
-.cs-back-btn:active { background: var(--teal); transform: scale(.99); }
-
-/* VIEW STATE CONTROL */
-#view-selector,
-#view-hga,
-#view-bhcb,
-#view-ehp,
-#view-coming-soon {
-  opacity: 0;
-  transform: translateY(8px);
-  animation-duration: .22s;
-  animation-timing-function: ease;
-  animation-fill-mode: both;
+@media(min-width:760px){
+  .subj-row{ flex-direction:row; align-items:center; gap:16px; }
+  .sr-head{ flex:0 0 240px; }
+  .grade-chips{ flex:1; }
 }
 
-body.view-selector #view-selector    { display: flex; animation-name: pageFadeIn; }
-body.view-selector #back-bar         { display: none !important; }
-body.view-selector #header           { display: none !important; }
-body.view-selector #view-hga         { display: none !important; }
-body.view-selector #view-bhcb        { display: none !important; }
-body.view-selector #view-ehp         { display: none !important; }
-body.view-selector #view-coming-soon { display: none !important; }
+.promo-foot{ padding:16px 22px; background:var(--paper-2); border-top:1px solid var(--line-2); display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+.foot-note{ font-size:.74rem; color:var(--ink-3); line-height:1.5; }
+.foot-note b{ color:var(--pine); font-weight:700; }
 
-body.view-hga #view-hga           { display: block; animation-name: pageFadeIn; }
-body.view-hga #view-selector      { display: none !important; }
-body.view-hga #view-bhcb          { display: none !important; }
-body.view-hga #view-ehp           { display: none !important; }
-body.view-hga #view-coming-soon   { display: none !important; }
-body.view-hga #back-bar           { display: flex; }
+/* ============================================================
+   SUBJECT SELECTOR (calculators)
+   ============================================================ */
+.sel-search-wrap{ margin-bottom:20px; }
+.sel-search{
+  width:100%; max-width:440px; padding:13px 18px; border:1.5px solid var(--line);
+  border-radius:var(--r-md); font-size:16px; font-family:inherit;
+  background:var(--paper); color:var(--ink); outline:none; box-shadow:var(--sh-xs);
+  transition:border-color .16s var(--ease), box-shadow .16s var(--ease);
+}
+.sel-search:focus{ border-color:var(--pine-3); box-shadow:var(--ring); background:#fff; }
+.sel-search::placeholder{ color:var(--ink-4); }
 
-body.view-bhcb #view-bhcb         { display: block; animation-name: pageFadeIn; }
-body.view-bhcb #view-selector     { display: none !important; }
-body.view-bhcb #view-hga          { display: none !important; }
-body.view-bhcb #view-ehp          { display: none !important; }
-body.view-bhcb #view-coming-soon  { display: none !important; }
-body.view-bhcb #back-bar          { display: flex; }
+.subject-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(268px,1fr)); gap:16px; }
+.subject-card{
+  position:relative; overflow:hidden; text-align:left; width:100%; font-family:inherit; cursor:pointer;
+  background:var(--paper); border:1px solid var(--line-2); border-radius:var(--r-lg);
+  padding:22px 20px 18px; box-shadow:var(--sh-sm);
+  transition:transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease), opacity .2s var(--ease);
+  -webkit-tap-highlight-color:transparent;
+}
+.subject-card::before{ content:""; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--pine-3),var(--gold-2)); transform:scaleX(0); transform-origin:left; transition:transform .3s var(--ease); }
+.subject-card:hover{ transform:translateY(-4px); box-shadow:var(--sh-md); border-color:var(--pine-soft); }
+.subject-card:hover::before{ transform:scaleX(1); }
+.subject-card:active{ transform:translateY(-1px) scale(.995); }
+.subject-card.cs{ opacity:.55; }
+.subject-card.cs:hover{ transform:translateY(-2px); }
+.sc-badge{ position:absolute; top:16px; right:16px; font-size:.58rem; font-weight:700; padding:4px 10px; border-radius:999px; letter-spacing:.06em; text-transform:uppercase; }
+.badge-av{ background:var(--pine-mist); color:var(--pine); border:1px solid var(--pine-soft); }
+.badge-cs{ background:var(--paper-2); color:var(--ink-4); border:1px solid var(--line-2); }
+.sc-emoji{ font-size:2rem; display:block; margin-bottom:14px; }
+.sc-code{ font-family:'Fraunces',serif; font-size:1.34rem; font-weight:700; color:var(--ink); letter-spacing:.01em; }
+.sc-cr{ font-size:.7rem; font-weight:700; color:var(--gold); margin-left:8px; letter-spacing:.02em; }
+.sc-name{ font-size:.8rem; color:var(--ink-2); margin-top:4px; line-height:1.45; }
+.sc-tag{ font-size:.7rem; color:var(--ink-4); margin-top:8px; letter-spacing:.02em; }
+.sc-cta{ margin-top:16px; display:inline-flex; align-items:center; gap:6px; font-size:.78rem; font-weight:600; color:var(--pine); }
+.sc-cta.cs{ color:var(--ink-4); }
+.no-results{ text-align:center; padding:56px 24px; color:var(--ink-3); display:none; }
+.no-results b{ display:block; font-size:.95rem; color:var(--ink-2); margin-bottom:4px; }
 
-body.view-ehp #view-ehp           { display: block; animation-name: pageFadeIn; }
-body.view-ehp #view-selector      { display: none !important; }
-body.view-ehp #view-hga           { display: none !important; }
-body.view-ehp #view-bhcb          { display: none !important; }
-body.view-ehp #view-coming-soon   { display: none !important; }
-body.view-ehp #back-bar           { display: flex; }
+/* ============================================================
+   CALCULATOR DETAIL VIEW
+   ============================================================ */
+.calc-back{ display:inline-flex; align-items:center; gap:8px; font-size:.82rem; font-weight:600; color:var(--pine); background:none; border:none; cursor:pointer; font-family:inherit; padding:6px 0; margin-bottom:8px; -webkit-tap-highlight-color:transparent; }
+.calc-back:hover{ color:var(--pine-2); }
+.calc-head{ display:flex; align-items:center; gap:16px; margin-bottom:22px; flex-wrap:wrap; }
+.ch-emoji{ width:56px; height:56px; border-radius:15px; background:linear-gradient(150deg,var(--pine-2),var(--pine)); display:flex; align-items:center; justify-content:center; font-size:1.7rem; box-shadow:0 6px 18px rgba(16,59,54,.24); flex-shrink:0; }
+.ch-info{ min-width:0; }
+.ch-code{ font-family:'Fraunces',serif; font-size:1.6rem; font-weight:600; color:var(--ink); line-height:1.1; }
+.ch-name{ font-size:.86rem; color:var(--ink-3); margin-top:2px; }
+.ch-pill{ margin-left:auto; flex-shrink:0; }
+.chp-letter{
+  font-family:'Fraunces',serif; font-size:2.9rem; font-weight:700; line-height:1;
+  color:var(--pine); letter-spacing:-.01em; text-align:center; min-width:64px;
+}
+.chp-letter.pop{ animation:popNum .38s var(--ease); }
 
-body.view-coming-soon #view-selector    { display: none !important; }
-body.view-coming-soon #header           { display: none !important; }
-body.view-coming-soon #view-hga         { display: none !important; }
-body.view-coming-soon #view-bhcb        { display: none !important; }
-body.view-coming-soon #view-ehp         { display: none !important; }
-body.view-coming-soon #view-coming-soon { display: flex; animation-name: pageFadeIn; }
-body.view-coming-soon #back-bar         { display: flex; }
+.calc-layout{ display:grid; grid-template-columns:1fr; gap:18px; }
+@media(min-width:960px){ .calc-layout{ grid-template-columns:1.5fr 1fr; align-items:start; } }
+.calc-inputs{ display:grid; grid-template-columns:1fr; gap:14px; }
+@media(min-width:600px){ .calc-inputs{ grid-template-columns:1fr 1fr; } }
+.calc-side{ display:flex; flex-direction:column; gap:14px; }
+@media(min-width:960px){ .calc-side{ position:sticky; top:84px; } }
 
-body.is-fading-out.view-selector #view-selector,
-body.is-fading-out.view-hga #view-hga,
-body.is-fading-out.view-bhcb #view-bhcb,
-body.is-fading-out.view-ehp #view-ehp,
-body.is-fading-out.view-coming-soon #view-coming-soon {
-  animation-name: pageFadeOut;
-  animation-duration: .14s;
+.card{ background:var(--paper); border:1px solid var(--line-2); border-radius:var(--r-md); padding:16px 18px; box-shadow:var(--sh-xs); }
+.card.wide{ grid-column:1 / -1; }
+.card-header{ display:flex; align-items:center; gap:9px; margin-bottom:12px; padding-bottom:11px; border-bottom:1px solid var(--line-3); }
+.ch-dot{ width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.dot-pine{ background:var(--pine-3); } .dot-gold{ background:var(--gold-2); } .dot-slate{ background:#5B6B67; } .dot-green{ background:var(--pass-2); }
+.card-title{ font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-2); flex:1; }
+.card-pct{ font-size:.7rem; color:var(--ink-4); font-weight:600; }
+
+.row{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 0; border-bottom:1px solid var(--line-3); }
+.row:last-child{ border-bottom:none; }
+.row-label{ flex:1; font-size:.88rem; color:var(--ink-2); min-width:0; }
+.row-label .pct{ font-size:.72rem; color:var(--ink-4); margin-left:3px; }
+
+select.mini{
+  -webkit-appearance:none; appearance:none;
+  background:var(--paper-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%236B726B' d='M5 6L0 0h10z'/%3E%3C/svg%3E") no-repeat right 10px center;
+  border:1.5px solid var(--line); border-radius:var(--r-sm);
+  padding:9px 28px 9px 11px; font-size:16px; font-family:inherit; font-weight:600;
+  color:var(--ink); cursor:pointer; min-width:70px; min-height:44px;
+  transition:border-color .16s var(--ease), box-shadow .16s var(--ease), background-color .16s var(--ease);
+}
+select.mini:focus{ outline:none; border-color:var(--pine-3); box-shadow:var(--ring); background-color:#fff; }
+select.mini.has-val{ border-color:var(--pine-3); color:var(--pine); background-color:var(--pine-mist); }
+.status-select{ min-width:0; flex:1; }
+
+.toggle-wrap{ display:flex; gap:7px; }
+.toggle-btn{ padding:9px 15px; border:1.5px solid var(--line); border-radius:var(--r-sm); font-size:.86rem; font-weight:700; cursor:pointer; background:var(--paper-2); color:var(--ink-3); min-height:44px; font-family:inherit; -webkit-tap-highlight-color:transparent; transition:all .16s var(--ease); }
+.toggle-btn:active{ transform:scale(.97); }
+.toggle-btn.s-on{ border-color:var(--pass); background:var(--pine-mist); color:var(--pine); }
+.toggle-btn.u-on{ border-color:var(--fail); background:#FBEDEB; color:var(--fail); }
+.att-note{ font-size:.76rem; flex:1; color:var(--ink-3); }
+.att-note.s{ color:var(--pass); font-weight:600; } .att-note.u{ color:var(--fail); font-weight:600; }
+.dis-warn{ display:none; margin-top:10px; background:var(--gold-pale); border:1px solid var(--gold-soft); border-radius:var(--r-sm); padding:8px 12px; font-size:.78rem; color:var(--warn); }
+.dis-warn.on{ display:block; }
+.struck{ text-decoration:line-through; color:var(--ink-4); margin-right:4px; }
+.after-val{ font-weight:700; color:var(--fail); }
+
+.fa-row{ display:flex; align-items:center; gap:7px; padding:8px 0; border-bottom:1px solid var(--line-3); flex-wrap:wrap; }
+.fa-row:last-child{ border-bottom:none; }
+.fa-label{ min-width:60px; font-size:.86rem; color:var(--ink-2); }
+.ctr-wrap{ display:flex; align-items:stretch; border:1.5px solid var(--line); border-radius:var(--r-sm); overflow:hidden; }
+.ctr-btn{ width:38px; min-height:44px; border:none; background:var(--paper-2); color:var(--pine); font-size:1.15rem; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; font-family:inherit; -webkit-tap-highlight-color:transparent; user-select:none; transition:background .14s var(--ease); }
+.ctr-btn:active{ background:var(--pine-mist); }
+.ctr-val{ min-width:48px; text-align:center; font-weight:700; color:var(--ink); background:var(--paper); display:flex; align-items:center; justify-content:center; border-left:1px solid var(--line); border-right:1px solid var(--line); }
+.ctr-max{ font-size:.68rem; color:var(--ink-4); text-align:center; margin-top:2px; }
+.sr-wrap{ display:flex; border:1.5px solid var(--line); border-radius:var(--r-sm); overflow:hidden; }
+.srb{ padding:9px 13px; min-height:44px; border:none; background:var(--paper); color:var(--ink-3); font-size:.82rem; font-weight:600; cursor:pointer; font-family:inherit; -webkit-tap-highlight-color:transparent; white-space:nowrap; transition:all .16s var(--ease); }
+.srb + .srb{ border-left:1px solid var(--line); }
+.srb.yes-on{ background:var(--pine); color:#fff; } .srb.no-on{ background:#F2E4E2; color:var(--fail); }
+
+/* summary card (dark) */
+.summary-card{ background:linear-gradient(155deg,var(--pine-2),var(--pine) 92%); border-radius:var(--r-md); padding:20px; color:#fff; box-shadow:var(--sh-md); position:relative; overflow:hidden; }
+.summary-card::after{ content:""; position:absolute; top:-40%; right:-15%; width:180px; height:180px; border-radius:50%; background:rgba(255,255,255,.05); }
+.sc-title{ font-size:.66rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.55); padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,.12); position:relative; z-index:1; }
+.gpa-display{ display:flex; align-items:baseline; justify-content:center; gap:8px; padding:16px 0; position:relative; z-index:1; }
+.gpa-value{ font-family:'Fraunces',serif; font-size:3.1rem; font-weight:600; line-height:.9; letter-spacing:-.02em; }
+.gpa-value.pop{ animation:popNum .38s var(--ease); }
+.gpa-max{ font-size:.86rem; color:rgba(255,255,255,.5); }
+.gpa-grade{ font-size:.95rem; font-weight:700; color:var(--gold-2); margin-left:2px; }
+.sum-row{ display:flex; justify-content:space-between; padding:6px 0; font-size:.8rem; border-bottom:1px solid rgba(255,255,255,.08); position:relative; z-index:1; }
+.sum-row span:first-child{ color:rgba(255,255,255,.55); } .sum-row span:last-child{ color:#fff; font-weight:600; font-variant-numeric:tabular-nums; }
+.sum-total{ display:flex; justify-content:space-between; padding:11px 0 2px; font-size:.84rem; position:relative; z-index:1; }
+.sum-total span:first-child{ color:rgba(255,255,255,.6); font-weight:500; } .sum-total span:last-child{ color:#fff; font-weight:700; }
+
+/* mini live chart in calc side */
+.mini-chart-card{ background:var(--paper); border:1px solid var(--line-2); border-radius:var(--r-md); padding:16px 18px; box-shadow:var(--sh-xs); }
+
+.grade-table-card{ background:var(--paper); border:1px solid var(--line-2); border-radius:var(--r-md); padding:16px 18px; box-shadow:var(--sh-xs); }
+.gtc-title{ font-size:.66rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-4); margin-bottom:10px; }
+.grade-table{ width:100%; border-collapse:collapse; font-size:.82rem; }
+.grade-table th{ text-align:left; color:var(--ink-4); font-weight:700; font-size:.66rem; letter-spacing:.06em; text-transform:uppercase; padding:5px 6px; border-bottom:1px solid var(--line); }
+.grade-table td{ padding:6px; color:var(--ink-2); border-bottom:1px solid var(--line-3); }
+.grade-table tbody tr:last-child td{ border-bottom:none; }
+.grade-table tbody tr.hl td{ color:var(--pine); font-weight:700; background:var(--pine-mist); }
+.g-dot{ display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:7px; vertical-align:middle; }
+.ex-btn{ padding:4px 12px; border:none; border-radius:6px; background:var(--pine); color:#fff; font-size:.7rem; font-weight:600; font-family:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:background .14s var(--ease); }
+.ex-btn:hover{ background:var(--pine-2); }
+.reset-btn{ width:100%; padding:12px; background:var(--paper); color:var(--ink-2); border:1.5px solid var(--line); border-radius:var(--r-md); font-size:.86rem; font-weight:600; font-family:inherit; cursor:pointer; min-height:46px; -webkit-tap-highlight-color:transparent; transition:all .15s var(--ease); }
+.reset-btn:hover{ background:var(--paper-2); border-color:var(--line); }
+.reset-btn:active{ transform:scale(.99); }
+
+/* coming soon */
+.cs-box{ max-width:440px; margin:40px auto; background:var(--paper); border:1px solid var(--line-2); border-radius:var(--r-xl); padding:40px 32px; text-align:center; box-shadow:var(--sh-md); }
+.cs-emoji{ font-size:3rem; display:block; margin-bottom:16px; animation:floatBadge 3s ease-in-out infinite; }
+.cs-code{ font-family:'Fraunces',serif; font-size:1.5rem; font-weight:600; color:var(--ink); }
+.cs-name{ font-size:.86rem; color:var(--ink-3); margin:6px 0 20px; }
+.cs-hr{ border:none; border-top:1px solid var(--line-3); margin:0 0 20px; }
+.cs-title{ font-size:1rem; font-weight:700; color:var(--pine); margin-bottom:8px; }
+.cs-desc{ font-size:.84rem; color:var(--ink-3); line-height:1.7; margin-bottom:24px; }
+
+/* footer */
+.foot{ max-width:1240px; margin:0 auto; padding:24px 22px 40px; border-top:1px solid var(--line-2); text-align:center; }
+.foot-t{ font-size:.74rem; color:var(--ink-4); line-height:1.7; }
+.foot-t b{ color:var(--ink-3); font-weight:600; }
+
+@media(max-width:560px){
+  .hero{ padding:30px 22px; }
+  .nav-inner{ padding:10px 16px; gap:10px; }
+  .nav-tab{ padding:8px 13px; font-size:.8rem; }
+  .brand-sub{ display:none; }
+  .page{ padding:22px 16px 70px; }
+  .subj-row{ padding:11px 16px; gap:10px; }
+  .sr-name{ display:none; }
+  .ic-head{ padding:16px; }
+}
+@media(max-width:430px){
+  .brand-title{ font-size:.92rem; }
+  .nav-tab{ padding:8px 12px; font-size:.78rem; }
 }
 
-/* RESPONSIVE: iPad 768–1199px */
-@media (min-width: 768px) and (max-width: 1199px) {
-  .calc-outer       { padding: 20px 24px 60px; max-width: 960px; margin: 0 auto; }
-  .header-top       { padding: 12px 24px; }
-  .header-title     { font-size: 0.95rem; }
-  .grade-pill       { font-size: 1.1rem; padding: 4px 14px; }
-  #view-hga  .input-panel,
-  #view-bhcb .input-panel,
-  #view-ehp  .input-panel {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start;
-  }
-  #view-hga  .input-panel .card,
-  #view-bhcb .input-panel .card,
-  #view-ehp  .input-panel .card { margin-bottom: 0; }
-  .card.lab-attendance { grid-column: 1 / -1; }
-  .card.wide           { grid-column: 1 / -1; }
-  .card          { padding: 16px 18px; }
-  .status-select { min-width: 190px; flex: none; }
-  .gpa-value     { font-size: 3.2rem; }
-  .fa-label      { min-width: 68px; }
-  .subject-grid      { grid-template-columns: 1fr 1fr; gap: 14px; padding: 4px 24px 8px; }
-  .sel-top           { padding: 22px 24px 16px; padding-top: calc(22px + constant(safe-area-inset-top)); padding-top: calc(22px + env(safe-area-inset-top)); }
-  .sel-search-wrap   { padding: 14px 24px 8px; }
+/* ============================================================
+   LANDING / ENTRY SCREEN
+   ============================================================ */
+.on-landing #topbar, .on-landing .foot{ display:none; }
+.landing-page{ display:none; }
+.landing-page.active{ display:block; animation:fadeIn .35s var(--ease); }
+.landing-inner{
+  min-height:100vh; max-width:1000px; margin:0 auto; padding:48px 22px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:44px;
 }
+.landing-head{ text-align:center; }
+.landing-eyebrow{ font-size:.7rem; font-weight:700; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+.landing-title{ font-family:'Fraunces',serif; font-weight:600; font-size:clamp(2.4rem,6vw,3.8rem); color:var(--ink); letter-spacing:-.02em; line-height:1; }
+.landing-title span{ color:var(--gold-2); font-style:italic; }
+.landing-sub{ font-size:1.02rem; color:var(--ink-3); margin-top:14px; }
 
-/* RESPONSIVE: PC ≥ 1200px */
-@media (min-width: 1200px) {
-  .calc-outer    { padding: 24px 32px 60px; max-width: 1400px; margin: 0 auto; }
-  .header-top    { padding: 13px 32px; }
-  .header-title  { font-size: 1rem; }
-  .grade-pill    { font-size: 1.2rem; padding: 4px 16px; }
-  .app-wrapper   { display: flex; gap: 24px; align-items: flex-start; }
-  .input-panel   { flex: 1; min-width: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
-  .input-panel .card { margin-bottom: 0; }
-  .card.lab-attendance { grid-column: 1 / -1; }
-  .card.wide           { grid-column: 1 / -1; }
-  .result-panel  { width: 360px; flex-shrink: 0; position: sticky; top: 84px; }
-  .card          { padding: 18px 20px; }
-  .status-select { min-width: 210px; flex: none; }
-  .gpa-value     { font-size: 3.4rem; }
-  .fa-label      { min-width: 72px; }
-  .reset-btn:hover { background: var(--surface-2); border-color: var(--border); }
-  select:hover   { border-color: var(--teal); }
-  .subject-grid      { grid-template-columns: 1fr 1fr 1fr; gap: 16px; padding: 6px 32px 12px; }
-  .sel-top           { padding: 24px 32px 18px; padding-top: calc(24px + constant(safe-area-inset-top)); padding-top: calc(24px + env(safe-area-inset-top)); }
-  .sel-search-wrap   { padding: 16px 32px 8px; }
-  .sel-title         { font-size: 1.2rem; }
-  .sel-body          { max-width: 1400px; width: 100%; margin: 0 auto; }
-  #back-bar          { padding-left: 32px; padding-right: 32px; }
-  .subject-card:hover { transform: translateY(-4px) scale(1.01); border-color: var(--teal); box-shadow: 0 10px 28px rgba(31,31,29,.12), 0 2px 8px rgba(31,31,29,.08); }
+.landing-choices{ display:grid; grid-template-columns:1fr 1fr; gap:26px; width:100%; max-width:820px; }
+.choice-block{
+  position:relative; overflow:hidden; cursor:pointer; font-family:inherit; text-align:center;
+  border-radius:26px; padding:52px 32px; min-height:340px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
+  border:1px solid var(--line-2); box-shadow:var(--sh-md);
+  transition:transform .22s var(--ease), box-shadow .22s var(--ease), border-color .22s var(--ease);
+  -webkit-tap-highlight-color:transparent;
 }
-
-/* RESPONSIVE: Small iPhone ≤ 390px */
-@media (max-width: 390px) {
-  .header-title  { font-size: 0.8rem; }
-  .header-score  { font-size: 0.7rem; }
-  .status-select { font-size: 16px; }
-  select         { font-size: 16px; }
-  .score-input   { font-size: 16px; }
-  .back-name     { display: none; }
+.choice-block::before{ content:""; position:absolute; top:0; left:0; right:0; height:5px; }
+.choice-block::after{ content:""; position:absolute; top:-40%; right:-20%; width:220px; height:220px; border-radius:50%; background:rgba(201,162,75,.10); pointer-events:none; }
+.choice-block:hover{ transform:translateY(-7px); box-shadow:var(--sh-lg); }
+.choice-block:active{ transform:translateY(-2px) scale(.99); }
+.choice-promo{ background:linear-gradient(160deg,#12433D,#0C2E29); color:#fff; border-color:transparent; }
+.choice-promo::before{ background:linear-gradient(90deg,var(--gold),var(--gold-2)); }
+.choice-subj{ background:linear-gradient(180deg,#FEFCF7,var(--paper)); }
+.choice-subj::before{ background:linear-gradient(90deg,var(--pine-3),var(--gold-2)); }
+.choice-icon{ font-size:3.4rem; line-height:1; }
+.choice-promo .choice-icon{ filter:drop-shadow(0 6px 14px rgba(0,0,0,.34)); }
+.choice-title{ font-family:'Fraunces',serif; font-size:1.7rem; font-weight:600; }
+.choice-promo .choice-title{ color:#fff; }
+.choice-subj .choice-title{ color:var(--ink); }
+.choice-desc{ font-size:.88rem; line-height:1.65; max-width:270px; }
+.choice-promo .choice-desc{ color:rgba(255,255,255,.72); }
+.choice-subj .choice-desc{ color:var(--ink-3); }
+.choice-cta{ margin-top:10px; font-size:.84rem; font-weight:700; letter-spacing:.02em; }
+.choice-promo .choice-cta{ color:var(--gold-2); }
+.choice-subj .choice-cta{ color:var(--pine); }
+@media(max-width:680px){
+  .landing-inner{ gap:32px; padding:40px 18px; }
+  .landing-choices{ grid-template-columns:1fr; gap:18px; max-width:420px; }
+  .choice-block{ min-height:210px; padding:36px 28px; }
+  .choice-icon{ font-size:2.8rem; }
+  .choice-title{ font-size:1.45rem; }
 }
 </style>
 </head>
-<body class="view-selector">
+<body class="on-landing" data-page="landing">
 
-<!-- BACK BAR -->
-<div id="back-bar">
-  <button class="back-btn" onclick="showSubjectSelector()">&#8592; เปลี่ยนวิชา</button>
-  <div class="back-info">
-    <div><span class="back-code" id="back-code"></span><span class="back-name" id="back-name"></span></div>
-    <div class="back-tagline" id="back-tagline"></div>
+<!-- ============ LANDING / ENTRY ============ -->
+<div class="page landing-page active" id="page-landing">
+  <div class="landing-inner">
+    <div class="landing-head">
+      <div class="landing-eyebrow"></div>
+      <h1 class="landing-title">Med Year <span>2</span></h1>
+      <p class="landing-sub">เลือกเครื่องมือ</p>
+    </div>
+    <div class="landing-choices">
+      <button class="choice-block choice-promo" onclick="go('promotion')">
+        <div class="choice-icon">📊</div>
+        <div class="choice-title">สรุปเกรดรวม</div>
+        <div class="choice-cta">เข้าสู่หน้านี้ &#8594;</div>
+      </button>
+      <button class="choice-block choice-subj" onclick="go('subjects')">
+        <div class="choice-icon">🧮</div>
+        <div class="choice-title">คำนวณเกรดรายวิชา</div>
+        <div class="choice-cta">เข้าสู่หน้านี้ &#8594;</div>
+      </button>
+    </div>
   </div>
 </div>
 
-<!-- STICKY HEADER -->
-<div id="header">
-  <div class="header-top">
-    <div class="header-left">
-      <div class="header-title" id="header-title">Grade Calculator</div>
-      <span class="device-badge" id="device-badge">-</span>
+<!-- ============ TOP NAV ============ -->
+<div id="topbar">
+  <div class="nav-inner">
+    <div class="brand" onclick="go('landing')" title="กลับหน้าแรก">
+      <div class="brand-home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A24B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></div>
+      <div class="brand-text">
+        <div class="brand-title">Med Year 2</div>
+      </div>
     </div>
-    <div class="header-right">
-      <div class="header-score">GPA:&nbsp;<strong id="bar-gpa">-</strong>&nbsp;/ 4.0</div>
-      <div class="grade-pill" id="bar-grade">-</div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" id="tab-promotion" onclick="go('promotion')">สรุปเกรดรวม</button>
+      <button class="nav-tab" id="tab-subjects" onclick="go('subjects')">คำนวณรายวิชา</button>
     </div>
   </div>
-  <div class="progress-track"><div id="progress-fill"></div></div>
 </div>
 
-<!-- SELECTOR VIEW -->
-<div id="view-selector">
-  <div class="sel-top">
-    <div class="sel-title" style="text-align:center">คำนวณเกรดรายวิชาปี 2</div>
+<!-- ============ PAGE: PROMOTION SIMULATOR ============ -->
+<div class="page" id="page-promotion">
+  <div class="hero">
+    <div class="hero-inner">
+      <h1 class="hero-title">สรุปเกรดรวม</h1>
+      <p class="hero-desc"></p>
+      <div class="hero-stats">
+        <div><div class="hstat-num">20</div><div class="hstat-lbl">รายวิชา</div></div>
+        <div class="hstat-sep"></div>
+        <div><div class="hstat-num">38</div><div class="hstat-lbl">หน่วยกิต</div></div>
+        <div class="hstat-sep"></div>
+        <div><div class="hstat-num">2.00</div><div class="hstat-lbl">เกณฑ์เลื่อนชั้น</div></div>
+      </div>
+    </div>
   </div>
-  <div class="sel-body">
+
+  <div class="promo-grid">
+    <!-- LEFT: input -->
+    <div class="input-card">
+      <div class="ic-head">
+        <div class="ic-head-l">
+          <div class="ic-title">รายวิชาชั้นปีที่ 2</div>
+          <div class="ic-desc">20 วิชา · 38 หน่วยกิต</div>
+        </div>
+        <div class="ic-actions">
+          <button class="btn-ghost" onclick="promoReset()">ล้าง</button>
+        </div>
+      </div>
+      <div id="promo-subject-list"></div>
+      <div class="promo-foot">
+  
+      </div>
+    </div>
+
+    <!-- RIGHT: verdict + chart -->
+    <div class="verdict-col">
+      <div class="verdict-card" id="verdict-card">
+        <div class="vc-top">
+          <div class="vc-label">เกรดเฉลี่ยปัจจุบัน (GPA)</div>
+          <div class="vc-badge" id="vc-badge">ยังไม่กรอก</div>
+        </div>
+        <div class="vc-gpa-wrap">
+          <div class="vc-gpa" id="vc-gpa">0.00</div>
+          <div class="vc-gpa-max">/ 4.00</div>
+        </div>
+        <div class="vc-verdict-text" id="vc-verdict">เริ่มเลือกเกรดเพื่อดูผล</div>
+        <div class="vc-verdict-sub" id="vc-verdict-sub">คำนวณจากวิชาที่กรอกแล้วเท่านั้น</div>
+
+        <div class="thresh-wrap">
+          <div class="thresh-head"><span>0.00</span><span>เกณฑ์ผ่าน</span><span>4.00</span></div>
+          <div class="thresh-track">
+            <div class="thresh-marker"></div>
+            <div class="thresh-fill" id="thresh-fill"></div>
+          </div>
+        </div>
+
+        <div class="vc-mini-row">
+          <div class="vc-mini"><div class="vc-mini-lbl">หน่วยกิตที่กรอก</div><div class="vc-mini-val" id="vc-credits">0 / 38</div></div>
+          <div class="vc-mini"><div class="vc-mini-lbl">ดีที่สุดที่เป็นไปได้</div><div class="vc-mini-val" id="vc-best">–</div></div>
+        </div>
+      </div>
+
+      <div class="chart-card feature-chart">
+        <div class="chart-title">ปัจจุบัน · ดีที่สุดที่เป็นไปได้</div>
+        <svg class="chart-svg" id="promo-chart" viewBox="0 0 400 270" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="chart-legend">
+          <div class="leg-item"><span class="leg-dot" style="background:var(--pine-3)"></span>ปัจจุบัน</div>
+          <div class="leg-item"><span class="leg-dot" style="background:var(--gold-2)"></span>ดีที่สุด</div>
+          <div class="leg-item"><span class="leg-dot" style="background:var(--fail-2)"></span>เกณฑ์ 2.00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALWAYS-VISIBLE SUMMARY BAR (iPad + iPhone) -->
+  <div id="promo-sticky">
+    <div class="pst-left">
+      <div class="pst-label">เกรดเฉลี่ยปัจจุบัน (GPA)</div>
+      <div class="pst-row">
+        <span class="pst-gpa" id="pst-gpa">0.00</span>
+        <span class="pst-max">/ 4.00</span>
+        <span class="pst-badge" id="pst-badge">ยังไม่กรอก</span>
+      </div>
+    </div>
+    <svg class="pst-chart" id="pst-chart" viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+</div>
+
+<!-- ============ PAGE: SUBJECTS (calculators) ============ -->
+<div class="page" id="page-subjects">
+  <div id="subjects-list-view">
+    <h2 class="display-h" style="font-size:1.7rem; margin-bottom:18px;">คำนวณเกรดรายวิชา</h2>
     <div class="sel-search-wrap">
-      <input type="text" id="sel-search" class="sel-search"
-             placeholder="ค้นหา เช่น HGA, BHCB, EHP..."
-             autocomplete="off" autocorrect="off" spellcheck="false">
-    </div>
-    <div class="no-results" id="no-results">
-      ไม่พบวิชาที่ค้นหา
-      <div class="nr-sub">ลองค้นหาด้วยรหัสวิชาหรือชื่อวิชา</div>
+      <input type="text" id="sel-search" class="sel-search" placeholder="ค้นหา เช่น HGA, BHCB, EHP…" autocomplete="off" spellcheck="false">
     </div>
     <div class="subject-grid" id="subject-grid"></div>
+    <div class="no-results" id="no-results"><b>ไม่พบวิชาที่ค้นหา</b>ลองค้นด้วยรหัสหรือชื่อวิชา</div>
   </div>
-</div>
 
-<!-- HGA CALCULATOR VIEW -->
-<div id="view-hga">
-  <div class="calc-outer">
-    <div class="app-wrapper">
-      <div class="input-panel" id="hga-input-panel">
+  <!-- calculator detail mount -->
+  <div id="calc-detail-view" style="display:none;">
+    <button class="calc-back" onclick="closeCalculator()">&#8592; ย้อนกลับ</button>
+    <div class="calc-head">
+      <div class="ch-emoji" id="calc-emoji">🦴</div>
+      <div class="ch-info">
+        <div class="ch-code" id="calc-code">HGA</div>
+        <div class="ch-name" id="calc-name">Human Gross Anatomy</div>
+      </div>
+      <div class="ch-pill">
+        <div class="chp-letter" id="calc-grade">–</div>
+      </div>
+    </div>
 
-        <!-- MCQ -->
+    <!-- HGA -->
+    <div class="calc-layout" id="mount-hga" style="display:none;">
+      <div class="calc-inputs" id="hga-input-panel">
         <div class="card">
-          <div class="card-header"><div class="ch-dot navy"></div><div class="card-title">MCQ</div><div class="card-pct">รวม 63%</div></div>
-          <div class="row"><div class="row-label">MCQ 1 <span class="pct">(13.5%)</span></div><select id="mcq1"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-          <div class="row"><div class="row-label">MCQ 2 <span class="pct">(13.5%)</span></div><select id="mcq2"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-          <div class="row"><div class="row-label">MCQ 3 <span class="pct">(12%)</span></div><select id="mcq3"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-          <div class="row"><div class="row-label">MCQ 4 <span class="pct">(12%)</span></div><select id="mcq4"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-          <div class="row"><div class="row-label">MCQ 5 <span class="pct">(12%)</span></div><select id="mcq5"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">MCQ</div><div class="card-pct">รวม 63%</div></div>
+          <div class="row"><div class="row-label">MCQ 1 <span class="pct">(13.5%)</span></div><select class="mini" id="mcq1"></select></div>
+          <div class="row"><div class="row-label">MCQ 2 <span class="pct">(13.5%)</span></div><select class="mini" id="mcq2"></select></div>
+          <div class="row"><div class="row-label">MCQ 3 <span class="pct">(12%)</span></div><select class="mini" id="mcq3"></select></div>
+          <div class="row"><div class="row-label">MCQ 4 <span class="pct">(12%)</span></div><select class="mini" id="mcq4"></select></div>
+          <div class="row"><div class="row-label">MCQ 5 <span class="pct">(12%)</span></div><select class="mini" id="mcq5"></select></div>
         </div>
-
-        <!-- TSE -->
         <div class="card">
-          <div class="card-header"><div class="ch-dot navy"></div><div class="card-title">TSE</div><div class="card-pct">รวม 22%</div></div>
-          <div class="row"><div class="row-label">TSE 1 <span class="pct">(4.2%)</span></div><select id="tse1"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-          <div class="row"><div class="row-label">TSE 2 <span class="pct">(4.2%)</span></div><select id="tse2"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-          <div class="row"><div class="row-label">TSE 3 <span class="pct">(4.2%)</span></div><select id="tse3"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-          <div class="row"><div class="row-label">TSE 4 <span class="pct">(4.2%)</span></div><select id="tse4"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-          <div class="row"><div class="row-label">TSE 5 <span class="pct">(5.2%)</span></div><select id="tse5"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">TSE</div><div class="card-pct">รวม 22%</div></div>
+          <div class="row"><div class="row-label">TSE 1 <span class="pct">(4.2%)</span></div><select class="mini" id="tse1"></select></div>
+          <div class="row"><div class="row-label">TSE 2 <span class="pct">(4.2%)</span></div><select class="mini" id="tse2"></select></div>
+          <div class="row"><div class="row-label">TSE 3 <span class="pct">(4.2%)</span></div><select class="mini" id="tse3"></select></div>
+          <div class="row"><div class="row-label">TSE 4 <span class="pct">(4.2%)</span></div><select class="mini" id="tse4"></select></div>
+          <div class="row"><div class="row-label">TSE 5 <span class="pct">(5.2%)</span></div><select class="mini" id="tse5"></select></div>
         </div>
-
-        <!-- SDL -->
         <div class="card">
-          <div class="card-header"><div class="ch-dot slate"></div><div class="card-title">SDL</div><div class="card-pct">2%</div></div>
-          <div class="row"><div class="row-label">Joint of Limb <span class="pct">(2%)</span></div><select id="sdl"><option value=""></option><option value="4">A</option><option value="3">B</option><option value="2">C</option><option value="0">F</option></select></div>
+          <div class="card-header"><div class="ch-dot dot-slate"></div><div class="card-title">SDL</div><div class="card-pct">2%</div></div>
+          <div class="row"><div class="row-label">Joint of Limb <span class="pct">(2%)</span></div><select class="mini" id="sdl" data-abcf="1"></select></div>
         </div>
-
-        <!-- Lab Dissection -->
         <div class="card">
-          <div class="card-header"><div class="ch-dot green"></div><div class="card-title">Lab Dissection</div><div class="card-pct">10%</div></div>
-          <div class="row"><div class="row-label">เกรด <span class="pct">(10%)</span></div><select id="lab-dis"><option value=""></option><option value="4">A</option><option value="3">B</option><option value="2">C</option><option value="0">F</option></select></div>
+          <div class="card-header"><div class="ch-dot dot-green"></div><div class="card-title">Lab Dissection</div><div class="card-pct">10%</div></div>
+          <div class="row"><div class="row-label">เกรด <span class="pct">(10%)</span></div><select class="mini" id="lab-dis" data-abcf="1"></select></div>
           <div class="dis-warn" id="dis-warn">Lab Dissection: <span class="struck" id="dis-before"></span><span class="after-val" id="dis-after"></span><span style="font-weight:400"> (หัก 25% จาก U)</span></div>
         </div>
-
-        <!-- Lab Attendance -->
-        <div class="card lab-attendance wide">
-          <div class="card-header"><div class="ch-dot green"></div><div class="card-title">Lab Attendance</div></div>
+        <div class="card wide">
+          <div class="card-header"><div class="ch-dot dot-green"></div><div class="card-title">Lab Attendance</div></div>
           <div class="row">
             <div class="row-label">ผลการเข้าแลบ</div>
             <div class="toggle-wrap"><button class="toggle-btn" id="btn-s">S</button><button class="toggle-btn" id="btn-u">U</button></div>
             <span class="att-note" id="att-note"></span>
           </div>
         </div>
-
-        <!-- Formative Assessment -->
         <div class="card wide">
-          <div class="card-header"><div class="ch-dot gold"></div><div class="card-title">Formative Assessment</div><div class="card-pct">รวม 2%</div></div>
-          <div class="fa-row">
-            <div class="fa-label">ครั้งที่ 1</div>
-            <select class="status-select" id="fa1-status"><option value=""></option><option value="1">เข้าทำตอบครบ (1%)</option><option value="0.5">เข้าทำช้า (0.5%)</option><option value="0">ไม่เข้าทำ (0%)</option></select>
-            <select id="fa1-grade"><option value=""></option><option value="4">A</option><option value="0">F</option></select>
+          <div class="card-header"><div class="ch-dot dot-gold"></div><div class="card-title">Formative Assessment</div><div class="card-pct">รวม 2%</div></div>
+          <div class="fa-row"><div class="fa-label">ครั้งที่ 1</div>
+            <select class="mini status-select" id="fa1-status"><option value=""></option><option value="1">เข้าทำตอบครบ (1%)</option><option value="0.5">เข้าทำช้า (0.5%)</option><option value="0">ไม่เข้าทำ (0%)</option></select>
+            <select class="mini" id="fa1-grade"><option value=""></option><option value="4">A</option><option value="0">F</option></select>
           </div>
-          <div class="fa-row">
-            <div class="fa-label">ครั้งที่ 2</div>
-            <select class="status-select" id="fa2-status"><option value=""></option><option value="1">เข้าทำตอบครบ (1%)</option><option value="0.5">เข้าทำช้า (0.5%)</option><option value="0">ไม่เข้าทำ (0%)</option></select>
-            <select id="fa2-grade"><option value=""></option><option value="4">A</option><option value="0">F</option></select>
+          <div class="fa-row"><div class="fa-label">ครั้งที่ 2</div>
+            <select class="mini status-select" id="fa2-status"><option value=""></option><option value="1">เข้าทำตอบครบ (1%)</option><option value="0.5">เข้าทำช้า (0.5%)</option><option value="0">ไม่เข้าทำ (0%)</option></select>
+            <select class="mini" id="fa2-grade"><option value=""></option><option value="4">A</option><option value="0">F</option></select>
           </div>
         </div>
-
-        <!-- Formative Orientation -->
         <div class="card">
-          <div class="card-header"><div class="ch-dot gold"></div><div class="card-title">Formative (Orientation)</div><div class="card-pct">1%</div></div>
-          <div class="row"><div class="row-label">เกรด <span class="pct">(1%)</span></div><select id="fo-grade"><option value=""></option><option value="4">A</option><option value="0">F</option></select></div>
+          <div class="card-header"><div class="ch-dot dot-gold"></div><div class="card-title">Formative (Orientation)</div><div class="card-pct">1%</div></div>
+          <div class="row"><div class="row-label">เกรด <span class="pct">(1%)</span></div><select class="mini" id="fo-grade"><option value=""></option><option value="4">A</option><option value="0">F</option></select></div>
         </div>
-
       </div>
-
-      <!-- HGA Result -->
-      <div class="result-panel" id="result-hga">
+      <div class="calc-side">
         <div class="summary-card">
-          <div class="card-title">สรุปผล HGA</div>
-          <div class="gpa-display"><div class="gpa-value" id="hga-sum-gpa">-</div><div class="gpa-max">/ 4.0</div></div>
-          <div class="sum-row"><span>MCQ (63%)</span><span id="sum-mcq">-</span></div>
-          <div class="sum-row"><span>TSE (22%)</span><span id="sum-tse">-</span></div>
-          <div class="sum-row"><span>SDL (2%)</span><span id="sum-sdl">-</span></div>
-          <div class="sum-row"><span>Lab Dissection (10%)</span><span id="sum-dis">-</span></div>
-          <div class="sum-row"><span>Formative (2%)</span><span id="sum-fa">-</span></div>
-          <div class="sum-row"><span>Orientation (1%)</span><span id="sum-fo">-</span></div>
-          <div class="sum-total"><span>Raw Score</span><span id="hga-sum-raw">0.0 / 400</span></div>
+          <div class="sc-title">สรุปผล HGA</div>
+          <div class="gpa-display"><div class="gpa-value" id="hga-sum-gpa">–</div><div class="gpa-max">/ 4.00</div></div>
+        </div>
+        <div class="mini-chart-card">
+          <div class="gtc-title">ปัจจุบัน · ดีที่สุด</div>
+          <svg class="chart-svg" id="hga-mini-chart" viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
         <div class="grade-table-card">
           <div class="gtc-title">เกณฑ์การให้เกรด</div>
-          <table class="grade-table">
-            <thead><tr><th>เกรด</th><th>ช่วง GPA</th><th>Example</th></tr></thead>
-            <tbody id="hga-grade-tbody">
-              <tr data-grade="A">  <td><span class="g-dot" style="background:#234D35"></span>A</td>  <td>3.51 - 4.00</td><td><button class="ex-btn" onclick="exampleGrade('A')">Try</button></td></tr>
-              <tr data-grade="B+"> <td><span class="g-dot" style="background:#2F6B48"></span>B+</td> <td>3.01 - 3.50</td><td><button class="ex-btn" onclick="exampleGrade('B+')">Try</button></td></tr>
-              <tr data-grade="B">  <td><span class="g-dot" style="background:#5A9B70"></span>B</td>  <td>2.51 - 3.00</td><td><button class="ex-btn" onclick="exampleGrade('B')">Try</button></td></tr>
-              <tr data-grade="C+"> <td><span class="g-dot" style="background:#7A5010"></span>C+</td> <td>2.01 - 2.50</td><td><button class="ex-btn" onclick="exampleGrade('C+')">Try</button></td></tr>
-              <tr data-grade="C">  <td><span class="g-dot" style="background:#9B6818"></span>C</td>  <td>1.51 - 2.00</td><td><button class="ex-btn" onclick="exampleGrade('C')">Try</button></td></tr>
-              <tr data-grade="D+"> <td><span class="g-dot" style="background:#8A2C28"></span>D+</td> <td>1.01 - 1.50</td><td><button class="ex-btn" onclick="exampleGrade('D+')">Try</button></td></tr>
-              <tr data-grade="D">  <td><span class="g-dot" style="background:#5C1E1C"></span>D</td>  <td>0.51 - 1.00</td><td><button class="ex-btn" onclick="exampleGrade('D')">Try</button></td></tr>
-              <tr data-grade="F">  <td><span class="g-dot" style="background:#3A0F0E"></span>F</td>  <td>&lt; 0.51</td><td><button class="ex-btn" onclick="exampleGrade('F')">Try</button></td></tr>
-            </tbody>
-          </table>
+          <table class="grade-table"><thead><tr><th>เกรด</th><th>ช่วง GPA</th><th></th></tr></thead><tbody id="hga-grade-tbody"></tbody></table>
         </div>
-        <div class="reset-wrap"><button class="reset-btn" id="hga-reset-btn">รีเซ็ตทั้งหมด</button></div>
+        <button class="reset-btn" id="hga-reset-btn">รีเซ็ตทั้งหมด</button>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- BHCB CALCULATOR VIEW -->
-<div id="view-bhcb">
-  <div class="calc-outer">
-    <div class="app-wrapper">
-      <div class="input-panel" id="bhcb-input-panel">
-
+    <!-- BHCB -->
+    <div class="calc-layout" id="mount-bhcb" style="display:none;">
+      <div class="calc-inputs" id="bhcb-input-panel">
         <div class="card">
-          <div class="card-header"><div class="ch-dot navy"></div><div class="card-title">MCQ</div><div class="card-pct">45%</div></div>
-          <div class="row"><div class="row-label">เกรด MCQ <span class="pct">(45%)</span></div><select id="bhcb-mcq"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">MCQ</div><div class="card-pct">45%</div></div>
+          <div class="row"><div class="row-label">เกรด MCQ <span class="pct">(45%)</span></div><select class="mini" id="bhcb-mcq"></select></div>
         </div>
-
         <div class="card">
-          <div class="card-header"><div class="ch-dot navy"></div><div class="card-title">Short Answer (TSE)</div><div class="card-pct">35%</div></div>
-          <div class="row"><div class="row-label">เกรด Short Answer <span class="pct">(35%)</span></div><select id="bhcb-saq"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">Short Answer (TSE)</div><div class="card-pct">35%</div></div>
+          <div class="row"><div class="row-label">เกรด Short Answer <span class="pct">(35%)</span></div><select class="mini" id="bhcb-saq"></select></div>
         </div>
-
         <div class="card wide">
-          <div class="card-header"><div class="ch-dot gold"></div><div class="card-title">Self-Reflection</div><div class="card-pct">รวม 4%</div></div>
-          <div class="row"><div class="row-label">Self-Reflection 1 <span class="pct">(2%)</span></div><div class="sr-wrap"><button class="sr-btn" id="sr1-yes" onclick="setBHCBSR(1, true)">ส่งแล้ว</button><button class="sr-btn" id="sr1-no" onclick="setBHCBSR(1, false)">ไม่ส่ง</button></div></div>
-          <div class="row"><div class="row-label">Self-Reflection 2 <span class="pct">(2%)</span></div><div class="sr-wrap"><button class="sr-btn" id="sr2-yes" onclick="setBHCBSR(2, true)">ส่งแล้ว</button><button class="sr-btn" id="sr2-no" onclick="setBHCBSR(2, false)">ไม่ส่ง</button></div></div>
+          <div class="card-header"><div class="ch-dot dot-gold"></div><div class="card-title">Self-Reflection</div><div class="card-pct">รวม 4%</div></div>
+          <div class="row"><div class="row-label">Self-Reflection 1 <span class="pct">(2%)</span></div><div class="sr-wrap"><button class="srb" id="sr1-yes" onclick="setBHCBSR(1,true)">ส่งแล้ว</button><button class="srb" id="sr1-no" onclick="setBHCBSR(1,false)">ไม่ส่ง</button></div></div>
+          <div class="row"><div class="row-label">Self-Reflection 2 <span class="pct">(2%)</span></div><div class="sr-wrap"><button class="srb" id="sr2-yes" onclick="setBHCBSR(2,true)">ส่งแล้ว</button><button class="srb" id="sr2-no" onclick="setBHCBSR(2,false)">ไม่ส่ง</button></div></div>
         </div>
-
         <div class="card">
-          <div class="card-header"><div class="ch-dot green"></div><div class="card-title">Assignment</div><div class="card-pct">11%</div></div>
-          <div class="row">
-            <div class="row-label">Assignment ที่ทำครบ <span class="pct">(1% / ครั้ง)</span></div>
-            <div><div class="ctr-wrap" style="margin-bottom:4px"><button class="ctr-btn" onclick="adjustBHCBCounter('assign', -1)">&#8722;</button><div class="ctr-val" id="bhcb-assign-val">0</div><button class="ctr-btn" onclick="adjustBHCBCounter('assign', 1)">+</button></div><div class="ctr-max" style="text-align:center">จาก 11 ครั้ง</div></div>
+          <div class="card-header"><div class="ch-dot dot-green"></div><div class="card-title">Assignment</div><div class="card-pct">11%</div></div>
+          <div class="row"><div class="row-label">Assignment ที่ทำครบ <span class="pct">(1%/ครั้ง)</span></div>
+            <div><div class="ctr-wrap"><button class="ctr-btn" onclick="adjBHCB('assign',-1)">&#8722;</button><div class="ctr-val" id="bhcb-assign-val">0</div><button class="ctr-btn" onclick="adjBHCB('assign',1)">+</button></div><div class="ctr-max">จาก 11 ครั้ง</div></div>
           </div>
         </div>
-
         <div class="card">
-          <div class="card-header"><div class="ch-dot gold"></div><div class="card-title">Attendance</div><div class="card-pct">5%</div></div>
-          <div class="row">
-            <div class="row-label">Scan QR ที่เข้าเรียน <span class="pct">(5/11% / ครั้ง)</span></div>
-            <div><div class="ctr-wrap" style="margin-bottom:4px"><button class="ctr-btn" onclick="adjustBHCBCounter('attend', -1)">&#8722;</button><div class="ctr-val" id="bhcb-attend-val">0</div><button class="ctr-btn" onclick="adjustBHCBCounter('attend', 1)">+</button></div><div class="ctr-max" style="text-align:center">จาก 11 ครั้ง</div></div>
+          <div class="card-header"><div class="ch-dot dot-gold"></div><div class="card-title">Attendance</div><div class="card-pct">5%</div></div>
+          <div class="row"><div class="row-label">Scan QR เข้าเรียน <span class="pct">(5%)</span></div>
+            <div><div class="ctr-wrap"><button class="ctr-btn" onclick="adjBHCB('attend',-1)">&#8722;</button><div class="ctr-val" id="bhcb-attend-val">0</div><button class="ctr-btn" onclick="adjBHCB('attend',1)">+</button></div><div class="ctr-max">จาก 11 ครั้ง</div></div>
           </div>
         </div>
-
       </div>
-
-      <!-- BHCB Result -->
-      <div class="result-panel" id="result-bhcb">
+      <div class="calc-side">
         <div class="summary-card">
-          <div class="card-title">สรุปผล BHCB</div>
-          <div class="gpa-display"><div class="gpa-value" id="bhcb-sum-gpa">-</div><div class="gpa-max">/ 4.0 </div></div>
-          <div class="sum-row"><span>MCQ (45%)</span><span id="bhcb-sum-mcq">-</span></div>
-          <div class="sum-row"><span>Short Answer (35%)</span><span id="bhcb-sum-saq">-</span></div>
-          <div class="sum-row"><span>Self-Reflection (4%)</span><span id="bhcb-sum-sr">-</span></div>
-          <div class="sum-row"><span>Assignment (11%)</span><span id="bhcb-sum-assign">-</span></div>
-          <div class="sum-row"><span>Attendance (5%)</span><span id="bhcb-sum-attend">-</span></div>
-          <div class="sum-total"><span>Raw Score</span><span id="bhcb-sum-total">0.0 / 400</span></div>
+          <div class="sc-title">สรุปผล BHCB</div>
+          <div class="gpa-display"><div class="gpa-value" id="bhcb-sum-gpa">–</div><div class="gpa-max">/ 4.00</div></div>
+        </div>
+        <div class="mini-chart-card">
+          <div class="gtc-title">ปัจจุบัน · ดีที่สุด</div>
+          <svg class="chart-svg" id="bhcb-mini-chart" viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
         <div class="grade-table-card">
           <div class="gtc-title">เกณฑ์การให้เกรด</div>
-          <table class="grade-table">
-            <thead><tr><th>เกรด</th><th>ช่วง GPA</th><th>Example</th></tr></thead>
-            <tbody id="bhcb-grade-tbody">
-              <tr data-grade="A">  <td><span class="g-dot" style="background:#234D35"></span>A</td>  <td>3.51 - 4.00</td><td><button class="ex-btn" onclick="exampleGrade('A')">Try</button></td></tr>
-              <tr data-grade="B+"> <td><span class="g-dot" style="background:#2F6B48"></span>B+</td> <td>3.01 - 3.50</td><td><button class="ex-btn" onclick="exampleGrade('B+')">Try</button></td></tr>
-              <tr data-grade="B">  <td><span class="g-dot" style="background:#5A9B70"></span>B</td>  <td>2.51 - 3.00</td><td><button class="ex-btn" onclick="exampleGrade('B')">Try</button></td></tr>
-              <tr data-grade="C+"> <td><span class="g-dot" style="background:#7A5010"></span>C+</td> <td>2.01 - 2.50</td><td><button class="ex-btn" onclick="exampleGrade('C+')">Try</button></td></tr>
-              <tr data-grade="C">  <td><span class="g-dot" style="background:#9B6818"></span>C</td>  <td>1.51 - 2.00</td><td><button class="ex-btn" onclick="exampleGrade('C')">Try</button></td></tr>
-              <tr data-grade="D+"> <td><span class="g-dot" style="background:#8A2C28"></span>D+</td> <td>1.01 - 1.50</td><td><button class="ex-btn" onclick="exampleGrade('D+')">Try</button></td></tr>
-              <tr data-grade="D">  <td><span class="g-dot" style="background:#5C1E1C"></span>D</td>  <td>0.51 - 1.00</td><td><button class="ex-btn" onclick="exampleGrade('D')">Try</button></td></tr>
-              <tr data-grade="F">  <td><span class="g-dot" style="background:#3A0F0E"></span>F</td>  <td>&lt; 0.51</td><td><button class="ex-btn" onclick="exampleGrade('F')">Try</button></td></tr>
-            </tbody>
-          </table>
+          <table class="grade-table"><thead><tr><th>เกรด</th><th>ช่วง GPA</th><th></th></tr></thead><tbody id="bhcb-grade-tbody"></tbody></table>
         </div>
-        <div class="reset-wrap"><button class="reset-btn" id="bhcb-reset-btn" onclick="resetBHCB()">รีเซ็ตทั้งหมด</button></div>
+        <button class="reset-btn" id="bhcb-reset-btn">รีเซ็ตทั้งหมด</button>
+      </div>
+    </div>
+
+    <!-- EHP -->
+    <div class="calc-layout" id="mount-ehp" style="display:none;">
+      <div class="calc-inputs" id="ehp-input-panel">
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">MCQ</div><div class="card-pct">53%</div></div>
+          <div class="row"><div class="row-label">เกรด MCQ <span class="pct">(53%)</span></div><select class="mini" id="ehp-mcq"></select></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-gold"></div><div class="card-title">Brainstorm</div><div class="card-pct">6.42%</div></div>
+          <div class="row"><div class="row-label">Presentation + Report <span class="pct">(6.42%)</span></div><select class="mini" id="ehp-brainstorm"></select></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-green"></div><div class="card-title">Demonstration</div><div class="card-pct">รวม 12.83%</div></div>
+          <div class="row"><div class="row-label">ครั้งที่ 1 (รวม Report) <span class="pct">(9.63%)</span></div><select class="mini" id="ehp-demo1"></select></div>
+          <div class="row"><div class="row-label">ครั้งที่ 2 (รวม Report) <span class="pct">(3.2%)</span></div><select class="mini" id="ehp-demo2"></select></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-slate"></div><div class="card-title">Assignment Reading Test</div><div class="card-pct">รวม 17%</div></div>
+          <div class="row"><div class="row-label">ครั้งที่ 1 <span class="pct">(6.6%)</span></div><select class="mini" id="ehp-assign1"></select></div>
+          <div class="row"><div class="row-label">ครั้งที่ 2 <span class="pct">(6.6%)</span></div><select class="mini" id="ehp-assign2"></select></div>
+          <div class="row"><div class="row-label">ครั้งที่ 3 <span class="pct">(3.8%)</span></div><select class="mini" id="ehp-assign3"></select></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">Group Conference</div><div class="card-pct">9%</div></div>
+          <div class="row"><div class="row-label">Presentation <span class="pct">(9%)</span></div><select class="mini" id="ehp-groupconf"></select></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-gold"></div><div class="card-title">Quiz</div><div class="card-pct">1.75%</div></div>
+          <div class="row"><div class="row-label">Quiz <span class="pct">(1.75%)</span></div><select class="mini" id="ehp-quiz"></select></div>
+        </div>
+      </div>
+      <div class="calc-side">
+        <div class="summary-card">
+          <div class="sc-title">สรุปผล EHP</div>
+          <div class="gpa-display"><div class="gpa-value" id="ehp-sum-gpa">–</div><div class="gpa-max">/ 4.00</div></div>
+        </div>
+        <div class="mini-chart-card">
+          <div class="gtc-title">ปัจจุบัน · ดีที่สุด</div>
+          <svg class="chart-svg" id="ehp-mini-chart" viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+        <div class="grade-table-card">
+          <div class="gtc-title">เกณฑ์การให้เกรด</div>
+          <table class="grade-table"><thead><tr><th>เกรด</th><th>ช่วง GPA</th><th></th></tr></thead><tbody id="ehp-grade-tbody"></tbody></table>
+        </div>
+        <button class="reset-btn" id="ehp-reset-btn">รีเซ็ตทั้งหมด</button>
+      </div>
+    </div>
+
+    <!-- coming soon -->
+    <div id="mount-cs" style="display:none;">
+      <div class="cs-box">
+        <span class="cs-emoji" id="cs-emoji">⏳</span>
+        <div class="cs-code" id="cs-code"></div>
+        <div class="cs-name" id="cs-name"></div>
+        <hr class="cs-hr">
+        <div class="cs-title">ยังไม่เปิดใช้งาน</div>
+        <div class="cs-desc">ใส่เกรดวิชานี้ได้ที่หน้าการเลื่อนชั้น</div>
+        <button class="btn-solid" style="padding:12px 24px;" onclick="closeCalculator()">ย้อนกลับ</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- EHP CALCULATOR VIEW -->
-<div id="view-ehp">
-  <div class="calc-outer">
-    <div class="app-wrapper">
-      <div class="input-panel" id="ehp-input-panel">
-
-        <!-- MCQ -->
-        <div class="card">
-          <div class="card-header"><div class="ch-dot navy"></div><div class="card-title">MCQ</div><div class="card-pct">53%</div></div>
-          <div class="row"><div class="row-label">เกรด MCQ <span class="pct">(53%)</span></div><select id="ehp-mcq"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-        </div>
-
-        <!-- Brainstorm -->
-        <div class="card">
-          <div class="card-header"><div class="ch-dot gold"></div><div class="card-title">Brainstorm</div><div class="card-pct">6.42%</div></div>
-          <div class="row"><div class="row-label">Presentation + Report <span class="pct">(6.42%)</span></div><select id="ehp-brainstorm"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-        </div>
-
-        <!-- Demonstration -->
-        <div class="card">
-          <div class="card-header"><div class="ch-dot green"></div><div class="card-title">Demonstration</div><div class="card-pct">รวม 12.83%</div></div>
-          <div class="row"><div class="row-label">ครั้งที่ 1 (รวม Report) <span class="pct">(9.63%)</span></div><select id="ehp-demo1"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-          <div class="row"><div class="row-label">ครั้งที่ 2 (รวม Report) <span class="pct">(3.2%)</span></div><select id="ehp-demo2"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-        </div>
-
-        <!-- Assignment Reading Test -->
-        <div class="card">
-          <div class="card-header"><div class="ch-dot slate"></div><div class="card-title">Assignment Reading Test</div><div class="card-pct">รวม 14%</div></div>
-          <div class="row"><div class="row-label">ครั้งที่ 1 <span class="pct">(5.6%)</span></div><select id="ehp-assign1"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-          <div class="row"><div class="row-label">ครั้งที่ 2 <span class="pct">(5.6%)</span></div><select id="ehp-assign2"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-          <div class="row"><div class="row-label">ครั้งที่ 3 <span class="pct">(2.8%)</span></div><select id="ehp-assign3"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-        </div>
-
-        <!-- Group Conference -->
-        <div class="card">
-          <div class="card-header"><div class="ch-dot navy"></div><div class="card-title">Group Conference</div><div class="card-pct">9%</div></div>
-          <div class="row"><div class="row-label">Presentation <span class="pct">(9%)</span></div><select id="ehp-groupconf"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-        </div>
-
-        <!-- Quiz & Post Test -->
-        <div class="card">
-          <div class="card-header"><div class="ch-dot gold"></div><div class="card-title">Quiz &amp; Post Test</div><div class="card-pct">รวม 4.75%</div></div>
-          <div class="row"><div class="row-label">Quiz <span class="pct">(1.75%)</span></div><select id="ehp-quiz"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-          <div class="row"><div class="row-label">Post Test <span class="pct">(3%)</span></div><select id="ehp-posttest"><option value=""></option><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option><option value="2.5">C+</option><option value="2">C</option><option value="1.5">D+</option><option value="1">D</option><option value="0">F</option></select></div>
-        </div>
-
-      </div>
-
-      <!-- EHP Result -->
-      <div class="result-panel" id="result-ehp">
-        <div class="summary-card">
-          <div class="card-title">สรุปผล EHP</div>
-          <div class="gpa-display"><div class="gpa-value" id="ehp-sum-gpa">-</div><div class="gpa-max">/ 4.0</div></div>
-          <div class="sum-row"><span>MCQ (53%)</span><span id="ehp-sum-mcq">-</span></div>
-          <div class="sum-row"><span>Brainstorm (6.42%)</span><span id="ehp-sum-brainstorm">-</span></div>
-          <div class="sum-row"><span>Demonstration (12.83%)</span><span id="ehp-sum-demo">-</span></div>
-          <div class="sum-row"><span>Assignment (14%)</span><span id="ehp-sum-assign">-</span></div>
-          <div class="sum-row"><span>Group Conference (9%)</span><span id="ehp-sum-groupconf">-</span></div>
-          <div class="sum-row"><span>Quiz (1.75%)</span><span id="ehp-sum-quiz">-</span></div>
-          <div class="sum-row"><span>Post Test (3%)</span><span id="ehp-sum-posttest">-</span></div>
-          <div class="sum-total"><span>Raw Score</span><span id="ehp-sum-raw">0.0 / 400</span></div>
-        </div>
-        <div class="grade-table-card">
-          <div class="gtc-title">เกณฑ์การให้เกรด</div>
-          <table class="grade-table">
-            <thead><tr><th>เกรด</th><th>ช่วง GPA</th><th>Example</th></tr></thead>
-            <tbody id="ehp-grade-tbody">
-              <tr data-grade="A">  <td><span class="g-dot" style="background:#234D35"></span>A</td>  <td>3.51 - 4.00</td><td><button class="ex-btn" onclick="exampleGrade('A')">Try</button></td></tr>
-              <tr data-grade="B+"> <td><span class="g-dot" style="background:#2F6B48"></span>B+</td> <td>3.01 - 3.50</td><td><button class="ex-btn" onclick="exampleGrade('B+')">Try</button></td></tr>
-              <tr data-grade="B">  <td><span class="g-dot" style="background:#5A9B70"></span>B</td>  <td>2.51 - 3.00</td><td><button class="ex-btn" onclick="exampleGrade('B')">Try</button></td></tr>
-              <tr data-grade="C+"> <td><span class="g-dot" style="background:#7A5010"></span>C+</td> <td>2.01 - 2.50</td><td><button class="ex-btn" onclick="exampleGrade('C+')">Try</button></td></tr>
-              <tr data-grade="C">  <td><span class="g-dot" style="background:#9B6818"></span>C</td>  <td>1.51 - 2.00</td><td><button class="ex-btn" onclick="exampleGrade('C')">Try</button></td></tr>
-              <tr data-grade="D+"> <td><span class="g-dot" style="background:#8A2C28"></span>D+</td> <td>1.01 - 1.50</td><td><button class="ex-btn" onclick="exampleGrade('D+')">Try</button></td></tr>
-              <tr data-grade="D">  <td><span class="g-dot" style="background:#5C1E1C"></span>D</td>  <td>0.51 - 1.00</td><td><button class="ex-btn" onclick="exampleGrade('D')">Try</button></td></tr>
-              <tr data-grade="F">  <td><span class="g-dot" style="background:#3A0F0E"></span>F</td>  <td>&lt; 0.51</td><td><button class="ex-btn" onclick="exampleGrade('F')">Try</button></td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="reset-wrap"><button class="reset-btn" id="ehp-reset-btn">รีเซ็ตทั้งหมด</button></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- COMING SOON VIEW -->
-<div id="view-coming-soon">
-  <div class="cs-box">
-    <span class="cs-emoji-lg" id="cs-emoji">⏳</span>
-    <div class="cs-subj-code" id="cs-code"></div>
-    <div class="cs-subj-name" id="cs-name"></div>
-    <hr class="cs-divider">
-    <div class="cs-title">ระบบคำนวณเกรดยังไม่เปิดใช้งาน</div>
-    <div class="cs-desc">
-      ตอนนี้สามารถใช้งานได้<br>
-      <span class="cs-highlight">HGA · Human Gross Anatomy</span><br>
-      <span class="cs-highlight">BHCB · Basic Histology and Cell Biology</span><br>
-      <span class="cs-highlight">EHP · Essential Human Physiology</span>
-    </div>
-    <button class="cs-back-btn" onclick="showSubjectSelector()">กลับไปเลือกวิชา</button>
-  </div>
+<div class="foot">
+  <div class="foot-t"></div>
 </div>
 
 <script>
-/* SUBJECTS DATA */
-var subjects = [
-  { id: 'hga',   code: 'HGA',    name: 'Human Gross Anatomy',                                    modules: 'Module 1, 2, 3',   tagline: 'Anatomy / Lab / Dissection',           emoji: '🦴', theme: 'anatomy',   status: 'available'   },
-  { id: 'bhcb',  code: 'BHCB',   name: 'Basic Histology and Cell Biology',                       modules: 'Module 1',          tagline: 'Cell / Tissue / Microscope',           emoji: '🔬', theme: 'histology',  status: 'available'   },
-  { id: 'him',   code: 'HIM',    name: 'Human Immunology',                                       modules: 'Module 1',          tagline: 'Immune / Antibody / Defense',          emoji: '🛡️', theme: 'immuno',     status: 'coming-soon' },
-  { id: 'ehp',   code: 'EHP',    name: 'Essential Human Physiology',                             modules: 'Module 1',          tagline: 'Function / Homeostasis',               emoji: '💓', theme: 'physio',     status: 'available'   },
-  { id: 'hms1',  code: 'HMS-1',  name: 'Human Musculoskeletal System 1',                         modules: 'Module 2',          tagline: 'Bone / Muscle / Movement',             emoji: '🦴', theme: 'msk',        status: 'coming-soon' },
-  { id: 'hcvs1', code: 'HCVS-1', name: 'Human Cardiovascular System 1',                         modules: 'Module 2',          tagline: 'Heart / Vessel / Flow',                emoji: '❤️', theme: 'cardio',     status: 'coming-soon' },
-  { id: 'hrs1',  code: 'HRS-1',  name: 'Human Respiratory System 1',                            modules: 'Module 2',          tagline: 'Lung / Airway / Gas Exchange',         emoji: '🫁', theme: 'resp',       status: 'coming-soon' },
-  { id: 'hgb1',  code: 'HGB-1',  name: 'Human Gastrointestinal and Biliary Tract System 1',     modules: 'Module 3',          tagline: 'GI / Liver / Biliary',                 emoji: '🍽️', theme: 'gi',         status: 'coming-soon' },
-  { id: 'hrp1',  code: 'HRP-1',  name: 'Human Reproductive System and Perinatal Period 1',      modules: 'Module 3',          tagline: 'Reproduction / Pregnancy / Perinatal', emoji: '🤱', theme: 'repro',      status: 'coming-soon' },
-  { id: 'hru1',  code: 'HRU-1',  name: 'Human Renal and Urinary System 1',                     modules: 'Module 3',          tagline: 'Kidney / Urine / Fluid Balance',       emoji: '💧', theme: 'renal',      status: 'coming-soon' },
-  { id: 'hns1',  code: 'HNS-1',  name: 'Human Nervous and Special Senses System 1',            modules: 'Module 3',          tagline: 'Brain / Nerve / Sense',                emoji: '🧠', theme: 'neuro',      status: 'coming-soon' },
-  { id: 'mhi',   code: 'MHI',    name: 'Microbiology of Human Infectious Diseases',             modules: 'Module 4',          tagline: 'Microbe / Infection / Disease',         emoji: '🦠', theme: 'micro',      status: 'coming-soon' },
-  { id: 'phi',   code: 'PHI',    name: 'Parasitology of Human Infectious Diseases',             modules: 'Module 4',          tagline: 'Parasite / Host / Infection',          emoji: '🪱', theme: 'para',       status: 'coming-soon' },
-  { id: 'bap',   code: 'BAP',    name: 'Basic Human Anatomical Pathology for Medical Students', modules: 'Module 4',          tagline: 'Pathology / Tissue / Disease',         emoji: '🔴', theme: 'path',       status: 'coming-soon' },
-  { id: 'bcp',   code: 'BCP',    name: 'Basic Clinical Pharmacology',                           modules: 'Module 4',          tagline: 'Drug / Dose / Mechanism',              emoji: '💊', theme: 'pharma',     status: 'coming-soon' },
-  { id: 'pbl',   code: 'PBL',    name: 'Problem-Based Learning',                                modules: 'Module 1, 2, 3, 4', tagline: 'Case / Discussion / Clinical Thinking',emoji: '💬', theme: 'pbl',        status: 'coming-soon' },
-  { id: 'pmli1', code: 'PMLI-1', name: 'PMLI-1',                                                modules: 'Module 1, 2, 3, 4', tagline: 'Integration / Professional / Learning', emoji: '🎓', theme: 'pmli',       status: 'coming-soon' }
+/* ============================================================
+   CONSTANTS
+   ============================================================ */
+var GRADE_POINTS = [
+  {label:'A', v:4},   {label:'B+', v:3.5}, {label:'B', v:3},   {label:'C+', v:2.5},
+  {label:'C', v:2},   {label:'D+', v:1.5}, {label:'D', v:1},   {label:'F', v:0}
 ];
+var GRADE_BOUNDS = [
+  {g:'A', lo:3.51, hi:4.00, c:'#1E6A60'}, {g:'B+', lo:3.01, hi:3.50, c:'#2E8B7E'},
+  {g:'B', lo:2.51, hi:3.00, c:'#3FA292'}, {g:'C+', lo:2.01, hi:2.50, c:'#B07A1E'},
+  {g:'C', lo:1.51, hi:2.00, c:'#C99A3A'}, {g:'D+', lo:1.01, hi:1.50, c:'#B85248'},
+  {g:'D', lo:0.51, hi:1.00, c:'#9A3B33'}, {g:'F', lo:0,    hi:0.50, c:'#7A2820'}
+];
+var PASS_GPA = 2.00;
 
-/* GRADE BOUNDARY */
-function getGrade(gpa) {
-  if (gpa >= 3.51) return 'A';
-  if (gpa >= 3.01) return 'B+';
-  if (gpa >= 2.51) return 'B';
-  if (gpa >= 2.01) return 'C+';
-  if (gpa >= 1.51) return 'C';
-  if (gpa >= 1.01) return 'D+';
-  if (gpa >= 0.51) return 'D';
-  return 'F';
+/* Year 2 courses — code / name(TH) / credits / emoji / calc availability */
+var YEAR2 = [
+  {id:'bhcb',  code:'BHCB',   cr:2, name:'จุลกายวิภาคพื้นฐานและชีววิทยาของเซลล์',        en:'Basic Histology & Cell Biology',       emoji:'🔬', mod:'M1', calc:true},
+  {id:'hga',   code:'HGA',    cr:4, name:'มหกายวิภาคศาสตร์ของมนุษย์',                    en:'Human Gross Anatomy',                  emoji:'🦴', mod:'M1-3', calc:true},
+  {id:'ehp',   code:'EHP',    cr:2, name:'สาระสำคัญทางสรีรวิทยาของมนุษย์',               en:'Essential Human Physiology',           emoji:'💓', mod:'M1', calc:true},
+  {id:'him',   code:'HIM',    cr:2, name:'ภูมิคุ้มกันวิทยาของมนุษย์',                     en:'Human Immunology',                     emoji:'🛡️', mod:'M1', calc:false},
+  {id:'mhi',   code:'MHI',    cr:2, name:'จุลชีววิทยาของโรคติดเชื้อในมนุษย์',            en:'Microbiology of Infectious Diseases',  emoji:'🦠', mod:'M4', calc:false},
+  {id:'phi',   code:'PHI',    cr:1, name:'ปรสิตวิทยาของโรคติดเชื้อในมนุษย์',             en:'Parasitology of Infectious Diseases',  emoji:'🪱', mod:'M4', calc:false},
+  {id:'bap',   code:'BAP',    cr:2, name:'พยาธิวิทยากายวิภาคพื้นฐานของมนุษย์',          en:'Basic Anatomical Pathology',           emoji:'🔴', mod:'M4', calc:false},
+  {id:'bcp',   code:'BCP',    cr:2, name:'เภสัชวิทยาคลินิกพื้นฐาน',                      en:'Basic Clinical Pharmacology',          emoji:'💊', mod:'M4', calc:false},
+  {id:'hes1',  code:'HES-1',  cr:1, name:'ระบบต่อมไร้ท่อของมนุษย์ 1',                    en:'Human Endocrine System 1',             emoji:'⚗️', mod:'M2', calc:false},
+  {id:'hms1',  code:'HMS-1',  cr:1, name:'ระบบกล้ามเนื้อและกระดูกของมนุษย์ 1',          en:'Human Musculoskeletal System 1',       emoji:'🦴', mod:'M2', calc:false},
+  {id:'hcvs1', code:'HCVS-1', cr:2, name:'ระบบหัวใจและหลอดเลือดของมนุษย์ 1',            en:'Human Cardiovascular System 1',        emoji:'❤️', mod:'M2', calc:false},
+  {id:'hrs1',  code:'HRS-1',  cr:1, name:'ระบบหายใจของมนุษย์ 1',                         en:'Human Respiratory System 1',           emoji:'🫁', mod:'M2', calc:false},
+  {id:'hgb1',  code:'HGB-1',  cr:2, name:'ระบบทางเดินอาหารและน้ำดีของมนุษย์ 1',         en:'GI & Biliary Tract System 1',          emoji:'🍽️', mod:'M3', calc:false},
+  {id:'hru1',  code:'HRU-1',  cr:2, name:'ระบบไตและทางเดินปัสสาวะของมนุษย์ 1',          en:'Renal & Urinary System 1',             emoji:'💧', mod:'M3', calc:false},
+  {id:'hrp1',  code:'HRP-1',  cr:2, name:'ระบบสืบพันธุ์และระยะปริกำเนิดของมนุษย์ 1',    en:'Reproductive & Perinatal 1',           emoji:'🤱', mod:'M3', calc:false},
+  {id:'hns1',  code:'HNS-1',  cr:3, name:'ระบบประสาทและการรับความรู้สึกพิเศษ 1',        en:'Nervous & Special Senses 1',           emoji:'🧠', mod:'M3', calc:false},
+  {id:'pbl',   code:'PBL',    cr:2, name:'การพัฒนาทักษะการเรียนรู้โดยใช้ปัญหาเป็นฐาน',  en:'Problem-Based Learning',               emoji:'💬', mod:'M1-4', calc:false},
+  {id:'pmli1', code:'PMLI-1', cr:1, name:'หลักการตรวจวินิจฉัยทางห้องปฏิบัติการ 1',      en:'Medical Laboratory Investigation 1',   emoji:'🔎', mod:'M1-4', calc:false},
+  {id:'hhl',   code:'HHL',    cr:3, name:'ระบบโลหิตและน้ำเหลืองของมนุษย์',              en:'Hematopoietic & Lymphoreticular',      emoji:'🩸', mod:'M4', calc:false},
+  {id:'hhll',  code:'HHL-L',  cr:1, name:'ปฏิบัติการพื้นฐานระบบโลหิตและน้ำเหลือง',      en:'Basic Lab in Hematopoietic System',    emoji:'🧪', mod:'M4', calc:false}
+];
+var TOTAL_CREDITS = 38;
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function $(id){ return document.getElementById(id); }
+function gradeFromGPA(gpa){ for(var i=0;i<GRADE_BOUNDS.length;i++){ if(gpa>=GRADE_BOUNDS[i].lo) return GRADE_BOUNDS[i]; } return GRADE_BOUNDS[GRADE_BOUNDS.length-1]; }
+function gradeColor(gpa){ return gradeFromGPA(gpa).c; }
+function pop(el){ if(!el) return; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
+
+function setText(id,val,animate){
+  var el=$(id); if(!el) return;
+  var next=String(val);
+  if(el.textContent===next) return;
+  el.textContent=next;
+  if(animate) pop(el);
 }
 
-function progressColorByGPA(gpa) {
-  if (gpa < 1.51) return '#8A2C28';
-  if (gpa < 2.51) return '#9B6818';
-  return '#2F6B48';
+function fillGradeOptions(sel, abcfOnly){
+  var opts='<option value=""></option>';
+  var set = abcfOnly ? [{label:'A',v:4},{label:'B',v:3},{label:'C',v:2},{label:'F',v:0}] : GRADE_POINTS;
+  for(var i=0;i<set.length;i++) opts+='<option value="'+set[i].v+'">'+set[i].label+'</option>';
+  sel.innerHTML=opts;
 }
-function gradeColorByName(grade) {
-  if (grade === 'A' || grade === 'B+' || grade === 'B') return '#2F5F5A';
-  if (grade === 'C+' || grade === 'C') return '#9B6818';
-  if (grade === 'D+' || grade === 'D' || grade === 'F') return '#8A2C28';
-  return '';
-}
-function aesopGradeColorByGPA(gpa) {
-  if (gpa < 1.51) return '#8A2C28';
-  if (gpa < 2.51) return '#9B6818';
-  return '#2F5F5A';
-}
+function selVal(el){ if(!el||el.value==='') return null; var v=parseFloat(el.value); return isNaN(v)?null:v; }
+function markSel(el){ if(!el) return; if(el.value!=='' && el.id!=='fa1-status' && el.id!=='fa2-status') el.classList.add('has-val'); else if(el.value!=='') el.classList.add('has-val'); else el.classList.remove('has-val'); }
 
-function replayAnimation(el, className) {
-  if (!el) return;
-  el.classList.remove(className);
-  void el.offsetWidth;
-  el.classList.add(className);
-  window.setTimeout(function() { el.classList.remove(className); }, 380);
-}
-
-function setText(id, val) {
-  var el = document.getElementById(id);
-  if (!el) return;
-  var next = String(val);
-  var changed = el.textContent !== next;
-  el.textContent = next;
-  if (!changed) return;
-  if (el.classList.contains('gpa-value')) replayAnimation(el, 'score-pop');
-  if (el.classList.contains('grade-pill') || el.classList.contains('gpa-grade')) {
-    replayAnimation(el, 'grade-pop');
-    var c = gradeColorByName(next);
-    if (el.classList.contains('gpa-grade')) el.style.color = c || '';
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+function go(page){
+  var onLanding = (page==='landing');
+  document.body.classList.toggle('on-landing', onLanding);
+  document.body.setAttribute('data-page', onLanding ? 'landing' : page);
+  $('page-landing').classList.toggle('active', onLanding);
+  var pages=['promotion','subjects'];
+  for(var i=0;i<pages.length;i++){
+    $('page-'+pages[i]).classList.toggle('active', !onLanding && pages[i]===page);
+    $('tab-'+pages[i]).classList.toggle('active', !onLanding && pages[i]===page);
   }
+  if(!onLanding && page==='promotion') calcPromotion();
+  window.scrollTo({top:0, behavior:'smooth'});
 }
+function goLanding(){ go('landing'); }
 
-function highlightGradeTable(tbodyId, grade) {
-  var rows = document.querySelectorAll('#' + tbodyId + ' tr');
-  for (var r = 0; r < rows.length; r++) {
-    rows[r].className = (grade !== '-' && rows[r].getAttribute('data-grade') === grade) ? 'hl' : '';
+/* ============================================================
+   PROMOTION SIMULATOR
+   ============================================================ */
+var promoState = {}; // id -> gradePoint or null
+
+function buildPromoList(){
+  var wrap=$('promo-subject-list');
+  var mods = [
+    {key:'M1-4', label:'บูรณาการ / ตลอดปี'},
+    {key:'M1',   label:'Module 1 — Foundation'},
+    {key:'M2',   label:'Module 2 — Systems A'},
+    {key:'M3',   label:'Module 3 — Systems B'},
+    {key:'M4',   label:'Module 4 — Pathology & Micro'},
+    {key:'M1-3', label:'Module 1–3'}
+  ];
+  // group order: keep display grouped but simplest is a single flat list sorted by module bucket
+  var order=['M1','M2','M3','M4','M1-3','M1-4'];
+  var html='';
+  for(var m=0;m<order.length;m++){
+    var group=YEAR2.filter(function(s){ return s.mod===order[m]; });
+    if(!group.length) continue;
+    var lbl=({'M1':'Module 1','M2':'Module 2','M3':'Module 3','M4':'Module 4','M1-3':'Module 1–3','M1-4':'บูรณาการ / ตลอดปี'})[order[m]];
+    html+='<div class="mod-group"><div class="mod-label">'+lbl+'</div>';
+    for(var i=0;i<group.length;i++){
+      var s=group[i];
+      var chips='';
+      for(var g=0;g<GRADE_POINTS.length;g++){
+        chips+='<button class="gchip" data-v="'+GRADE_POINTS[g].v+'" onclick="pickGrade(\''+s.id+'\','+GRADE_POINTS[g].v+',this)">'+GRADE_POINTS[g].label+'</button>';
+      }
+      html+=''+
+        '<div class="subj-row" id="prow-'+s.id+'">'+
+          '<div class="sr-head">'+
+            '<div class="sr-emoji">'+s.emoji+'</div>'+
+            '<div class="sr-main"><span class="sr-code">'+s.code+'</span><span class="sr-cr">'+s.cr+' Credits</span></div>'+
+          '</div>'+
+          '<div class="grade-chips" id="gc-'+s.id+'">'+chips+'</div>'+
+        '</div>';
+      promoState[s.id]=null;
+    }
+    html+='</div>';
   }
+  wrap.innerHTML=html;
 }
 
-function updateHeaderGPA(gpaDisplay, grade) {
-  setText('bar-gpa', gpaDisplay);
-  setText('bar-grade', grade);
-  var fill = document.getElementById('progress-fill');
-  var pill = document.getElementById('bar-grade');
-  if (fill) {
-    if (gpaDisplay !== '-') {
-      var g = parseFloat(gpaDisplay);
-      fill.style.width = Math.min(100, (g / 4) * 100) + '%';
-      fill.style.background = aesopGradeColorByGPA(g);
-      if (pill) { pill.style.backgroundColor = aesopGradeColorByGPA(g); pill.style.borderColor = 'rgba(246,241,232,.36)'; }
+function gradeColorByValue(v){
+  if(v>=3) return '#1E6A60';   // A / B+ / B
+  if(v>=2) return '#B07A1E';   // C+ / C
+  return '#9A3B33';            // D+ / D / F
+}
+function setGrade(id,v){
+  promoState[id]=v;
+  var chips=document.querySelectorAll('#gc-'+id+' .gchip');
+  for(var i=0;i<chips.length;i++){
+    var cv=parseFloat(chips[i].getAttribute('data-v'));
+    if(v!==null && cv===v){
+      var col=gradeColorByValue(v);
+      chips[i].className='gchip on';
+      chips[i].setAttribute('style','background:'+col+';border-color:'+col+';color:#fff');
+    } else { chips[i].className='gchip'; chips[i].removeAttribute('style'); }
+  }
+  $('prow-'+id).classList.toggle('filled', v!==null);
+}
+function pickGrade(id,v,btn){
+  setGrade(id, promoState[id]===v ? null : v);
+  calcPromotion();
+}
+
+function calcPromotion(){
+  var gradedCr=0, earned=0, bestEarned=0;
+  for(var i=0;i<YEAR2.length;i++){
+    var s=YEAR2[i]; var v=promoState[s.id];
+    if(v!==null){ gradedCr+=s.cr; earned+=v*s.cr; bestEarned+=v*s.cr; }
+    else { bestEarned+=4*s.cr; } // remaining assumed A
+  }
+  var hasAny=gradedCr>0;
+  var curGPA = hasAny ? earned/gradedCr : 0;
+  var bestGPA = bestEarned/TOTAL_CREDITS;
+  var allDone = gradedCr>=TOTAL_CREDITS;
+
+  // verdict
+  var card=$('verdict-card');
+  var badge=$('vc-badge'), vtext=$('vc-verdict'), vsub=$('vc-verdict-sub');
+  card.classList.remove('is-pass','is-warn','is-fail');
+
+  setText('vc-gpa', hasAny?curGPA.toFixed(2):'0.00', true);
+  $('vc-credits').textContent = gradedCr+' / '+TOTAL_CREDITS;
+  $('vc-best').textContent = hasAny||true ? bestGPA.toFixed(2) : '–';
+
+  var fill=$('thresh-fill');
+  fill.style.width = Math.min(100,(curGPA/4)*100)+'%';
+
+  if(!hasAny){
+    badge.textContent='ยังไม่กรอก';
+    vtext.innerHTML='';
+    vsub.textContent='';
+    fill.style.background='rgba(255,255,255,.35)';
+  } else if(allDone){
+    if(curGPA>=PASS_GPA){
+      card.classList.add('is-pass');
+      badge.textContent='ผ่านเกณฑ์';
+      vtext.innerHTML='✓ เลื่อนชั้นได้';
+      vsub.textContent='เกรดเฉลี่ยรวมทั้งปี '+curGPA.toFixed(2)+' ≥ 2.00 ครบทุกวิชาแล้ว';
     } else {
-      fill.style.width = '0%';
-      fill.style.background = 'var(--gold-2)';
-      if (pill) { pill.style.backgroundColor = 'rgba(246,241,232,.12)'; pill.style.borderColor = 'rgba(246,241,232,.22)'; }
+      card.classList.add('is-fail');
+      badge.textContent='ต่ำกว่าเกณฑ์';
+      vtext.innerHTML='✕ ยังไม่ผ่านเกณฑ์';
+      vsub.textContent='ต้องได้ GPA ≥ 2.00 · ขาดอีก '+(PASS_GPA-curGPA).toFixed(2)+' แต้ม';
+    }
+    fill.style.background = curGPA>=PASS_GPA ? 'linear-gradient(90deg,#3FA292,#8FD3C4)' : 'linear-gradient(90deg,#C25B50,#E39A92)';
+  } else {
+    // partial
+    if(bestGPA<PASS_GPA){
+      card.classList.add('is-fail');
+      badge.textContent='เป็นไปไม่ได้';
+      vtext.innerHTML='✕ ไม่สามารถถึง 2.00';
+      vsub.textContent='แม้วิชาที่เหลือได้ A ทั้งหมด GPA สูงสุดเป็นไปได้แค่ '+bestGPA.toFixed(2);
+      fill.style.background='linear-gradient(90deg,#C25B50,#E39A92)';
+    } else if(curGPA>=PASS_GPA){
+      card.classList.add('is-pass');
+      badge.textContent='กำลังผ่านเกณฑ์';
+      vtext.innerHTML='✓ ผ่านเกณฑ์';
+      vsub.textContent='กรอกแล้ว '+gradedCr+'/'+TOTAL_CREDITS+' Credits';
+      fill.style.background='linear-gradient(90deg,#3FA292,#8FD3C4)';
+    } else {
+      card.classList.add('is-warn');
+      badge.textContent='ต้องพยายามต่อ';
+      vtext.innerHTML='⚠ ยังต่ำกว่าเกณฑ์';
+      fill.style.background='linear-gradient(90deg,var(--gold-2),#E4C578)';
     }
   }
-}
 
-/* DEVICE BADGE */
-function updateDeviceBadge() {
-  var w = window.innerWidth;
-  var badge = document.getElementById('device-badge');
-  if (!badge) return;
-  if (w >= 1200) { badge.textContent = 'PC';     badge.className = 'device-badge pc'; }
-  else if (w >= 768) { badge.textContent = 'iPad'; badge.className = 'device-badge ipad'; }
-  else               { badge.textContent = 'iPhone'; badge.className = 'device-badge iphone'; }
-}
+  drawPromoChart(hasAny?curGPA:0, bestGPA, hasAny);
 
-/* LAYOUT FIX */
-function fixLayout() {
-  var backBar = document.getElementById('back-bar');
-  var backH = 0;
-  if (backBar) { var bs = window.getComputedStyle(backBar); if (bs.display !== 'none') backH = backBar.offsetHeight; }
-  var hdr = document.getElementById('header');
-  if (hdr) {
-    hdr.style.top = backH + 'px';
-    var hh = hdr.offsetHeight;
-    document.body.style.paddingTop = (backH + hh) + 'px';
-    var rHGA  = document.getElementById('result-hga');
-    var rBHCB = document.getElementById('result-bhcb');
-    var rEHP  = document.getElementById('result-ehp');
-    if (rHGA)  rHGA.style.top  = (backH + hh + 16) + 'px';
-    if (rBHCB) rBHCB.style.top = (backH + hh + 16) + 'px';
-    if (rEHP)  rEHP.style.top  = (backH + hh + 16) + 'px';
+  // always-visible sticky summary bar (iPad + iPhone)
+  setText('pst-gpa', hasAny?curGPA.toFixed(2):'0.00', false);
+  var pbadge=$('pst-badge');
+  if(pbadge){
+    pbadge.textContent = badge.textContent;
+    var st = card.classList.contains('is-pass') ? ' is-pass'
+           : card.classList.contains('is-fail') ? ' is-fail'
+           : card.classList.contains('is-warn') ? ' is-warn' : '';
+    pbadge.className = 'pst-badge' + st;
   }
-  updateDeviceBadge();
-}
-window.addEventListener('resize', fixLayout);
-
-/* HGA: STATE & HELPERS */
-var hgaAtt = 'none';
-var _poll = {};
-
-function selectValue(el) {
-  if (!el) return '';
-  if (el.value !== '') return el.value;
-  if (el.selectedIndex > -1 && el.options[el.selectedIndex]) return el.options[el.selectedIndex].value;
-  return '';
-}
-function selectState(el) { return selectValue(el) + '|' + el.selectedIndex; }
-function gv(id) {
-  var el = document.getElementById(id);
-  if (!el) return null;
-  var v = parseFloat(selectValue(el));
-  return isNaN(v) ? null : v;
+  drawMiniChart('pst-chart', hasAny?curGPA:0, bestGPA, hasAny);
 }
 
-/* HGA: ATTENDANCE */
-function setAtt(val) {
-  hgaAtt = val;
-  document.getElementById('btn-s').className = 'toggle-btn' + (val === 'S' ? ' s-on' : '');
-  document.getElementById('btn-u').className = 'toggle-btn' + (val === 'U' ? ' u-on' : '');
-  var note = document.getElementById('att-note');
-  if (val === 'S') { note.textContent = 'ปกติ'; note.className = 'att-note s'; }
-  else             { note.textContent = 'หัก 25% จาก Lab Dissection'; note.className = 'att-note u'; }
-  calculateHGA();
-}
-
-/* HGA: MAIN CALCULATION */
-function calculateHGA() {
-  var mcqData = [['mcq1',13.5],['mcq2',13.5],['mcq3',12],['mcq4',12],['mcq5',12]];
-  var mcqTotal = 0, mcqFilled = false;
-  for (var i = 0; i < mcqData.length; i++) { var g = gv(mcqData[i][0]); if (g !== null) { mcqTotal += mcqData[i][1] * g; mcqFilled = true; } }
-
-  var tseData = [['tse1',4.2],['tse2',4.2],['tse3',4.2],['tse4',4.2],['tse5',5.2]];
-  var tseTotal = 0, tseFilled = false;
-  for (var j = 0; j < tseData.length; j++) { var tg = gv(tseData[j][0]); if (tg !== null) { tseTotal += tseData[j][1] * tg; tseFilled = true; } }
-
-  var sdlG = gv('sdl');
-  var sdlScore = sdlG !== null ? 2 * sdlG : null;
-  var disG = gv('lab-dis');
-  var disRaw = disG !== null ? 10 * disG : null;
-  var disFinal = disRaw;
-  var warn = document.getElementById('dis-warn');
-
-  if (hgaAtt === 'U' && disRaw !== null) {
-    disFinal = disRaw * 0.75;
-    setText('dis-before', disRaw.toFixed(1));
-    setText('dis-after', ' ' + disFinal.toFixed(1));
-    if (warn) warn.className = 'dis-warn on';
-  } else { if (warn) warn.className = 'dis-warn'; }
-
-  var fa1s = gv('fa1-status'), fa1g = gv('fa1-grade');
-  var fa2s = gv('fa2-status'), fa2g = gv('fa2-grade');
-  var fa1 = (fa1s !== null && fa1g !== null) ? fa1s * fa1g : null;
-  var fa2 = (fa2s !== null && fa2g !== null) ? fa2s * fa2g : null;
-  var faFilled = (fa1 !== null || fa2 !== null);
-  var faTotal  = (fa1 !== null ? fa1 : 0) + (fa2 !== null ? fa2 : 0);
-  var foG = gv('fo-grade');
-  var foScore = foG !== null ? foG : null;
-
-  var total = mcqTotal + tseTotal + (sdlScore !== null ? sdlScore : 0) + (disFinal !== null ? disFinal : 0) + faTotal + (foScore !== null ? foScore : 0);
-  var gpa = total / 100;
-
-  var anyFilled = (hgaAtt !== 'none');
-  if (!anyFilled) { var allSel = document.querySelectorAll('#hga-input-panel select'); for (var k = 0; k < allSel.length; k++) { if (selectValue(allSel[k]) !== '') { anyFilled = true; break; } } }
-
-  var grade      = anyFilled ? getGrade(gpa) : '-';
-  var gpaDisplay = anyFilled ? gpa.toFixed(2) : '-';
-  function fmt(v) { return v === null ? '-' : v.toFixed(1); }
-  setText('sum-mcq',    mcqFilled ? mcqTotal.toFixed(1) : '-');
-  setText('sum-tse',    tseFilled ? tseTotal.toFixed(1) : '-');
-  setText('sum-sdl',    fmt(sdlScore));
-  setText('sum-dis',    disFinal !== null ? disFinal.toFixed(1) : '-');
-  setText('sum-fa',     faFilled  ? faTotal.toFixed(1)  : '-');
-  setText('sum-fo',     fmt(foScore));
-  setText('hga-sum-raw', total.toFixed(1) + ' / 400');
-  setText('hga-sum-gpa', gpaDisplay);
-  updateHeaderGPA(gpaDisplay, grade);
-  highlightGradeTable('hga-grade-tbody', grade);
-}
-
-/* HGA: RESET */
-function resetHGA() {
-  var allSel = document.querySelectorAll('#hga-input-panel select');
-  for (var i = 0; i < allSel.length; i++) { allSel[i].selectedIndex = 0; _poll[allSel[i].id] = selectState(allSel[i]); }
-  hgaAtt = 'none';
-  document.getElementById('btn-s').className = 'toggle-btn';
-  document.getElementById('btn-u').className = 'toggle-btn';
-  setText('att-note', '');
-  document.getElementById('att-note').className = 'att-note';
-  var warn = document.getElementById('dis-warn');
-  if (warn) warn.className = 'dis-warn';
-  calculateHGA();
-}
-
-/* HGA: EVENT BINDING */
-var hgaSelects = document.querySelectorAll('#hga-input-panel select');
-for (var si = 0; si < hgaSelects.length; si++) {
-  hgaSelects[si].addEventListener('change', calculateHGA);
-  hgaSelects[si].addEventListener('input',  calculateHGA);
-  hgaSelects[si].addEventListener('blur',   calculateHGA);
-  _poll[hgaSelects[si].id] = selectState(hgaSelects[si]);
-}
-document.getElementById('btn-s').addEventListener('click', function() { setAtt('S'); });
-document.getElementById('btn-u').addEventListener('click', function() { setAtt('U'); });
-document.getElementById('hga-reset-btn').addEventListener('click', resetHGA);
-
-setInterval(function() {
-  if (currentViewClass() !== 'view-hga') return;
-  var changed = false;
-  var sels = document.querySelectorAll('#hga-input-panel select');
-  for (var pi = 0; pi < sels.length; pi++) { var sval = selectState(sels[pi]); if (_poll[sels[pi].id] !== sval) { _poll[sels[pi].id] = sval; changed = true; } }
-  if (changed) calculateHGA();
-}, 200);
-
-/* BHCB: STATE */
-var bhcbSR     = { sr1: null, sr2: null };
-var bhcbAssign = 0;
-var bhcbAttend = 0;
-
-function setBHCBSR(n, val) {
-  if (n === 1) bhcbSR.sr1 = val; else bhcbSR.sr2 = val;
-  var yBtn = document.getElementById('sr' + n + '-yes');
-  var nBtn = document.getElementById('sr' + n + '-no');
-  if (val === true) { yBtn.className = 'sr-btn active-yes'; nBtn.className = 'sr-btn'; }
-  else              { yBtn.className = 'sr-btn'; nBtn.className = 'sr-btn active-no'; }
-  calculateBHCB();
-}
-
-function adjustBHCBCounter(field, delta) {
-  if (field === 'assign') { bhcbAssign = Math.max(0, Math.min(11, bhcbAssign + delta)); setText('bhcb-assign-val', bhcbAssign); }
-  else                    { bhcbAttend = Math.max(0, Math.min(11, bhcbAttend + delta)); setText('bhcb-attend-val', bhcbAttend); }
-  calculateBHCB();
-}
-
-/* BHCB: MAIN CALCULATION */
-function calculateBHCB() {
-  var mcqGV = gv('bhcb-mcq');
-  var saqGV = gv('bhcb-saq');
-  var mcqContrib    = mcqGV !== null ? mcqGV * 45 : 0;
-  var saqContrib    = saqGV !== null ? saqGV * 35 : 0;
-  var sr1Contrib    = bhcbSR.sr1 === true ? 8 : 0;
-  var sr2Contrib    = bhcbSR.sr2 === true ? 8 : 0;
-  var assignContrib = bhcbAssign * 4;
-  var attendContrib = bhcbAttend * (20 / 11);
-  var raw = mcqContrib + saqContrib + sr1Contrib + sr2Contrib + assignContrib + attendContrib;
-  var gpa = raw / 100;
-  var anyFilled = (mcqGV !== null || saqGV !== null || bhcbSR.sr1 !== null || bhcbSR.sr2 !== null || bhcbAssign > 0 || bhcbAttend > 0);
-  var grade      = anyFilled ? getGrade(gpa) : '-';
-  var gpaDisplay = anyFilled ? gpa.toFixed(2) : '-';
-  var srFilled = (bhcbSR.sr1 !== null || bhcbSR.sr2 !== null);
-  setText('bhcb-sum-mcq',    mcqGV !== null ? mcqContrib.toFixed(1) : '-');
-  setText('bhcb-sum-saq',    saqGV !== null ? saqContrib.toFixed(1) : '-');
-  setText('bhcb-sum-sr',     srFilled ? (sr1Contrib + sr2Contrib).toFixed(1) : '-');
-  setText('bhcb-sum-assign', bhcbAssign > 0 ? assignContrib.toFixed(1) : '-');
-  setText('bhcb-sum-attend', bhcbAttend > 0 ? attendContrib.toFixed(1) : '-');
-  setText('bhcb-sum-total',  anyFilled ? raw.toFixed(1) + ' / 400' : '0.0 / 400');
-  setText('bhcb-sum-gpa',    gpaDisplay);
-  updateHeaderGPA(gpaDisplay, grade);
-  highlightGradeTable('bhcb-grade-tbody', grade);
-}
-
-/* BHCB: EVENT BINDING */
-var bhcbSelects = document.querySelectorAll('#bhcb-input-panel select');
-for (var bi = 0; bi < bhcbSelects.length; bi++) {
-  bhcbSelects[bi].addEventListener('change', calculateBHCB);
-  bhcbSelects[bi].addEventListener('input',  calculateBHCB);
-  bhcbSelects[bi].addEventListener('blur',   calculateBHCB);
-  _poll[bhcbSelects[bi].id] = selectState(bhcbSelects[bi]);
-}
-setInterval(function() {
-  if (currentViewClass() !== 'view-bhcb') return;
-  var changed = false;
-  var sels = document.querySelectorAll('#bhcb-input-panel select');
-  for (var pi = 0; pi < sels.length; pi++) { var sval = selectState(sels[pi]); if (_poll[sels[pi].id] !== sval) { _poll[sels[pi].id] = sval; changed = true; } }
-  if (changed) calculateBHCB();
-}, 200);
-
-/* BHCB: RESET */
-function resetBHCB() {
-  var allSel = document.querySelectorAll('#bhcb-input-panel select');
-  for (var i = 0; i < allSel.length; i++) { allSel[i].selectedIndex = 0; _poll[allSel[i].id] = selectState(allSel[i]); }
-  bhcbSR = { sr1: null, sr2: null };
-  bhcbAssign = 0; bhcbAttend = 0;
-  var srIds = ['sr1-yes','sr1-no','sr2-yes','sr2-no'];
-  for (var i = 0; i < srIds.length; i++) document.getElementById(srIds[i]).className = 'sr-btn';
-  setText('bhcb-assign-val', '0');
-  setText('bhcb-attend-val', '0');
-  calculateBHCB();
-}
-
-/* =====================================================
-   EHP: MAIN CALCULATION
-   raw = Σ(weight × grade_value), GPA = raw / 100
-   Weights: MCQ 53, Brainstorm 6.42, Demo1 9.63,
-   Demo2 3.2, Assign×3 5.6/5.6/2.8, GrpConf 9,
-   Quiz 1.75, PostTest 3 → total 100
-   ===================================================== */
-function calculateEHP() {
-  var mcqG       = gv('ehp-mcq');
-  var brainstormG = gv('ehp-brainstorm');
-  var demo1G     = gv('ehp-demo1');
-  var demo2G     = gv('ehp-demo2');
-  var assign1G   = gv('ehp-assign1');
-  var assign2G   = gv('ehp-assign2');
-  var assign3G   = gv('ehp-assign3');
-  var groupconfG = gv('ehp-groupconf');
-  var quizG      = gv('ehp-quiz');
-  var posttestG  = gv('ehp-posttest');
-
-  var mcqC       = mcqG       !== null ? mcqG       * 53   : 0;
-  var brainstormC = brainstormG !== null ? brainstormG * 6.42 : 0;
-  var demo1C     = demo1G     !== null ? demo1G     * 9.63 : 0;
-  var demo2C     = demo2G     !== null ? demo2G     * 3.2  : 0;
-  var assign1C   = assign1G   !== null ? assign1G   * 5.6  : 0;
-  var assign2C   = assign2G   !== null ? assign2G   * 5.6  : 0;
-  var assign3C   = assign3G   !== null ? assign3G   * 2.8  : 0;
-  var groupconfC = groupconfG !== null ? groupconfG * 9    : 0;
-  var quizC      = quizG      !== null ? quizG      * 1.75 : 0;
-  var posttestC  = posttestG  !== null ? posttestG  * 3    : 0;
-
-  var raw = mcqC + brainstormC + demo1C + demo2C + assign1C + assign2C + assign3C + groupconfC + quizC + posttestC;
-  var gpa = raw / 100;
-
-  var anyFilled = (mcqG !== null || brainstormG !== null
-    || demo1G !== null || demo2G !== null
-    || assign1G !== null || assign2G !== null || assign3G !== null
-    || groupconfG !== null || quizG !== null || posttestG !== null);
-
-  var grade      = anyFilled ? getGrade(gpa) : '-';
-  var gpaDisplay = anyFilled ? gpa.toFixed(2) : '-';
-
-  var demoFilled   = (demo1G   !== null || demo2G   !== null);
-  var assignFilled = (assign1G !== null || assign2G !== null || assign3G !== null);
-
-  setText('ehp-sum-mcq',        mcqG       !== null ? mcqC.toFixed(1)                              : '-');
-  setText('ehp-sum-brainstorm', brainstormG !== null ? brainstormC.toFixed(1)                       : '-');
-  setText('ehp-sum-demo',       demoFilled           ? (demo1C + demo2C).toFixed(1)                 : '-');
-  setText('ehp-sum-assign',     assignFilled         ? (assign1C + assign2C + assign3C).toFixed(1)  : '-');
-  setText('ehp-sum-groupconf',  groupconfG !== null  ? groupconfC.toFixed(1)                        : '-');
-  setText('ehp-sum-quiz',       quizG      !== null  ? quizC.toFixed(1)                             : '-');
-  setText('ehp-sum-posttest',   posttestG  !== null  ? posttestC.toFixed(1)                         : '-');
-  setText('ehp-sum-raw',        anyFilled ? raw.toFixed(1) + ' / 400' : '0.0 / 400');
-  setText('ehp-sum-gpa',        gpaDisplay);
-
-  updateHeaderGPA(gpaDisplay, grade);
-  highlightGradeTable('ehp-grade-tbody', grade);
-}
-
-/* EHP: RESET */
-function resetEHP() {
-  var allSel = document.querySelectorAll('#ehp-input-panel select');
-  for (var i = 0; i < allSel.length; i++) { allSel[i].selectedIndex = 0; _poll[allSel[i].id] = selectState(allSel[i]); }
-  calculateEHP();
-}
-
-/* EHP: EVENT BINDING */
-var ehpSelects = document.querySelectorAll('#ehp-input-panel select');
-for (var ei = 0; ei < ehpSelects.length; ei++) {
-  ehpSelects[ei].addEventListener('change', calculateEHP);
-  ehpSelects[ei].addEventListener('input',  calculateEHP);
-  ehpSelects[ei].addEventListener('blur',   calculateEHP);
-  _poll[ehpSelects[ei].id] = selectState(ehpSelects[ei]);
-}
-document.getElementById('ehp-reset-btn').addEventListener('click', resetEHP);
-
-setInterval(function() {
-  if (currentViewClass() !== 'view-ehp') return;
-  var changed = false;
-  var sels = document.querySelectorAll('#ehp-input-panel select');
-  for (var pi = 0; pi < sels.length; pi++) { var sval = selectState(sels[pi]); if (_poll[sels[pi].id] !== sval) { _poll[sels[pi].id] = sval; changed = true; } }
-  if (changed) calculateEHP();
-}, 200);
-
-/* EXAMPLE GRADE */
-function exampleGrade(gradeName) {
-  var gpaRanges = { 'A':[3.55,3.97],'B+':[3.05,3.47],'B':[2.55,2.97],'C+':[2.05,2.47],'C':[1.55,1.97],'D+':[1.05,1.47],'D':[0.55,0.97],'F':[0.05,0.42] };
-  var range = gpaRanges[gradeName];
-  if (!range) return;
-  var targetGPA = range[0] + Math.random() * (range[1] - range[0]);
-  var view = currentViewClass();
-  var subjectId = view.replace('view-', '');
-  var panel = document.getElementById(subjectId + '-input-panel');
-  if (!panel) return;
-
-  function pickNear(target, opts) {
-    var best = opts.slice().sort(function(a,b) { return Math.abs(a-target)-Math.abs(b-target); });
-    var top = best.slice(0, Math.min(2, best.length));
-    return top[Math.random() < 0.7 ? 0 : (top.length-1)];
+/* SVG line chart: trajectory ปัจจุบัน -> ดีที่สุด, threshold at 2.0 */
+function drawPromoChart(cur, best, hasAny){
+  var svg=$('promo-chart');
+  var W=400,H=270, padL=40, padR=26, padT=30, padB=42;
+  var plotW=W-padL-padR, plotH=H-padT-padB;
+  var y=function(val){ return padT+plotH-(val/4)*plotH; };
+  var x0=padL+plotW*0.20, x1=padL+plotW*0.80;
+  var s='';
+  s+='<defs><linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(176,138,74,.22)"/><stop offset="100%" stop-color="rgba(176,138,74,0)"/></linearGradient></defs>';
+  // gridlines 0..4
+  for(var g=0;g<=4;g++){
+    var yy=y(g);
+    s+='<line x1="'+padL+'" y1="'+yy+'" x2="'+(W-padR)+'" y2="'+yy+'" stroke="#E7DFCF" stroke-width="1"/>';
+    s+='<text x="'+(padL-10)+'" y="'+(yy+4)+'" font-size="12" fill="#97968A" text-anchor="end" font-family="Inter,sans-serif">'+g.toFixed(1)+'</text>';
   }
-  function setSelOpt(sel, val) {
-    for (var o = 0; o < sel.options.length; o++) { if (parseFloat(sel.options[o].value) === val) { sel.selectedIndex = o; _poll[sel.id] = selectState(sel); return; } }
-  }
+  // threshold line 2.0
+  var yT=y(PASS_GPA);
+  s+='<line x1="'+padL+'" y1="'+yT+'" x2="'+(W-padR)+'" y2="'+yT+'" stroke="#B85248" stroke-width="2" stroke-dasharray="6 5"/>';
+  s+='<text x="'+(W-padR)+'" y="'+(yT-8)+'" font-size="12" fill="#B85248" text-anchor="end" font-weight="700" font-family="Inter,sans-serif">เกณฑ์ 2.00</text>';
+  // x category labels
+  s+='<text x="'+x0+'" y="'+(H-14)+'" font-size="13" fill="#6B726B" text-anchor="middle" font-weight="600" font-family="Inter,sans-serif">ปัจจุบัน</text>';
+  s+='<text x="'+x1+'" y="'+(H-14)+'" font-size="13" fill="#6B726B" text-anchor="middle" font-weight="600" font-family="Inter,sans-serif">ดีที่สุด</text>';
 
-  var sels = panel.querySelectorAll('select');
-  for (var i = 0; i < sels.length; i++) {
-    var sel = sels[i];
-    var opts = [];
-    for (var o = 1; o < sel.options.length; o++) { var v = parseFloat(sel.options[o].value); if (!isNaN(v)) opts.push(v); }
-    if (!opts.length) continue;
-    if (opts.indexOf(0.5) !== -1) { setSelOpt(sel, 1); continue; }
-    if (opts.length === 2 && opts[0] === 4 && opts[1] === 0) { setSelOpt(sel, targetGPA >= 0.51 ? 4 : 0); continue; }
-    setSelOpt(sel, pickNear(targetGPA, opts));
+  var yb=y(best), curC=gradeColor(cur), base=padT+plotH;
+  if(hasAny){
+    var yc=y(cur);
+    // soft gradient area under trajectory
+    s+='<path d="M '+x0+' '+yc+' L '+x1+' '+yb+' L '+x1+' '+base+' L '+x0+' '+base+' Z" fill="url(#areaFill)"/>';
+    // bold trajectory line
+    s+='<line x1="'+x0+'" y1="'+yc+'" x2="'+x1+'" y2="'+yb+'" stroke="#B08A4A" stroke-width="4" stroke-linecap="round"/>';
+    // points
+    s+='<circle cx="'+x0+'" cy="'+yc+'" r="9" fill="'+curC+'" stroke="#FCFAF4" stroke-width="3.5"/>';
+    s+='<circle cx="'+x1+'" cy="'+yb+'" r="9" fill="#C9A24B" stroke="#FCFAF4" stroke-width="3.5"/>';
+    s+='<text x="'+x0+'" y="'+(yc-17)+'" font-size="19" fill="'+curC+'" text-anchor="middle" font-weight="700" font-family="Fraunces,serif">'+cur.toFixed(2)+'</text>';
+    s+='<text x="'+x1+'" y="'+(yb-17)+'" font-size="19" fill="#B08A4A" text-anchor="middle" font-weight="700" font-family="Fraunces,serif">'+best.toFixed(2)+'</text>';
+  } else {
+    // nothing entered: show best endpoint + hollow current marker
+    s+='<line x1="'+x0+'" y1="'+base+'" x2="'+x1+'" y2="'+yb+'" stroke="#DDD4C2" stroke-width="2.5" stroke-dasharray="5 5" stroke-linecap="round"/>';
+    s+='<circle cx="'+x0+'" cy="'+base+'" r="8" fill="#FCFAF4" stroke="#C7BEAC" stroke-width="2.5"/>';
+    s+='<circle cx="'+x1+'" cy="'+yb+'" r="9" fill="#C9A24B" stroke="#FCFAF4" stroke-width="3.5"/>';
+    s+='<text x="'+x0+'" y="'+(base-16)+'" font-size="17" fill="#B0AEA0" text-anchor="middle" font-family="Fraunces,serif">–</text>';
+    s+='<text x="'+x1+'" y="'+(yb-17)+'" font-size="19" fill="#B08A4A" text-anchor="middle" font-weight="700" font-family="Fraunces,serif">'+best.toFixed(2)+'</text>';
   }
-
-  if (view === 'view-hga') { setAtt('S'); calculateHGA(); return; }
-  if (view === 'view-bhcb') {
-    var submit = targetGPA >= 0.51;
-    setBHCBSR(1, submit); setBHCBSR(2, submit);
-    var ratio = Math.min(1, Math.max(0, targetGPA / 4));
-    bhcbAssign = Math.max(0, Math.min(11, Math.round(ratio * 11 + (Math.random() * 2 - 1))));
-    bhcbAttend = Math.max(0, Math.min(11, Math.round(ratio * 11 + (Math.random() * 2 - 1))));
-    setText('bhcb-assign-val', bhcbAssign);
-    setText('bhcb-attend-val', bhcbAttend);
-    calculateBHCB();
-    return;
-  }
-  if (view === 'view-ehp') { calculateEHP(); return; }
-  if (sels.length > 0) sels[sels.length-1].dispatchEvent(new Event('change'));
+  svg.innerHTML=s;
 }
 
-/* NAVIGATION */
-function findSubject(id) { for (var i = 0; i < subjects.length; i++) { if (subjects[i].id === id) return subjects[i]; } return null; }
-function updateBackBar(subj) { setText('back-code', subj.code); setText('back-name', ' ' + subj.name); setText('back-tagline', subj.tagline); }
-function currentViewClass() { var m = document.body.className.match(/view-[a-z-]+/); return m ? m[0] : ''; }
-
-function switchView(nextClass, afterSwitch) {
-  var current = currentViewClass();
-  if (!current || current === nextClass) { document.body.className = nextClass; if (afterSwitch) afterSwitch(); return; }
-  document.body.className = current + ' is-fading-out';
-  window.setTimeout(function() { document.body.className = nextClass; if (afterSwitch) afterSwitch(); }, 140);
+function promoAllA(){
+  for(var i=0;i<YEAR2.length;i++) setGrade(YEAR2[i].id, 4);
+  calcPromotion();
+}
+function promoReset(){
+  for(var i=0;i<YEAR2.length;i++) setGrade(YEAR2[i].id, null);
+  calcPromotion();
 }
 
-function showSubjectSelector() { switchView('view-selector', function() { document.body.style.paddingTop = '0'; }); }
-function showComingSoon(subj) { setText('cs-emoji', subj.emoji); setText('cs-code', subj.code); setText('cs-name', subj.name); switchView('view-coming-soon', fixLayout); }
-function showHGACalculator()  { setText('header-title', 'HGA Grade Calculator');  switchView('view-hga',  function() { fixLayout(); calculateHGA();  }); }
-function showBHCBCalculator() { setText('header-title', 'BHCB Grade Calculator'); switchView('view-bhcb', function() { fixLayout(); calculateBHCB(); }); }
-function showEHPCalculator()  { setText('header-title', 'EHP Grade Calculator');  switchView('view-ehp',  function() { fixLayout(); calculateEHP();  }); }
-
-function selectSubject(subjectId) {
-  var subj = findSubject(subjectId);
-  if (!subj) return;
-  updateBackBar(subj);
-  if (subj.status !== 'available') { showComingSoon(subj); return; }
-  if (subjectId === 'hga')  { showHGACalculator();  return; }
-  if (subjectId === 'bhcb') { showBHCBCalculator(); return; }
-  if (subjectId === 'ehp')  { showEHPCalculator();  return; }
-  showComingSoon(subj);
+/* ============================================================
+   MINI LINE CHART (per-subject: ปัจจุบัน -> ดีที่สุด)
+   ============================================================ */
+function drawMiniChart(svgId, cur, best, hasAny){
+  var svg=$(svgId); if(!svg) return;
+  var W=320,H=130, padL=28, padR=18, padT=14, padB=22;
+  var plotW=W-padL-padR, plotH=H-padT-padB;
+  var y=function(v){ return padT+plotH-(v/4)*plotH; };
+  var x0=padL+plotW*0.22, x1=padL+plotW*0.78;
+  var s='';
+  for(var g=0;g<=4;g+=2){
+    var yy=y(g);
+    s+='<line x1="'+padL+'" y1="'+yy+'" x2="'+(W-padR)+'" y2="'+yy+'" stroke="#EFE9DB" stroke-width="1"/>';
+    s+='<text x="'+(padL-6)+'" y="'+(yy+3)+'" font-size="8.5" fill="#B0AEA0" text-anchor="end" font-family="Inter,sans-serif">'+g+'</text>';
+  }
+  var yT=y(2);
+  s+='<line x1="'+padL+'" y1="'+yT+'" x2="'+(W-padR)+'" y2="'+yT+'" stroke="#B85248" stroke-width="1.2" stroke-dasharray="4 3"/>';
+  s+='<text x="'+(W-padR)+'" y="'+(yT-4)+'" font-size="8" fill="#B85248" text-anchor="end" font-weight="700" font-family="Inter,sans-serif">2.00</text>';
+  s+='<text x="'+x0+'" y="'+(H-6)+'" font-size="9" fill="#6B726B" text-anchor="middle" font-weight="600" font-family="Inter,sans-serif">ปัจจุบัน</text>';
+  s+='<text x="'+x1+'" y="'+(H-6)+'" font-size="9" fill="#6B726B" text-anchor="middle" font-weight="600" font-family="Inter,sans-serif">ดีที่สุด</text>';
+  var yb=y(best), curC=gradeColor(cur);
+  if(hasAny){
+    var yc=y(cur);
+    s+='<line x1="'+x0+'" y1="'+yc+'" x2="'+x1+'" y2="'+yb+'" stroke="#B08A4A" stroke-width="2" stroke-linecap="round"/>';
+    s+='<circle cx="'+x0+'" cy="'+yc+'" r="5" fill="'+curC+'" stroke="#FCFAF4" stroke-width="2"/>';
+    s+='<circle cx="'+x1+'" cy="'+yb+'" r="5" fill="#C9A24B" stroke="#FCFAF4" stroke-width="2"/>';
+    s+='<text x="'+x0+'" y="'+(yc-9)+'" font-size="10.5" fill="'+curC+'" text-anchor="middle" font-weight="700" font-family="Fraunces,serif">'+cur.toFixed(2)+'</text>';
+    s+='<text x="'+x1+'" y="'+(yb-9)+'" font-size="10.5" fill="#B08A4A" text-anchor="middle" font-weight="700" font-family="Fraunces,serif">'+best.toFixed(2)+'</text>';
+  } else {
+    s+='<line x1="'+x0+'" y1="'+(padT+plotH)+'" x2="'+x1+'" y2="'+yb+'" stroke="#DDD4C2" stroke-width="1.6" stroke-dasharray="3 3" stroke-linecap="round"/>';
+    s+='<circle cx="'+x0+'" cy="'+(padT+plotH)+'" r="4.5" fill="#FCFAF4" stroke="#C7BEAC" stroke-width="1.8"/>';
+    s+='<circle cx="'+x1+'" cy="'+yb+'" r="5" fill="#C9A24B" stroke="#FCFAF4" stroke-width="2"/>';
+    s+='<text x="'+x1+'" y="'+(yb-9)+'" font-size="10.5" fill="#B08A4A" text-anchor="middle" font-weight="700" font-family="Fraunces,serif">'+best.toFixed(2)+'</text>';
+  }
+  svg.innerHTML=s;
 }
 
-/* SELECTOR: RENDER & SEARCH */
-function renderSubjectCards(list) {
-  var grid = document.getElementById('subject-grid');
-  var noR  = document.getElementById('no-results');
-  grid.innerHTML = '';
-  if (list.length === 0) { if (noR) noR.style.display = 'block'; return; }
-  if (noR) noR.style.display = 'none';
-  for (var i = 0; i < list.length; i++) {
-    var s = list[i];
-    var isAvail = s.status === 'available';
-    var div = document.createElement('div');
-    div.className = 'subject-card theme-' + s.theme + (isAvail ? '' : ' cs');
-    div.setAttribute('onclick', 'selectSubject("' + s.id + '")');
-    div.innerHTML =
-      '<span class="card-badge ' + (isAvail ? 'badge-available' : 'badge-soon') + '">' + (isAvail ? 'พร้อมใช้งาน' : 'เร็ว ๆ นี้') + '</span>' +
-      '<span class="card-emoji">' + s.emoji + '</span>' +
-      '<div class="card-code">' + s.code + '</div>' +
-      '<div class="card-name">' + s.name + '</div>' +
-      '<span class="card-btn ' + (isAvail ? 'btn-available' : 'btn-soon') + '">' + (isAvail ? 'เข้าใช้งาน' : 'เร็ว ๆ นี้') + '</span>';
+/* ============================================================
+   GRADE TABLE render
+   ============================================================ */
+function buildGradeTable(tbodyId){
+  var tb=$(tbodyId); var html='';
+  for(var i=0;i<GRADE_BOUNDS.length;i++){
+    var b=GRADE_BOUNDS[i];
+    var range = b.g==='F' ? '&lt; 0.51' : b.lo.toFixed(2)+' – '+b.hi.toFixed(2);
+    html+='<tr data-grade="'+b.g+'"><td><span class="g-dot" style="background:'+b.c+'"></span>'+b.g+'</td><td>'+range+'</td><td><button class="ex-btn" onclick="exampleGrade(\''+b.g+'\')">Try</button></td></tr>';
+  }
+  tb.innerHTML=html;
+}
+function highlightTable(tbodyId, grade){
+  var rows=document.querySelectorAll('#'+tbodyId+' tr');
+  for(var r=0;r<rows.length;r++) rows[r].className = (grade!=='-'&&rows[r].getAttribute('data-grade')===grade)?'hl':'';
+}
+
+/* ============================================================
+   CALCULATOR: header pill + generic best-possible helper
+   A calc computes: raw (0-400 style using weight*grade over 100),
+   gpa = raw/100. "best possible" = fill blanks with A(4).
+   ============================================================ */
+var CURRENT_CALC=null;
+
+function updateCalcHeader(gpa, hasAny){
+  var g = hasAny ? gradeFromGPA(gpa).g : '–';
+  setText('calc-grade', g, true);
+  $('calc-grade').style.color = hasAny ? gradeColor(gpa) : 'var(--ink-4)';
+}
+
+/* ---------- HGA ---------- */
+var hgaAtt='none';
+function gv(id){ return selVal($(id)); }
+function setAtt(v){
+  hgaAtt=v;
+  $('btn-s').className='toggle-btn'+(v==='S'?' s-on':'');
+  $('btn-u').className='toggle-btn'+(v==='U'?' u-on':'');
+  var n=$('att-note');
+  if(v==='S'){ n.textContent='ปกติ'; n.className='att-note s'; }
+  else { n.textContent='หัก 25% จาก Lab Dissection'; n.className='att-note u'; }
+  calcHGA();
+}
+function hgaCompute(useBest){
+  var mcqW=[['mcq1',13.5],['mcq2',13.5],['mcq3',12],['mcq4',12],['mcq5',12]];
+  var tseW=[['tse1',4.2],['tse2',4.2],['tse3',4.2],['tse4',4.2],['tse5',5.2]];
+  function val(id){ var v=gv(id); if(v===null && useBest) return 4; return v; }
+  var mcq=0,tse=0;
+  for(var i=0;i<mcqW.length;i++){ var g=val(mcqW[i][0]); if(g!==null) mcq+=mcqW[i][1]*g; }
+  for(var j=0;j<tseW.length;j++){ var t=val(tseW[j][0]); if(t!==null) tse+=tseW[j][1]*t; }
+  var sdl=val('sdl'); var sdlS=sdl!==null?2*sdl:0;
+  var dis=val('lab-dis'); var disR=dis!==null?10*dis:0; var disF=disR;
+  if(hgaAtt==='U' && dis!==null) disF=disR*0.75;
+  var f1s=val('fa1-status'),f1g=val('fa1-grade'),f2s=val('fa2-status'),f2g=val('fa2-grade');
+  // for best: assume status full (1) and grade A(4) if blank
+  if(useBest){ if(gv('fa1-status')===null)f1s=1; if(gv('fa1-grade')===null)f1g=4; if(gv('fa2-status')===null)f2s=1; if(gv('fa2-grade')===null)f2g=4; }
+  var fa=((f1s!==null&&f1g!==null)?f1s*f1g:0)+((f2s!==null&&f2g!==null)?f2s*f2g:0);
+  var fo=val('fo-grade'); var foS=fo!==null?fo:0;
+  var total=mcq+tse+sdlS+disF+fa+foS;
+  return {total:total, gpa:total/100, mcq:mcq, tse:tse, sdl:sdlS, dis:disF, fa:fa, fo:foS};
+}
+function calcHGA(){
+  var r=hgaCompute(false);
+  var warn=$('dis-warn');
+  var disG=gv('lab-dis');
+  if(hgaAtt==='U' && disG!==null){ var disR=10*disG; setText('dis-before',disR.toFixed(1)); setText('dis-after',' '+(disR*0.75).toFixed(1)); warn.className='dis-warn on'; }
+  else warn.className='dis-warn';
+  var anyFilled=(hgaAtt!=='none'); var sels=document.querySelectorAll('#hga-input-panel select');
+  for(var k=0;k<sels.length;k++){ markSel(sels[k]); if(sels[k].value!=='') anyFilled=true; }
+  var grade=anyFilled?gradeFromGPA(r.gpa).g:'-';
+  setText('sum-mcq', r.mcq?r.mcq.toFixed(1):'–');
+  setText('sum-tse', r.tse?r.tse.toFixed(1):'–');
+  setText('sum-sdl', gv('sdl')!==null?r.sdl.toFixed(1):'–');
+  setText('sum-dis', disG!==null?r.dis.toFixed(1):'–');
+  setText('sum-fa', r.fa?r.fa.toFixed(1):'–');
+  setText('sum-fo', gv('fo-grade')!==null?r.fo.toFixed(1):'–');
+  setText('hga-sum-raw', r.total.toFixed(1)+' / 400');
+  setText('hga-sum-gpa', anyFilled?r.gpa.toFixed(2):'–', true);
+  highlightTable('hga-grade-tbody', grade);
+  updateCalcHeader(r.gpa, anyFilled);
+  var best=hgaCompute(true);
+  drawMiniChart('hga-mini-chart', anyFilled?r.gpa:0, best.gpa, anyFilled);
+}
+function resetHGA(){
+  var sels=document.querySelectorAll('#hga-input-panel select');
+  for(var i=0;i<sels.length;i++){ sels[i].value=''; markSel(sels[i]); }
+  hgaAtt='none'; $('btn-s').className='toggle-btn'; $('btn-u').className='toggle-btn';
+  $('att-note').textContent=''; $('att-note').className='att-note'; $('dis-warn').className='dis-warn';
+  calcHGA();
+}
+
+/* ---------- BHCB ---------- */
+var bhcbSR={sr1:null,sr2:null}, bhcbAssign=0, bhcbAttend=0;
+function setBHCBSR(n,val){
+  if(n===1)bhcbSR.sr1=val; else bhcbSR.sr2=val;
+  $('sr'+n+'-yes').className='srb'+(val===true?' yes-on':'');
+  $('sr'+n+'-no').className='srb'+(val===false?' no-on':'');
+  calcBHCB();
+}
+function adjBHCB(f,d){
+  if(f==='assign'){ bhcbAssign=Math.max(0,Math.min(11,bhcbAssign+d)); setText('bhcb-assign-val',bhcbAssign); }
+  else { bhcbAttend=Math.max(0,Math.min(11,bhcbAttend+d)); setText('bhcb-attend-val',bhcbAttend); }
+  calcBHCB();
+}
+function bhcbCompute(useBest){
+  var mcq=gv('bhcb-mcq'), saq=gv('bhcb-saq');
+  if(useBest){ if(mcq===null)mcq=4; if(saq===null)saq=4; }
+  var mcqC=mcq!==null?mcq*45:0, saqC=saq!==null?saq*35:0;
+  var sr1 = bhcbSR.sr1===true?8:(useBest&&bhcbSR.sr1===null?8:0);
+  var sr2 = bhcbSR.sr2===true?8:(useBest&&bhcbSR.sr2===null?8:0);
+  var asg = (useBest?11:bhcbAssign)*4;
+  var att = (useBest?11:bhcbAttend)*(20/11);
+  var raw=mcqC+saqC+sr1+sr2+asg+att;
+  return {raw:raw, gpa:raw/100, mcqC:mcqC, saqC:saqC, sr:sr1+sr2, asg:asg, att:att};
+}
+function calcBHCB(){
+  var mcq=gv('bhcb-mcq'), saq=gv('bhcb-saq');
+  var r=bhcbCompute(false);
+  var sels=document.querySelectorAll('#bhcb-input-panel select'); for(var k=0;k<sels.length;k++) markSel(sels[k]);
+  var anyFilled=(mcq!==null||saq!==null||bhcbSR.sr1!==null||bhcbSR.sr2!==null||bhcbAssign>0||bhcbAttend>0);
+  var grade=anyFilled?gradeFromGPA(r.gpa).g:'-';
+  var srFilled=(bhcbSR.sr1!==null||bhcbSR.sr2!==null);
+  setText('bhcb-sum-mcq', mcq!==null?r.mcqC.toFixed(1):'–');
+  setText('bhcb-sum-saq', saq!==null?r.saqC.toFixed(1):'–');
+  setText('bhcb-sum-sr', srFilled?r.sr.toFixed(1):'–');
+  setText('bhcb-sum-assign', bhcbAssign>0?r.asg.toFixed(1):'–');
+  setText('bhcb-sum-attend', bhcbAttend>0?r.att.toFixed(1):'–');
+  setText('bhcb-sum-total', anyFilled?r.raw.toFixed(1)+' / 400':'0.0 / 400');
+  setText('bhcb-sum-gpa', anyFilled?r.gpa.toFixed(2):'–', true);
+  highlightTable('bhcb-grade-tbody', grade);
+  updateCalcHeader(r.gpa, anyFilled);
+  var best=bhcbCompute(true);
+  drawMiniChart('bhcb-mini-chart', anyFilled?r.gpa:0, best.gpa, anyFilled);
+}
+function resetBHCB(){
+  var sels=document.querySelectorAll('#bhcb-input-panel select'); for(var i=0;i<sels.length;i++){ sels[i].value=''; markSel(sels[i]); }
+  bhcbSR={sr1:null,sr2:null}; bhcbAssign=0; bhcbAttend=0;
+  ['sr1-yes','sr1-no','sr2-yes','sr2-no'].forEach(function(id){ $(id).className='srb'; });
+  setText('bhcb-assign-val','0'); setText('bhcb-attend-val','0');
+  calcBHCB();
+}
+
+/* ---------- EHP ---------- */
+var EHP_W=[['ehp-mcq',53],['ehp-brainstorm',6.42],['ehp-demo1',9.63],['ehp-demo2',3.2],['ehp-assign1',6.6],['ehp-assign2',6.6],['ehp-assign3',3.8],['ehp-groupconf',9],['ehp-quiz',1.75]];
+function ehpCompute(useBest){
+  var c={}; var raw=0;
+  for(var i=0;i<EHP_W.length;i++){ var id=EHP_W[i][0], w=EHP_W[i][1]; var v=gv(id); if(v===null&&useBest)v=4; var contrib=v!==null?v*w:0; c[id]=v!==null?contrib:null; raw+=contrib; }
+  return {raw:raw, gpa:raw/100, c:c};
+}
+function calcEHP(){
+  var r=ehpCompute(false);
+  var sels=document.querySelectorAll('#ehp-input-panel select'); var anyFilled=false;
+  for(var k=0;k<sels.length;k++){ markSel(sels[k]); if(sels[k].value!=='') anyFilled=true; }
+  var grade=anyFilled?gradeFromGPA(r.gpa).g:'-';
+  function f(id){ return r.c[id]!==null?r.c[id].toFixed(1):'–'; }
+  var demo=(r.c['ehp-demo1']!==null||r.c['ehp-demo2']!==null)?((r.c['ehp-demo1']||0)+(r.c['ehp-demo2']||0)).toFixed(1):'–';
+  var asg=(r.c['ehp-assign1']!==null||r.c['ehp-assign2']!==null||r.c['ehp-assign3']!==null)?((r.c['ehp-assign1']||0)+(r.c['ehp-assign2']||0)+(r.c['ehp-assign3']||0)).toFixed(1):'–';
+  setText('ehp-sum-mcq', f('ehp-mcq'));
+  setText('ehp-sum-brainstorm', f('ehp-brainstorm'));
+  setText('ehp-sum-demo', demo);
+  setText('ehp-sum-assign', asg);
+  setText('ehp-sum-groupconf', f('ehp-groupconf'));
+  setText('ehp-sum-quiz', f('ehp-quiz'));
+  setText('ehp-sum-raw', anyFilled?r.raw.toFixed(1)+' / 400':'0.0 / 400');
+  setText('ehp-sum-gpa', anyFilled?r.gpa.toFixed(2):'–', true);
+  highlightTable('ehp-grade-tbody', grade);
+  updateCalcHeader(r.gpa, anyFilled);
+  var best=ehpCompute(true);
+  drawMiniChart('ehp-mini-chart', anyFilled?r.gpa:0, best.gpa, anyFilled);
+}
+function resetEHP(){
+  var sels=document.querySelectorAll('#ehp-input-panel select'); for(var i=0;i<sels.length;i++){ sels[i].value=''; markSel(sels[i]); }
+  calcEHP();
+}
+
+/* ============================================================
+   EXAMPLE GRADE (fills current calc to hit target grade)
+   ============================================================ */
+function exampleGrade(g){
+  var ranges={'A':[3.55,3.97],'B+':[3.05,3.47],'B':[2.55,2.97],'C+':[2.05,2.47],'C':[1.55,1.97],'D+':[1.05,1.47],'D':[0.55,0.97],'F':[0.05,0.42]};
+  var rg=ranges[g]; if(!rg) return; var target=rg[0]+Math.random()*(rg[1]-rg[0]);
+  var panelId=CURRENT_CALC+'-input-panel'; var panel=$(panelId); if(!panel) return;
+  function pickNear(t,opts){ var b=opts.slice().sort(function(a,b){return Math.abs(a-t)-Math.abs(b-t);}); var top=b.slice(0,Math.min(2,b.length)); return top[Math.random()<0.7?0:top.length-1]; }
+  function setSel(sel,val){ for(var o=0;o<sel.options.length;o++){ if(parseFloat(sel.options[o].value)===val){ sel.value=sel.options[o].value; return; } } }
+  var sels=panel.querySelectorAll('select');
+  for(var i=0;i<sels.length;i++){
+    var sel=sels[i]; var opts=[];
+    for(var o=1;o<sel.options.length;o++){ var v=parseFloat(sel.options[o].value); if(!isNaN(v)) opts.push(v); }
+    if(!opts.length) continue;
+    if(opts.indexOf(0.5)!==-1 || opts.indexOf(1)!==-1 && sel.id.indexOf('status')>=0){ setSel(sel,1); continue; }
+    if(opts.length===2 && opts[0]===4 && opts[1]===0){ setSel(sel, target>=0.51?4:0); continue; }
+    setSel(sel, pickNear(target,opts));
+  }
+  if(CURRENT_CALC==='hga'){ setAtt('S'); calcHGA(); }
+  else if(CURRENT_CALC==='bhcb'){ var sub=target>=0.51; setBHCBSR(1,sub); setBHCBSR(2,sub); var ratio=Math.min(1,Math.max(0,target/4)); bhcbAssign=Math.max(0,Math.min(11,Math.round(ratio*11))); bhcbAttend=Math.max(0,Math.min(11,Math.round(ratio*11))); setText('bhcb-assign-val',bhcbAssign); setText('bhcb-attend-val',bhcbAttend); calcBHCB(); }
+  else if(CURRENT_CALC==='ehp'){ calcEHP(); }
+}
+
+/* ============================================================
+   SUBJECT SELECTOR + CALCULATOR OPEN/CLOSE
+   ============================================================ */
+function renderSubjectCards(list){
+  var grid=$('subject-grid'), noR=$('no-results');
+  grid.innerHTML='';
+  if(!list.length){ noR.style.display='block'; return; }
+  noR.style.display='none';
+  for(var i=0;i<list.length;i++){
+    var s=list[i], av=s.calc;
+    var div=document.createElement('div');
+    div.className='subject-card'+(av?'':' cs');
+    div.setAttribute('onclick', 'openCalculator("'+s.id+'")');
+    div.innerHTML=
+      '<span class="sc-badge '+(av?'badge-av':'badge-cs')+'">'+(av?'พร้อมใช้งาน':'เร็ว ๆ นี้')+'</span>'+
+      '<span class="sc-emoji">'+s.emoji+'</span>'+
+      '<div class="sc-code">'+s.code+'<span class="sc-cr">'+s.cr+' Credits</span></div>'+
+      '<div class="sc-name">'+s.en+'</div>'+
+      '<div class="sc-cta'+(av?'':' cs')+'">'+'</div>';
     grid.appendChild(div);
   }
 }
-
-function filterSubjects() {
-  var q = document.getElementById('sel-search').value.toLowerCase().trim();
-  var list = [];
-  for (var i = 0; i < subjects.length; i++) {
-    var s = subjects[i];
-    if (!q || s.code.toLowerCase().indexOf(q) >= 0 || s.name.toLowerCase().indexOf(q) >= 0 || s.tagline.toLowerCase().indexOf(q) >= 0 || s.modules.toLowerCase().indexOf(q) >= 0) list.push(s);
-  }
+function filterSubjects(){
+  var q=$('sel-search').value.toLowerCase().trim();
+  var list=YEAR2.filter(function(s){ return !q || s.code.toLowerCase().indexOf(q)>=0 || s.name.toLowerCase().indexOf(q)>=0 || s.en.toLowerCase().indexOf(q)>=0; });
   renderSubjectCards(list);
 }
 
-/* INIT */
-renderSubjectCards(subjects);
-var searchEl = document.getElementById('sel-search');
-searchEl.addEventListener('input',  filterSubjects);
-searchEl.addEventListener('change', filterSubjects);
-document.body.className = 'view-selector';
-document.body.style.paddingTop = '0';
-fixLayout();
-calculateHGA();
-calculateBHCB();
-calculateEHP();
+function openCalculator(id){
+  var s=YEAR2.filter(function(x){return x.id===id;})[0]; if(!s) return;
+  $('subjects-list-view').style.display='none';
+  $('calc-detail-view').style.display='block';
+  $('calc-emoji').textContent=s.emoji;
+  $('calc-code').textContent=s.code;
+  $('calc-name').textContent=s.en;
+  ['hga','bhcb','ehp','cs'].forEach(function(m){ $('mount-'+m).style.display='none'; });
+  if(s.calc){
+    CURRENT_CALC=id;
+    $('mount-'+id).style.display='grid';
+    if(id==='hga') calcHGA(); else if(id==='bhcb') calcBHCB(); else if(id==='ehp') calcEHP();
+  } else {
+    CURRENT_CALC=null;
+    $('mount-cs').style.display='block';
+    $('cs-emoji').textContent=s.emoji; $('cs-code').textContent=s.code; $('cs-name').textContent=s.en;
+    $('calc-grade').textContent='–'; $('calc-grade').style.color='var(--ink-4)';
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function closeCalculator(){
+  $('calc-detail-view').style.display='none';
+  $('subjects-list-view').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+(function init(){
+  // promotion
+  buildPromoList();
+  calcPromotion();
+
+  // subject selector
+  renderSubjectCards(YEAR2);
+  $('sel-search').addEventListener('input', filterSubjects);
+
+  // calc dropdowns
+  ['mcq1','mcq2','mcq3','mcq4','mcq5','tse1','tse2','tse3','tse4','tse5','bhcb-mcq','bhcb-saq',
+   'ehp-mcq','ehp-brainstorm','ehp-demo1','ehp-demo2','ehp-assign1','ehp-assign2','ehp-assign3','ehp-groupconf','ehp-quiz'
+  ].forEach(function(id){ var el=$(id); if(el) fillGradeOptions(el,false); });
+  ['sdl','lab-dis'].forEach(function(id){ var el=$(id); if(el) fillGradeOptions(el,true); });
+
+  buildGradeTable('hga-grade-tbody');
+  buildGradeTable('bhcb-grade-tbody');
+  buildGradeTable('ehp-grade-tbody');
+
+  // bind HGA
+  document.querySelectorAll('#hga-input-panel select').forEach(function(s){ s.addEventListener('change', calcHGA); });
+  $('btn-s').addEventListener('click', function(){ setAtt('S'); });
+  $('btn-u').addEventListener('click', function(){ setAtt('U'); });
+  $('hga-reset-btn').addEventListener('click', resetHGA);
+  // bind BHCB
+  document.querySelectorAll('#bhcb-input-panel select').forEach(function(s){ s.addEventListener('change', calcBHCB); });
+  $('bhcb-reset-btn').addEventListener('click', resetBHCB);
+  // bind EHP
+  document.querySelectorAll('#ehp-input-panel select').forEach(function(s){ s.addEventListener('change', calcEHP); });
+  $('ehp-reset-btn').addEventListener('click', resetEHP);
+
+  calcHGA(); calcBHCB(); calcEHP();
+})();
 </script>
 </body>
 </html>

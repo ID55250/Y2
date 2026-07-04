@@ -14,6 +14,7 @@
    antique gold. Editorial serif display, precise sans body.
    ============================================================ */
 :root{
+  /* Base surfaces */
   --ivory:      #F5F1E8;
   --ivory-2:    #EFE9DC;
   --paper:      #FCFAF4;
@@ -614,9 +615,9 @@ select.mini.has-val{ border-color:var(--pine-3); color:var(--pine); background-c
       <h1 class="hero-title">สรุปเกรดรวม</h1>
       <p class="hero-desc"></p>
       <div class="hero-stats">
-        <div><div class="hstat-num">20</div><div class="hstat-lbl">รายวิชา</div></div>
+        <div><div class="hstat-num">18</div><div class="hstat-lbl">รายวิชา</div></div>
         <div class="hstat-sep"></div>
-        <div><div class="hstat-num">38</div><div class="hstat-lbl">หน่วยกิต</div></div>
+        <div><div class="hstat-num">34</div><div class="hstat-lbl">หน่วยกิต</div></div>
         <div class="hstat-sep"></div>
         <div><div class="hstat-num">2.00</div><div class="hstat-lbl">เกณฑ์เลื่อนชั้น</div></div>
       </div>
@@ -629,7 +630,7 @@ select.mini.has-val{ border-color:var(--pine-3); color:var(--pine); background-c
       <div class="ic-head">
         <div class="ic-head-l">
           <div class="ic-title">รายวิชาชั้นปีที่ 2</div>
-          <div class="ic-desc">20 วิชา · 38 หน่วยกิต</div>
+          <div class="ic-desc">18 วิชา · 34 หน่วยกิต</div>
         </div>
         <div class="ic-actions">
           <button class="btn-ghost" onclick="promoReset()">ล้าง</button>
@@ -778,7 +779,7 @@ select.mini.has-val{ border-color:var(--pine-3); color:var(--pine); background-c
           <div class="gpa-display"><div class="gpa-value" id="hga-sum-gpa">–</div><div class="gpa-max">/ 4.00</div></div>
         </div>
         <div class="mini-chart-card">
-          <div class="gtc-title">ปัจจุบัน · ดีที่สุด</div>
+          <div class="gtc-title"></div>
           <svg class="chart-svg" id="hga-mini-chart" viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
         <div class="grade-table-card">
@@ -824,7 +825,7 @@ select.mini.has-val{ border-color:var(--pine-3); color:var(--pine); background-c
           <div class="gpa-display"><div class="gpa-value" id="bhcb-sum-gpa">–</div><div class="gpa-max">/ 4.00</div></div>
         </div>
         <div class="mini-chart-card">
-          <div class="gtc-title">ปัจจุบัน · ดีที่สุด</div>
+          <div class="gtc-title"></div>
           <svg class="chart-svg" id="bhcb-mini-chart" viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
         <div class="grade-table-card">
@@ -872,7 +873,7 @@ select.mini.has-val{ border-color:var(--pine-3); color:var(--pine); background-c
           <div class="gpa-display"><div class="gpa-value" id="ehp-sum-gpa">–</div><div class="gpa-max">/ 4.00</div></div>
         </div>
         <div class="mini-chart-card">
-          <div class="gtc-title">ปัจจุบัน · ดีที่สุด</div>
+          <div class="gtc-title"></div>
           <svg class="chart-svg" id="ehp-mini-chart" viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
         <div class="grade-table-card">
@@ -928,8 +929,8 @@ var YEAR2 = [
   {id:'phi',   code:'PHI',    cr:1, name:'ปรสิตวิทยาของโรคติดเชื้อในมนุษย์',             en:'Parasitology of Infectious Diseases',  emoji:'🪱', mod:'M4', calc:false},
   {id:'bap',   code:'BAP',    cr:2, name:'พยาธิวิทยากายวิภาคพื้นฐานของมนุษย์',          en:'Basic Anatomical Pathology',           emoji:'🔴', mod:'M4', calc:false},
   {id:'bcp',   code:'BCP',    cr:2, name:'เภสัชวิทยาคลินิกพื้นฐาน',                      en:'Basic Clinical Pharmacology',          emoji:'💊', mod:'M4', calc:false},
-  {id:'hes1',  code:'HES-1',  cr:1, name:'ระบบต่อมไร้ท่อของมนุษย์ 1',                    en:'Human Endocrine System 1',             emoji:'⚗️', mod:'M2', calc:false},
-  {id:'hms1',  code:'HMS-1',  cr:1, name:'ระบบกล้ามเนื้อและกระดูกของมนุษย์ 1',          en:'Human Musculoskeletal System 1',       emoji:'🦴', mod:'M2', calc:false},
+  {id:'hes1',  code:'HEN-1',  cr:1, name:'ระบบต่อมไร้ท่อของมนุษย์ 1',                    en:'Human Endocrine System 1',             emoji:'⚗️', mod:'M2', calc:false},
+  {id:'hms1',  code:'HMS-1',  cr:1, name:'ระบบกล้ามเนื้อและกระดูกของมนุษย์ 1',          en:'Human Musculoskeletal System 1',       emoji:'🦴', mod:'M1', calc:false},
   {id:'hcvs1', code:'HCVS-1', cr:2, name:'ระบบหัวใจและหลอดเลือดของมนุษย์ 1',            en:'Human Cardiovascular System 1',        emoji:'❤️', mod:'M2', calc:false},
   {id:'hrs1',  code:'HRS-1',  cr:1, name:'ระบบหายใจของมนุษย์ 1',                         en:'Human Respiratory System 1',           emoji:'🫁', mod:'M2', calc:false},
   {id:'hgb1',  code:'HGB-1',  cr:2, name:'ระบบทางเดินอาหารและน้ำดีของมนุษย์ 1',         en:'GI & Biliary Tract System 1',          emoji:'🍽️', mod:'M3', calc:false},
@@ -938,10 +939,8 @@ var YEAR2 = [
   {id:'hns1',  code:'HNS-1',  cr:3, name:'ระบบประสาทและการรับความรู้สึกพิเศษ 1',        en:'Nervous & Special Senses 1',           emoji:'🧠', mod:'M3', calc:false},
   {id:'pbl',   code:'PBL',    cr:2, name:'การพัฒนาทักษะการเรียนรู้โดยใช้ปัญหาเป็นฐาน',  en:'Problem-Based Learning',               emoji:'💬', mod:'M1-4', calc:false},
   {id:'pmli1', code:'PMLI-1', cr:1, name:'หลักการตรวจวินิจฉัยทางห้องปฏิบัติการ 1',      en:'Medical Laboratory Investigation 1',   emoji:'🔎', mod:'M1-4', calc:false},
-  {id:'hhl',   code:'HHL',    cr:3, name:'ระบบโลหิตและน้ำเหลืองของมนุษย์',              en:'Hematopoietic & Lymphoreticular',      emoji:'🩸', mod:'M4', calc:false},
-  {id:'hhll',  code:'HHL-L',  cr:1, name:'ปฏิบัติการพื้นฐานระบบโลหิตและน้ำเหลือง',      en:'Basic Lab in Hematopoietic System',    emoji:'🧪', mod:'M4', calc:false}
 ];
-var TOTAL_CREDITS = 38;
+var TOTAL_CREDITS = 34;
 
 /* ============================================================
    HELPERS
@@ -994,7 +993,7 @@ var promoState = {}; // id -> gradePoint or null
 function buildPromoList(){
   var wrap=$('promo-subject-list');
   var mods = [
-    {key:'M1-4', label:'บูรณาการ / ตลอดปี'},
+    {key:'M1-4', label:'ตลอดปีการศึกษา'},
     {key:'M1',   label:'Module 1 — Foundation'},
     {key:'M2',   label:'Module 2 — Systems A'},
     {key:'M3',   label:'Module 3 — Systems B'},
@@ -1002,12 +1001,12 @@ function buildPromoList(){
     {key:'M1-3', label:'Module 1–3'}
   ];
   // group order: keep display grouped but simplest is a single flat list sorted by module bucket
-  var order=['M1','M2','M3','M4','M1-3','M1-4'];
+  var order=['M1-3','M1','M2','M3','M4','M1-4'];
   var html='';
   for(var m=0;m<order.length;m++){
     var group=YEAR2.filter(function(s){ return s.mod===order[m]; });
     if(!group.length) continue;
-    var lbl=({'M1':'Module 1','M2':'Module 2','M3':'Module 3','M4':'Module 4','M1-3':'Module 1–3','M1-4':'บูรณาการ / ตลอดปี'})[order[m]];
+    var lbl=({'M1':'Module 1','M2':'Module 2','M3':'Module 3','M4':'Module 4','M1-3':'Module 1–3','M1-4':'ตลอดปีการศึกษา'})[order[m]];
     html+='<div class="mod-group"><div class="mod-label">'+lbl+'</div>';
     for(var i=0;i<group.length;i++){
       var s=group[i];

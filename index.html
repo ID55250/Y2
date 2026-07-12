@@ -565,6 +565,112 @@ select.mini.has-val{ border-color:var(--pine-3); color:var(--pine); background-c
   .choice-icon{ font-size:2.8rem; }
   .choice-title{ font-size:1.45rem; }
 }
+
+/* ================================================================
+   V5 · "VITAL CREAM" REBRAND OVERRIDES
+   Apple Health / Fitness structural craft — soft rounded surfaces,
+   generous whitespace, clean tabular numerals — rendered in the
+   original ivory / pine / gold identity. Minimal. (V5: activity ring removed)
+   Layered as overrides so all V3 markup + logic stay intact.
+   ================================================================ */
+:root{
+  --r-sm:12px; --r-md:16px; --r-lg:22px; --r-xl:30px;
+  --sh-xs: 0 1px 2px rgba(26,33,31,.04);
+  --sh-sm: 0 2px 10px rgba(26,33,31,.05);
+  --sh-md: 0 14px 40px rgba(26,33,31,.08);
+  --sh-lg: 0 30px 70px rgba(16,59,54,.14);
+  --ring:  0 0 0 4px rgba(30,106,96,.14);
+}
+
+/* calmer single wash instead of two busy radials */
+body{
+  background:
+    radial-gradient(1100px 620px at 50% -12%, rgba(46,139,126,.06), transparent 62%),
+    var(--ivory);
+}
+
+/* clean, tight numerals everywhere numbers matter */
+.hero-title, .vc-gpa, .gpa-value, .hstat-num, .pst-gpa, .chp-letter, .cs-code, .landing-title{
+  font-family:'Inter','Noto Sans Thai',-apple-system,sans-serif;
+  letter-spacing:-.03em; font-weight:800;
+}
+.vc-gpa, .gpa-value, .hstat-num, .pst-gpa, .chp-letter, .mgpa{ font-variant-numeric:tabular-nums; }
+
+/* ---- top nav: soft floating pills ---- */
+#topbar{ background:rgba(250,247,240,.8); border-bottom:1px solid var(--line-3); }
+.nav-tabs{ background:var(--ivory-2); border:none; border-radius:14px; padding:4px; box-shadow:inset 0 1px 2px rgba(26,33,31,.04); }
+.nav-tab{ border-radius:11px; }
+.nav-tab.active{ background:var(--paper); color:var(--pine); box-shadow:var(--sh-sm); }
+.brand{ background:transparent; border:none; box-shadow:none; }
+.brand:hover{ background:var(--ivory-2); box-shadow:none; }
+
+/* ---- HERO: flattened light header (Apple Health top) ---- */
+.hero{
+  background:linear-gradient(180deg,var(--paper),var(--paper-2));
+  color:var(--ink); border:1px solid var(--line-3); box-shadow:var(--sh-md);
+  padding:40px 40px 34px;
+}
+.hero::before, .hero::after{ display:none; }
+.hero-title{ color:var(--ink); }
+.hero-title em{ color:var(--gold); }
+.hero-desc{ color:var(--ink-3); }
+.hstat-num{ color:var(--pine); }
+.hstat-lbl{ color:var(--ink-4); }
+.hstat-sep{ background:var(--line-2); }
+.hero-eyebrow{ color:var(--gold); }
+
+/* ---- VERDICT card: dark stat card, refined ---- */
+.verdict-card{ border-radius:var(--r-xl); padding:28px 26px; box-shadow:var(--sh-md); }
+.verdict-card::after{ display:none; }
+.vc-gpa{ font-size:3.4rem; }
+
+/* summary cards + calmer meter */
+.thresh-track{ height:8px; }
+.summary-card{ border-radius:var(--r-lg); padding:22px; box-shadow:var(--sh-md); }
+.summary-card::after{ display:none; }
+.gpa-value{ font-size:3rem; }
+
+/* ---- INPUT + SUBJECT cards: soft Apple surfaces, no top accent bar ---- */
+.input-card, .chart-card, .grade-table-card, .mini-chart-card, .card, .subject-card{
+  border-radius:var(--r-lg); border-color:var(--line-3); box-shadow:var(--sh-sm);
+}
+.subject-card::before, .feature-chart::before{ display:none; }
+.feature-chart{ border:1px solid var(--line-3); background:var(--paper); }
+.subject-card{ padding:24px 22px 20px; }
+.subject-card:hover{ box-shadow:var(--sh-md); border-color:var(--pine-soft); transform:translateY(-3px); }
+.sc-emoji{ margin-bottom:16px; }
+
+/* ---- grade chips: rounded segmented feel ---- */
+.gchip{ border-radius:11px; border-width:1px; background:var(--ivory-2); border-color:transparent; height:40px; }
+.gchip:hover{ background:var(--pine-mist); }
+
+/* ---- selects: softer, rounder ---- */
+select.mini{ border-radius:11px; border-width:1px; background-color:var(--ivory-2); border-color:transparent; min-height:46px; }
+select.mini.has-val{ background-color:var(--pine-mist); border-color:transparent; }
+
+/* ---- calc header letter ---- */
+.chp-letter{ font-size:2.6rem; }
+.ch-emoji{ border-radius:18px; }
+
+/* ---- landing choices: softer cards ---- */
+.choice-block{ border-radius:28px; box-shadow:var(--sh-md); }
+.choice-block::after{ display:none; }
+.choice-subj{ border:1px solid var(--line-3); }
+
+/* ---- iPad/iPhone sticky summary bar: floating ---- */
+@media(max-width:1199px){
+  body[data-page="promotion"] #promo-sticky{
+    left:12px; right:12px; bottom:12px; border-radius:22px;
+    background:linear-gradient(180deg,rgba(22,81,74,.97),rgba(16,59,54,.98));
+    border:1px solid rgba(201,162,75,.3);
+    box-shadow:0 18px 44px rgba(16,59,54,.34);
+    padding:12px 18px calc(12px + env(safe-area-inset-bottom));
+  }
+}
+
+@media(max-width:560px){
+  .hero{ padding:28px 22px; }
+}
 </style>
 </head>
 <body class="on-landing" data-page="landing">
@@ -579,12 +685,12 @@ select.mini.has-val{ border-color:var(--pine-3); color:var(--pine); background-c
     </div>
     <div class="landing-choices">
       <button class="choice-block choice-promo" onclick="go('promotion')">
-        <div class="choice-icon">📊</div>
+        <div class="choice-icon"><svg viewBox="0 0 48 48" fill="none" stroke="#C9A24B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" width="64" height="64" aria-hidden="true"><path d="M9 8V39H40"/><rect x="14" y="29" width="7" height="10" rx="1.6"/><rect x="24" y="22" width="7" height="17" rx="1.6"/><rect x="34" y="14" width="7" height="25" rx="1.6"/></svg></div>
         <div class="choice-title">สรุปเกรดรวม</div>
         <div class="choice-cta">เข้าสู่หน้านี้ &#8594;</div>
       </button>
       <button class="choice-block choice-subj" onclick="go('subjects')">
-        <div class="choice-icon">🧮</div>
+        <div class="choice-icon"><svg viewBox="0 0 48 48" fill="none" stroke="#1E6A60" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" width="64" height="64" aria-hidden="true"><rect x="9" y="5" width="30" height="38" rx="5"/><rect x="15" y="11" width="18" height="7" rx="1.6" stroke="#B08A4A"/><path d="M16 26h0M24 26h0M32 26h0M16 34h0M24 34h0M32 34h0"/></svg></div>
         <div class="choice-title">คำนวณเกรดรายวิชา</div>
         <div class="choice-cta">เข้าสู่หน้านี้ &#8594;</div>
       </button>
@@ -884,6 +990,39 @@ select.mini.has-val{ border-color:var(--pine-3); color:var(--pine); background-c
       </div>
     </div>
 
+    <!-- HIM -->
+    <div class="calc-layout" id="mount-him" style="display:none;">
+      <div class="calc-inputs" id="him-input-panel">
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">MCQ</div><div class="card-pct">70%</div></div>
+          <div class="row"><div class="row-label">เกรด MCQ <span class="pct">(70%)</span></div><select class="mini" id="him-mcq"></select></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-gold"></div><div class="card-title">Quiz</div><div class="card-pct">15%</div></div>
+          <div class="row"><div class="row-label">เกรด Quiz <span class="pct">(15%)</span></div><select class="mini" id="him-quiz"></select></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-green"></div><div class="card-title">Group Work</div><div class="card-pct">15%</div></div>
+          <div class="row"><div class="row-label">เกรด Group Work <span class="pct">(15%)</span></div><select class="mini" id="him-group"></select></div>
+        </div>
+      </div>
+      <div class="calc-side">
+        <div class="summary-card">
+          <div class="sc-title">สรุปผล HIM</div>
+          <div class="gpa-display"><div class="gpa-value" id="him-sum-gpa">–</div><div class="gpa-max">/ 4.00</div></div>
+        </div>
+        <div class="mini-chart-card">
+          <div class="gtc-title"></div>
+          <svg class="chart-svg" id="him-mini-chart" viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+        <div class="grade-table-card">
+          <div class="gtc-title">เกณฑ์การให้เกรด</div>
+          <table class="grade-table"><thead><tr><th>เกรด</th><th>ช่วง GPA</th><th></th></tr></thead><tbody id="him-grade-tbody"></tbody></table>
+        </div>
+        <button class="reset-btn" id="him-reset-btn">รีเซ็ตทั้งหมด</button>
+      </div>
+    </div>
+
     <!-- coming soon -->
     <div id="mount-cs" style="display:none;">
       <div class="cs-box">
@@ -924,7 +1063,7 @@ var YEAR2 = [
   {id:'bhcb',  code:'BHCB',   cr:2, name:'จุลกายวิภาคพื้นฐานและชีววิทยาของเซลล์',        en:'Basic Histology & Cell Biology',       emoji:'🔬', mod:'M1', calc:true},
   {id:'hga',   code:'HGA',    cr:4, name:'มหกายวิภาคศาสตร์ของมนุษย์',                    en:'Human Gross Anatomy',                  emoji:'🦴', mod:'M1-3', calc:true},
   {id:'ehp',   code:'EHP',    cr:2, name:'สาระสำคัญทางสรีรวิทยาของมนุษย์',               en:'Essential Human Physiology',           emoji:'💓', mod:'M1', calc:true},
-  {id:'him',   code:'HIM',    cr:2, name:'ภูมิคุ้มกันวิทยาของมนุษย์',                     en:'Human Immunology',                     emoji:'🛡️', mod:'M1', calc:false},
+  {id:'him',   code:'HIM',    cr:2, name:'ภูมิคุ้มกันวิทยาของมนุษย์',                     en:'Human Immunology',                     emoji:'🛡️', mod:'M1', calc:true},
   {id:'mhi',   code:'MHI',    cr:2, name:'จุลชีววิทยาของโรคติดเชื้อในมนุษย์',            en:'Microbiology of Infectious Diseases',  emoji:'🦠', mod:'M4', calc:false},
   {id:'phi',   code:'PHI',    cr:1, name:'ปรสิตวิทยาของโรคติดเชื้อในมนุษย์',             en:'Parasitology of Infectious Diseases',  emoji:'🪱', mod:'M4', calc:false},
   {id:'bap',   code:'BAP',    cr:2, name:'พยาธิวิทยากายวิภาคพื้นฐานของมนุษย์',          en:'Basic Anatomical Pathology',           emoji:'🔴', mod:'M4', calc:false},
@@ -1398,6 +1537,29 @@ function resetEHP(){
   calcEHP();
 }
 
+/* ---------- HIM ---------- */
+var HIM_W=[['him-mcq',70],['him-quiz',15],['him-group',15]];
+function himCompute(useBest){
+  var c={}; var raw=0;
+  for(var i=0;i<HIM_W.length;i++){ var id=HIM_W[i][0], w=HIM_W[i][1]; var v=gv(id); if(v===null&&useBest)v=4; var contrib=v!==null?v*w:0; c[id]=v!==null?contrib:null; raw+=contrib; }
+  return {raw:raw, gpa:raw/100, c:c};
+}
+function calcHIM(){
+  var r=himCompute(false);
+  var sels=document.querySelectorAll('#him-input-panel select'); var anyFilled=false;
+  for(var k=0;k<sels.length;k++){ markSel(sels[k]); if(sels[k].value!=='') anyFilled=true; }
+  var grade=anyFilled?gradeFromGPA(r.gpa).g:'-';
+  setText('him-sum-gpa', anyFilled?r.gpa.toFixed(2):'–', true);
+  highlightTable('him-grade-tbody', grade);
+  updateCalcHeader(r.gpa, anyFilled);
+  var best=himCompute(true);
+  drawMiniChart('him-mini-chart', anyFilled?r.gpa:0, best.gpa, anyFilled);
+}
+function resetHIM(){
+  var sels=document.querySelectorAll('#him-input-panel select'); for(var i=0;i<sels.length;i++){ sels[i].value=''; markSel(sels[i]); }
+  calcHIM();
+}
+
 /* ============================================================
    EXAMPLE GRADE (fills current calc to hit target grade)
    ============================================================ */
@@ -1456,11 +1618,11 @@ function openCalculator(id){
   $('calc-emoji').textContent=s.emoji;
   $('calc-code').textContent=s.code;
   $('calc-name').textContent=s.en;
-  ['hga','bhcb','ehp','cs'].forEach(function(m){ $('mount-'+m).style.display='none'; });
+  ['hga','bhcb','ehp','him','cs'].forEach(function(m){ $('mount-'+m).style.display='none'; });
   if(s.calc){
     CURRENT_CALC=id;
     $('mount-'+id).style.display='grid';
-    if(id==='hga') calcHGA(); else if(id==='bhcb') calcBHCB(); else if(id==='ehp') calcEHP();
+    if(id==='hga') calcHGA(); else if(id==='bhcb') calcBHCB(); else if(id==='ehp') calcEHP(); else if(id==='him') calcHIM();
   } else {
     CURRENT_CALC=null;
     $('mount-cs').style.display='block';
@@ -1489,13 +1651,15 @@ function closeCalculator(){
 
   // calc dropdowns
   ['mcq1','mcq2','mcq3','mcq4','mcq5','tse1','tse2','tse3','tse4','tse5','bhcb-mcq','bhcb-saq',
-   'ehp-mcq','ehp-brainstorm','ehp-demo1','ehp-demo2','ehp-assign1','ehp-assign2','ehp-assign3','ehp-groupconf','ehp-quiz'
+   'ehp-mcq','ehp-brainstorm','ehp-demo1','ehp-demo2','ehp-assign1','ehp-assign2','ehp-assign3','ehp-groupconf','ehp-quiz',
+   'him-mcq','him-quiz','him-group'
   ].forEach(function(id){ var el=$(id); if(el) fillGradeOptions(el,false); });
   ['sdl','lab-dis'].forEach(function(id){ var el=$(id); if(el) fillGradeOptions(el,true); });
 
   buildGradeTable('hga-grade-tbody');
   buildGradeTable('bhcb-grade-tbody');
   buildGradeTable('ehp-grade-tbody');
+  buildGradeTable('him-grade-tbody');
 
   // bind HGA
   document.querySelectorAll('#hga-input-panel select').forEach(function(s){ s.addEventListener('change', calcHGA); });
@@ -1508,8 +1672,11 @@ function closeCalculator(){
   // bind EHP
   document.querySelectorAll('#ehp-input-panel select').forEach(function(s){ s.addEventListener('change', calcEHP); });
   $('ehp-reset-btn').addEventListener('click', resetEHP);
+  // bind HIM
+  document.querySelectorAll('#him-input-panel select').forEach(function(s){ s.addEventListener('change', calcHIM); });
+  $('him-reset-btn').addEventListener('click', resetHIM);
 
-  calcHGA(); calcBHCB(); calcEHP();
+  calcHGA(); calcBHCB(); calcEHP(); calcHIM();
 })();
 </script>
 </body>

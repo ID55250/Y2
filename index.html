@@ -453,6 +453,11 @@ select.mini.has-val{ border-color:var(--pine-3); color:var(--pine); background-c
 .srb{ padding:9px 13px; min-height:44px; border:none; background:var(--paper); color:var(--ink-3); font-size:.82rem; font-weight:600; cursor:pointer; font-family:inherit; -webkit-tap-highlight-color:transparent; white-space:nowrap; transition:all .16s var(--ease); }
 .srb + .srb{ border-left:1px solid var(--line); }
 .srb.yes-on{ background:var(--pine); color:#fff; } .srb.no-on{ background:#F2E4E2; color:var(--fail); }
+.hms-choice-wrap{ display:flex; flex-wrap:wrap; justify-content:flex-end; gap:6px; }
+.hms-choice{ border:1.5px solid var(--line); border-radius:var(--r-sm); }
+.hms-choice + .hms-choice{ border-left:1.5px solid var(--line); }
+.hms-choice.yes-on{ border-color:var(--pine); }
+@media(max-width:599px){ .hms-choice-wrap{ justify-content:flex-start; width:100%; } .hms-choice{ flex:1 1 auto; } }
 
 /* summary card (dark) */
 .summary-card{ background:linear-gradient(155deg,var(--pine-2),var(--pine) 92%); border-radius:var(--r-md); padding:20px; color:#fff; box-shadow:var(--sh-md); position:relative; overflow:hidden; }
@@ -623,6 +628,8 @@ body{
 .verdict-card{ border-radius:var(--r-xl); padding:28px 26px; box-shadow:var(--sh-md); }
 .verdict-card::after{ display:none; }
 .vc-gpa{ font-size:3.4rem; }
+.vc-top{ display:none; }
+.vc-verdict-sub:empty{ display:none; }
 
 /* summary cards + calmer meter */
 .thresh-track{ height:8px; }
@@ -1023,6 +1030,48 @@ select.mini.has-val{ background-color:var(--pine-mist); border-color:transparent
       </div>
     </div>
 
+    <!-- HMS-1 -->
+    <div class="calc-layout" id="mount-hms1" style="display:none;">
+      <div class="calc-inputs" id="hms1-input-panel">
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">MCQ</div><div class="card-pct">80%</div></div>
+          <div class="row"><div class="row-label">เกรด MCQ <span class="pct">(80%)</span></div><select class="mini" id="hms-mcq"></select></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">MTF</div><div class="card-pct">5%</div></div>
+          <div class="row"><div class="row-label">เกรด MTF <span class="pct">(5%)</span></div><select class="mini" id="hms-mtf"></select></div>
+        </div>
+        <div class="card wide">
+          <div class="card-header"><div class="ch-dot dot-gold"></div><div class="card-title">Quiz ครั้งที่ 1</div><div class="card-pct">6%</div></div>
+          <div class="row"><div class="row-label">การเข้าทำ <span class="pct">(2%)</span></div><div class="hms-choice-wrap"><button class="srb hms-choice" data-hms-group="q1a" data-hms-value="2" onclick="setHMSChoice('q1a',2)">ครบ</button><button class="srb hms-choice" data-hms-group="q1a" data-hms-value="1" onclick="setHMSChoice('q1a',1)">ไม่ครบ</button><button class="srb hms-choice" data-hms-group="q1a" data-hms-value="0" onclick="setHMSChoice('q1a',0)">ไม่เข้าทำ</button></div></div>
+          <div class="row"><div class="row-label">ตอบถูก <span class="pct">(4%)</span></div><div class="hms-choice-wrap"><button class="srb hms-choice" data-hms-group="q1k" data-hms-value="4" onclick="setHMSChoice('q1k',4)">10-13</button><button class="srb hms-choice" data-hms-group="q1k" data-hms-value="3" onclick="setHMSChoice('q1k',3)">8-9</button><button class="srb hms-choice" data-hms-group="q1k" data-hms-value="2" onclick="setHMSChoice('q1k',2)">6-7</button><button class="srb hms-choice" data-hms-group="q1k" data-hms-value="1" onclick="setHMSChoice('q1k',1)">4-5</button><button class="srb hms-choice" data-hms-group="q1k" data-hms-value="0" onclick="setHMSChoice('q1k',0)">0-3</button></div></div>
+        </div>
+        <div class="card wide">
+          <div class="card-header"><div class="ch-dot dot-gold"></div><div class="card-title">Quiz ครั้งที่ 2</div><div class="card-pct">6%</div></div>
+          <div class="row"><div class="row-label">การเข้าทำ <span class="pct">(2%)</span></div><div class="hms-choice-wrap"><button class="srb hms-choice" data-hms-group="q2a" data-hms-value="2" onclick="setHMSChoice('q2a',2)">ครบ</button><button class="srb hms-choice" data-hms-group="q2a" data-hms-value="1" onclick="setHMSChoice('q2a',1)">ไม่ครบ</button><button class="srb hms-choice" data-hms-group="q2a" data-hms-value="0" onclick="setHMSChoice('q2a',0)">ไม่เข้าทำ</button></div></div>
+          <div class="row"><div class="row-label">ตอบถูก <span class="pct">(4%)</span></div><div class="hms-choice-wrap"><button class="srb hms-choice" data-hms-group="q2k" data-hms-value="4" onclick="setHMSChoice('q2k',4)">10-13</button><button class="srb hms-choice" data-hms-group="q2k" data-hms-value="3" onclick="setHMSChoice('q2k',3)">8-9</button><button class="srb hms-choice" data-hms-group="q2k" data-hms-value="2" onclick="setHMSChoice('q2k',2)">6-7</button><button class="srb hms-choice" data-hms-group="q2k" data-hms-value="1" onclick="setHMSChoice('q2k',1)">4-5</button><button class="srb hms-choice" data-hms-group="q2k" data-hms-value="0" onclick="setHMSChoice('q2k',0)">0-3</button></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-gold"></div><div class="card-title">Formative Assessment</div><div class="card-pct">1%</div></div>
+          <div class="row"><div class="row-label">การเข้าทำ <span class="pct">(1%)</span></div><div class="hms-choice-wrap"><button class="srb hms-choice" data-hms-group="form" data-hms-value="1" onclick="setHMSChoice('form',1)">เข้าทำ</button><button class="srb hms-choice" data-hms-group="form" data-hms-value="0" onclick="setHMSChoice('form',0)">ไม่เข้าทำ</button></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-gold"></div><div class="card-title">Reports</div><div class="card-pct">2%</div></div>
+          <div class="row"><div class="row-label">Report 1 <span class="pct">(1%)</span></div><div class="hms-choice-wrap"><button class="srb hms-choice" data-hms-group="report1" data-hms-value="1" onclick="setHMSChoice('report1',1)">ส่ง</button><button class="srb hms-choice" data-hms-group="report1" data-hms-value="0" onclick="setHMSChoice('report1',0)">ไม่ส่ง</button></div></div>
+          <div class="row"><div class="row-label">Report 2 <span class="pct">(1%)</span></div><div class="hms-choice-wrap"><button class="srb hms-choice" data-hms-group="report2" data-hms-value="1" onclick="setHMSChoice('report2',1)">ส่ง</button><button class="srb hms-choice" data-hms-group="report2" data-hms-value="0" onclick="setHMSChoice('report2',0)">ไม่ส่ง</button></div></div>
+        </div>
+      </div>
+      <div class="calc-side">
+        <div class="summary-card">
+          <div class="sc-title">สรุปผล HMS-1</div>
+          <div class="gpa-display"><div class="gpa-value" id="hms-sum-gpa">-</div><div class="gpa-max">/ 4.00</div></div>
+        </div>
+        <div class="mini-chart-card"><div class="gtc-title"></div><svg class="chart-svg" id="hms-mini-chart" viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet"></svg></div>
+        <div class="grade-table-card"><div class="gtc-title">เกณฑ์การให้เกรด</div><table class="grade-table"><thead><tr><th>เกรด</th><th>ช่วง GPA</th><th></th></tr></thead><tbody id="hms-grade-tbody"></tbody></table></div>
+        <button class="reset-btn" id="hms-reset-btn">รีเซ็ตทั้งหมด</button>
+      </div>
+    </div>
+
     <!-- coming soon -->
     <div id="mount-cs" style="display:none;">
       <div class="cs-box">
@@ -1064,12 +1113,12 @@ var YEAR2 = [
   {id:'hga',   code:'HGA',    cr:4, name:'มหกายวิภาคศาสตร์ของมนุษย์',                    en:'Human Gross Anatomy',                  emoji:'🦴', mod:'M1-3', calc:true},
   {id:'ehp',   code:'EHP',    cr:2, name:'สาระสำคัญทางสรีรวิทยาของมนุษย์',               en:'Essential Human Physiology',           emoji:'💓', mod:'M1', calc:true},
   {id:'him',   code:'HIM',    cr:2, name:'ภูมิคุ้มกันวิทยาของมนุษย์',                     en:'Human Immunology',                     emoji:'🛡️', mod:'M1', calc:true},
+  {id:'hms1',  code:'HMS-1',  cr:1, name:'ระบบกล้ามเนื้อและกระดูกของมนุษย์ 1',          en:'Human Musculoskeletal System 1',       emoji:'🦴', mod:'M1', calc:true},
   {id:'mhi',   code:'MHI',    cr:2, name:'จุลชีววิทยาของโรคติดเชื้อในมนุษย์',            en:'Microbiology of Infectious Diseases',  emoji:'🦠', mod:'M4', calc:false},
   {id:'phi',   code:'PHI',    cr:1, name:'ปรสิตวิทยาของโรคติดเชื้อในมนุษย์',             en:'Parasitology of Infectious Diseases',  emoji:'🪱', mod:'M4', calc:false},
   {id:'bap',   code:'BAP',    cr:2, name:'พยาธิวิทยากายวิภาคพื้นฐานของมนุษย์',          en:'Basic Anatomical Pathology',           emoji:'🔴', mod:'M4', calc:false},
   {id:'bcp',   code:'BCP',    cr:2, name:'เภสัชวิทยาคลินิกพื้นฐาน',                      en:'Basic Clinical Pharmacology',          emoji:'💊', mod:'M4', calc:false},
   {id:'hes1',  code:'HEN-1',  cr:1, name:'ระบบต่อมไร้ท่อของมนุษย์ 1',                    en:'Human Endocrine System 1',             emoji:'⚗️', mod:'M2', calc:false},
-  {id:'hms1',  code:'HMS-1',  cr:1, name:'ระบบกล้ามเนื้อและกระดูกของมนุษย์ 1',          en:'Human Musculoskeletal System 1',       emoji:'🦴', mod:'M1', calc:false},
   {id:'hcvs1', code:'HCVS-1', cr:2, name:'ระบบหัวใจและหลอดเลือดของมนุษย์ 1',            en:'Human Cardiovascular System 1',        emoji:'❤️', mod:'M2', calc:false},
   {id:'hrs1',  code:'HRS-1',  cr:1, name:'ระบบหายใจของมนุษย์ 1',                         en:'Human Respiratory System 1',           emoji:'🫁', mod:'M2', calc:false},
   {id:'hgb1',  code:'HGB-1',  cr:2, name:'ระบบทางเดินอาหารและน้ำดีของมนุษย์ 1',         en:'GI & Biliary Tract System 1',          emoji:'🍽️', mod:'M3', calc:false},
@@ -1232,6 +1281,7 @@ function calcPromotion(){
       vtext.innerHTML='✕ ยังไม่ผ่านเกณฑ์';
       vsub.textContent='ต้องได้ GPA ≥ 2.00 · ขาดอีก '+(PASS_GPA-curGPA).toFixed(2)+' แต้ม';
     }
+    vsub.textContent='';
     fill.style.background = curGPA>=PASS_GPA ? 'linear-gradient(90deg,#3FA292,#8FD3C4)' : 'linear-gradient(90deg,#C25B50,#E39A92)';
   } else {
     // partial
@@ -1240,18 +1290,22 @@ function calcPromotion(){
       badge.textContent='เป็นไปไม่ได้';
       vtext.innerHTML='✕ ไม่สามารถถึง 2.00';
       vsub.textContent='แม้วิชาที่เหลือได้ A ทั้งหมด GPA สูงสุดเป็นไปได้แค่ '+bestGPA.toFixed(2);
+      vsub.textContent='';
       fill.style.background='linear-gradient(90deg,#C25B50,#E39A92)';
     } else if(curGPA>=PASS_GPA){
       card.classList.add('is-pass');
       badge.textContent='กำลังผ่านเกณฑ์';
       vtext.innerHTML='✓ ผ่านเกณฑ์';
       vsub.textContent='กรอกแล้ว '+gradedCr+'/'+TOTAL_CREDITS+' Credits';
+      vsub.textContent='';
       fill.style.background='linear-gradient(90deg,#3FA292,#8FD3C4)';
     } else {
       card.classList.add('is-warn');
       badge.textContent='ต้องพยายามต่อ';
       vtext.innerHTML='⚠ ยังต่ำกว่าเกณฑ์';
       vsub.textContent='กรอกแล้ว '+gradedCr+'/'+TOTAL_CREDITS+' Credits';
+      vtext.innerHTML='⚠ ต่ำกว่าเกณฑ์';
+      vsub.textContent='';
       fill.style.background='linear-gradient(90deg,var(--gold-2),#E4C578)';
     }
   }
@@ -1560,6 +1614,59 @@ function resetHIM(){
   calcHIM();
 }
 
+/* ---------- HMS-1 ---------- */
+var hmsChoices={q1a:null,q1k:null,q2a:null,q2k:null,form:null,report1:null,report2:null};
+function setHMSChoice(key,val){
+  hmsChoices[key]=val;
+  var btns=document.querySelectorAll('[data-hms-group="'+key+'"]');
+  for(var i=0;i<btns.length;i++){
+    var active=parseFloat(btns[i].getAttribute('data-hms-value'))===val;
+    btns[i].className='srb hms-choice'+(active?' yes-on':'');
+  }
+  calcHMS1();
+}
+function hmsChoiceValue(key,useBest){
+  if(hmsChoices[key]!==null) return hmsChoices[key];
+  if(!useBest) return null;
+  var max={q1a:2,q1k:4,q2a:2,q2k:4,form:1,report1:1,report2:1};
+  return max[key];
+}
+function hmsCompute(useBest){
+  var mcq=gv('hms-mcq'), mtf=gv('hms-mtf');
+  if(useBest){ if(mcq===null) mcq=4; if(mtf===null) mtf=4; }
+  var mcqRaw=mcq!==null?mcq*80:0;
+  var mtfRaw=mtf!==null?mtf*5:0;
+  var q1a=hmsChoiceValue('q1a',useBest), q1k=hmsChoiceValue('q1k',useBest);
+  var q2a=hmsChoiceValue('q2a',useBest), q2k=hmsChoiceValue('q2k',useBest);
+  var form=hmsChoiceValue('form',useBest), report1=hmsChoiceValue('report1',useBest), report2=hmsChoiceValue('report2',useBest);
+  var q1=((q1a!==null?q1a:0)+(q1k!==null?q1k:0))*4;
+  var q2=((q2a!==null?q2a:0)+(q2k!==null?q2k:0))*4;
+  var formRaw=(form!==null?form:0)*4;
+  var reports=((report1!==null?report1:0)+(report2!==null?report2:0))*4;
+  var raw=mcqRaw+mtfRaw+q1+q2+formRaw+reports;
+  return {raw:raw,gpa:raw/100};
+}
+function calcHMS1(){
+  var r=hmsCompute(false);
+  var sels=document.querySelectorAll('#hms1-input-panel select'); var anyFilled=false;
+  for(var i=0;i<sels.length;i++){ markSel(sels[i]); if(sels[i].value!=='') anyFilled=true; }
+  for(var key in hmsChoices){ if(hmsChoices[key]!==null){ anyFilled=true; break; } }
+  var grade=anyFilled?gradeFromGPA(r.gpa).g:'-';
+  setText('hms-sum-gpa', anyFilled?r.gpa.toFixed(2):'-', true);
+  highlightTable('hms-grade-tbody', grade);
+  updateCalcHeader(r.gpa, anyFilled);
+  var best=hmsCompute(true);
+  drawMiniChart('hms-mini-chart', anyFilled?r.gpa:0, best.gpa, anyFilled);
+}
+function resetHMS1(){
+  var sels=document.querySelectorAll('#hms1-input-panel select');
+  for(var i=0;i<sels.length;i++){ sels[i].value=''; markSel(sels[i]); }
+  for(var key in hmsChoices) hmsChoices[key]=null;
+  var btns=document.querySelectorAll('#hms1-input-panel .hms-choice');
+  for(var j=0;j<btns.length;j++) btns[j].className='srb hms-choice';
+  calcHMS1();
+}
+
 /* ============================================================
    EXAMPLE GRADE (fills current calc to hit target grade)
    ============================================================ */
@@ -1581,6 +1688,14 @@ function exampleGrade(g){
   if(CURRENT_CALC==='hga'){ setAtt('S'); calcHGA(); }
   else if(CURRENT_CALC==='bhcb'){ var sub=target>=0.51; setBHCBSR(1,sub); setBHCBSR(2,sub); var ratio=Math.min(1,Math.max(0,target/4)); bhcbAssign=Math.max(0,Math.min(11,Math.round(ratio*11))); bhcbAttend=Math.max(0,Math.min(11,Math.round(ratio*11))); setText('bhcb-assign-val',bhcbAssign); setText('bhcb-attend-val',bhcbAttend); calcBHCB(); }
   else if(CURRENT_CALC==='ehp'){ calcEHP(); }
+  else if(CURRENT_CALC==='hms1'){
+    var pass=target>=0.51;
+    var knowledge=target<0.51?0:(target<1.51?1:(target<2.51?2:(target<3.51?3:4)));
+    setHMSChoice('q1a',pass?2:0); setHMSChoice('q1k',knowledge);
+    setHMSChoice('q2a',pass?2:0); setHMSChoice('q2k',knowledge);
+    setHMSChoice('form',pass?1:0); setHMSChoice('report1',pass?1:0); setHMSChoice('report2',pass?1:0);
+    calcHMS1();
+  }
 }
 
 /* ============================================================
@@ -1618,11 +1733,11 @@ function openCalculator(id){
   $('calc-emoji').textContent=s.emoji;
   $('calc-code').textContent=s.code;
   $('calc-name').textContent=s.en;
-  ['hga','bhcb','ehp','him','cs'].forEach(function(m){ $('mount-'+m).style.display='none'; });
+  ['hga','bhcb','ehp','him','hms1','cs'].forEach(function(m){ $('mount-'+m).style.display='none'; });
   if(s.calc){
     CURRENT_CALC=id;
     $('mount-'+id).style.display='grid';
-    if(id==='hga') calcHGA(); else if(id==='bhcb') calcBHCB(); else if(id==='ehp') calcEHP(); else if(id==='him') calcHIM();
+    if(id==='hga') calcHGA(); else if(id==='bhcb') calcBHCB(); else if(id==='ehp') calcEHP(); else if(id==='him') calcHIM(); else if(id==='hms1') calcHMS1();
   } else {
     CURRENT_CALC=null;
     $('mount-cs').style.display='block';
@@ -1652,7 +1767,7 @@ function closeCalculator(){
   // calc dropdowns
   ['mcq1','mcq2','mcq3','mcq4','mcq5','tse1','tse2','tse3','tse4','tse5','bhcb-mcq','bhcb-saq',
    'ehp-mcq','ehp-brainstorm','ehp-demo1','ehp-demo2','ehp-assign1','ehp-assign2','ehp-assign3','ehp-groupconf','ehp-quiz',
-   'him-mcq','him-quiz','him-group'
+   'him-mcq','him-quiz','him-group','hms-mcq','hms-mtf'
   ].forEach(function(id){ var el=$(id); if(el) fillGradeOptions(el,false); });
   ['sdl','lab-dis'].forEach(function(id){ var el=$(id); if(el) fillGradeOptions(el,true); });
 
@@ -1660,6 +1775,7 @@ function closeCalculator(){
   buildGradeTable('bhcb-grade-tbody');
   buildGradeTable('ehp-grade-tbody');
   buildGradeTable('him-grade-tbody');
+  buildGradeTable('hms-grade-tbody');
 
   // bind HGA
   document.querySelectorAll('#hga-input-panel select').forEach(function(s){ s.addEventListener('change', calcHGA); });
@@ -1675,8 +1791,16 @@ function closeCalculator(){
   // bind HIM
   document.querySelectorAll('#him-input-panel select').forEach(function(s){ s.addEventListener('change', calcHIM); });
   $('him-reset-btn').addEventListener('click', resetHIM);
+  // bind HMS-1 (change, input, and blur support iOS Safari)
+  var hmsSels=document.querySelectorAll('#hms1-input-panel select');
+  for(var hi=0;hi<hmsSels.length;hi++){
+    hmsSels[hi].addEventListener('change', calcHMS1);
+    hmsSels[hi].addEventListener('input', calcHMS1);
+    hmsSels[hi].addEventListener('blur', calcHMS1);
+  }
+  $('hms-reset-btn').addEventListener('click', resetHMS1);
 
-  calcHGA(); calcBHCB(); calcEHP(); calcHIM();
+  calcHGA(); calcBHCB(); calcEHP(); calcHIM(); calcHMS1();
 })();
 </script>
 </body>

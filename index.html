@@ -340,18 +340,70 @@ body{
 .foot-note{ font-size:.74rem; color:var(--ink-3); line-height:1.5; }
 .foot-note b{ color:var(--pine); font-weight:700; }
 
-/* ============================================================
-   SUBJECT SELECTOR (calculators)
-   ============================================================ */
-.sel-search-wrap{ margin-bottom:20px; }
-.sel-search{
-  width:100%; max-width:440px; padding:13px 18px; border:1.5px solid var(--line);
-  border-radius:var(--r-md); font-size:16px; font-family:inherit;
-  background:var(--paper); color:var(--ink); outline:none; box-shadow:var(--sh-xs);
-  transition:border-color .16s var(--ease), box-shadow .16s var(--ease);
+.subject-search {
+  width: min(700px, 90%);
+
+  margin: 30px auto 35px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 20px;
+
+  background: #fffdf8;
+
+  border: 1px solid #e3d8bf;
+  border-radius: 16px;
+
+  box-shadow:
+    0 4px 12px rgba(80, 65, 40, 0.06);
+
+  transition: all 0.2s ease;
 }
-.sel-search:focus{ border-color:var(--pine-3); box-shadow:var(--ring); background:#fff; }
-.sel-search::placeholder{ color:var(--ink-4); }
+
+
+/* Search Icon */
+.search-icon {
+  margin-right: 10px;
+
+  font-size: 24px;
+
+  color: #bfa46a;
+}
+
+
+/* Input */
+#subject-search-input {
+  width: 100%;
+
+  padding: 16px 5px;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #3d423f;
+
+  font-family: inherit;
+  font-size: 16px;
+}
+
+
+/* Placeholder */
+#subject-search-input::placeholder {
+  color: #aaa393;
+}
+
+
+/* เมื่อกดเข้าไปในช่องค้นหา */
+.subject-search:focus-within {
+  border-color: #c8a96b;
+
+  box-shadow:
+    0 0 0 3px rgba(200, 169, 107, 0.12),
+    0 5px 15px rgba(80, 65, 40, 0.08);
+}
 
 .subject-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(268px,1fr)); gap:16px; }
 .subject-card{
@@ -377,8 +429,6 @@ body{
 .sc-tag{ font-size:.7rem; color:var(--ink-4); margin-top:8px; letter-spacing:.02em; }
 .sc-cta{ margin-top:16px; display:inline-flex; align-items:center; gap:6px; font-size:.78rem; font-weight:600; color:var(--pine); }
 .sc-cta.cs{ color:var(--ink-4); }
-.no-results{ text-align:center; padding:56px 24px; color:var(--ink-3); display:none; }
-.no-results b{ display:block; font-size:.95rem; color:var(--ink-2); margin-bottom:4px; }
 
 /* ============================================================
    CALCULATOR DETAIL VIEW
@@ -698,7 +748,7 @@ select.mini.has-val{ background-color:var(--pine-mist); border-color:transparent
       </button>
       <button class="choice-block choice-subj" onclick="go('subjects')">
         <div class="choice-icon"><svg viewBox="0 0 48 48" fill="none" stroke="#1E6A60" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" width="64" height="64" aria-hidden="true"><rect x="9" y="5" width="30" height="38" rx="5"/><rect x="15" y="11" width="18" height="7" rx="1.6" stroke="#B08A4A"/><path d="M16 26h0M24 26h0M32 26h0M16 34h0M24 34h0M32 34h0"/></svg></div>
-        <div class="choice-title">คำนวณเกรดรายวิชา</div>
+        <div class="choice-title">คำนวณรายวิชา</div>
         <div class="choice-cta">เข้าสู่หน้านี้ &#8594;</div>
       </button>
     </div>
@@ -812,12 +862,20 @@ select.mini.has-val{ background-color:var(--pine-mist); border-color:transparent
 <!-- ============ PAGE: SUBJECTS (calculators) ============ -->
 <div class="page" id="page-subjects">
   <div id="subjects-list-view">
-    <h2 class="display-h" style="font-size:1.7rem; margin-bottom:18px;">คำนวณเกรดรายวิชา</h2>
-    <div class="sel-search-wrap">
-      <input type="text" id="sel-search" class="sel-search" placeholder="ค้นหา เช่น HGA, BHCB, EHP…" autocomplete="off" spellcheck="false">
+
+    <div class="subject-search">
+      <span class="search-icon">⌕</span>
+
+      <input
+        type="text"
+        id="subject-search-input"
+        placeholder="ค้นหาวิชา..."
+        autocomplete="off"
+      >
     </div>
+
     <div class="subject-grid" id="subject-grid"></div>
-    <div class="no-results" id="no-results"><b>ไม่พบวิชาที่ค้นหา</b>ลองค้นด้วยรหัสหรือชื่อวิชา</div>
+
   </div>
 
   <!-- calculator detail mount -->
@@ -1072,6 +1130,42 @@ select.mini.has-val{ background-color:var(--pine-mist); border-color:transparent
       </div>
     </div>
 
+    <!-- HCVS-1 -->
+    <div class="calc-layout" id="mount-hcvs1" style="display:none;">
+      <div class="calc-inputs" id="hcvs1-input-panel">
+        <div class="card">
+          <div class="row"><div class="row-label">MCQ <span class="pct">(60%)</span></div><select class="mini" id="hcvs-mcq"></select></div>
+        </div>
+        <div class="card">
+          <div class="row"><div class="row-label">Short Answer <span class="pct">(18.20%)</span></div><select class="mini" id="hcvs-short-answer"></select></div>
+        </div>
+        <div class="card">
+          <div class="row"><div class="row-label">MTF (PBL) <span class="pct">(5%)</span></div><select class="mini" id="hcvs-mtf-pbl"></select></div>
+        </div>
+        <div class="card">
+          <div class="row"><div class="row-label">MTF (Conference) <span class="pct">(4.8%)</span></div><select class="mini" id="hcvs-mtf-conference"></select></div>
+        </div>
+        <div class="card wide">
+          <div class="row"><div class="row-label">คะแนน Quiz <span class="pct">(2%)</span></div><div class="hms-choice-wrap"><button class="srb hms-choice hcvs-choice" data-hcvs-group="quiz" data-hcvs-value="4" onclick="setHCVSChoice('quiz',4)">9-10</button><button class="srb hms-choice hcvs-choice" data-hcvs-group="quiz" data-hcvs-value="3" onclick="setHCVSChoice('quiz',3)">7-8</button><button class="srb hms-choice hcvs-choice" data-hcvs-group="quiz" data-hcvs-value="2" onclick="setHCVSChoice('quiz',2)">5-6</button><button class="srb hms-choice hcvs-choice" data-hcvs-group="quiz" data-hcvs-value="0" onclick="setHCVSChoice('quiz',0)">&lt; 5</button></div></div>
+        </div>
+        <div class="card">
+          <div class="row"><div class="row-label">Group Conference <span class="pct">(8%)</span></div><select class="mini" id="hcvs-group-conference"></select></div>
+        </div>
+        <div class="card">
+          <div class="row"><div class="row-label">เข้าทำ Formative <span class="pct">(1% / ครั้ง)</span></div><div class="ctr-wrap"><button class="ctr-btn" onclick="adjHCVSFormative(-1)">&#8722;</button><div class="ctr-val" id="hcvs-formative-val">0</div><button class="ctr-btn" onclick="adjHCVSFormative(1)">+</button></div></div>
+        </div>
+      </div>
+      <div class="calc-side">
+        <div class="summary-card">
+          <div class="sc-title">สรุปผล HCVS-1</div>
+          <div class="gpa-display"><div class="gpa-value" id="hcvs-sum-gpa">–</div><div class="gpa-max">/ 4.00</div></div>
+        </div>
+        <div class="mini-chart-card"><div class="gtc-title"></div><svg class="chart-svg" id="hcvs-mini-chart" viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet"></svg></div>
+        <div class="grade-table-card"><div class="gtc-title">เกณฑ์การให้เกรด</div><table class="grade-table"><thead><tr><th>เกรด</th><th>ช่วง GPA</th><th></th></tr></thead><tbody id="hcvs-grade-tbody"></tbody></table></div>
+        <button class="reset-btn" id="hcvs-reset-btn">รีเซ็ตทั้งหมด</button>
+      </div>
+    </div>
+
     <!-- coming soon -->
     <div id="mount-cs" style="display:none;">
       <div class="cs-box">
@@ -1079,8 +1173,7 @@ select.mini.has-val{ background-color:var(--pine-mist); border-color:transparent
         <div class="cs-code" id="cs-code"></div>
         <div class="cs-name" id="cs-name"></div>
         <hr class="cs-hr">
-        <div class="cs-title">ยังไม่เปิดใช้งาน</div>
-        <div class="cs-desc">ใส่เกรดวิชานี้ได้ที่หน้าการเลื่อนชั้น</div>
+        <div class="cs-title">Syllabus ยังไม่มาจ้า</div>
         <button class="btn-solid" style="padding:12px 24px;" onclick="closeCalculator()">ย้อนกลับ</button>
       </div>
     </div>
@@ -1114,12 +1207,12 @@ var YEAR2 = [
   {id:'ehp',   code:'EHP',    cr:2, name:'สาระสำคัญทางสรีรวิทยาของมนุษย์',               en:'Essential Human Physiology',           emoji:'💓', mod:'M1', calc:true},
   {id:'him',   code:'HIM',    cr:2, name:'ภูมิคุ้มกันวิทยาของมนุษย์',                     en:'Human Immunology',                     emoji:'🛡️', mod:'M1', calc:true},
   {id:'hms1',  code:'HMS-1',  cr:1, name:'ระบบกล้ามเนื้อและกระดูกของมนุษย์ 1',          en:'Human Musculoskeletal System 1',       emoji:'🦴', mod:'M1', calc:true},
+  {id:'hcvs1', code:'HCVS-1', cr:2, name:'ระบบหัวใจและหลอดเลือดของมนุษย์ 1',            en:'Human Cardiovascular System 1',        emoji:'❤️', mod:'M2', calc:true},
   {id:'mhi',   code:'MHI',    cr:2, name:'จุลชีววิทยาของโรคติดเชื้อในมนุษย์',            en:'Microbiology of Infectious Diseases',  emoji:'🦠', mod:'M4', calc:false},
   {id:'phi',   code:'PHI',    cr:1, name:'ปรสิตวิทยาของโรคติดเชื้อในมนุษย์',             en:'Parasitology of Infectious Diseases',  emoji:'🪱', mod:'M4', calc:false},
   {id:'bap',   code:'BAP',    cr:2, name:'พยาธิวิทยากายวิภาคพื้นฐานของมนุษย์',          en:'Basic Anatomical Pathology',           emoji:'🔴', mod:'M4', calc:false},
   {id:'bcp',   code:'BCP',    cr:2, name:'เภสัชวิทยาคลินิกพื้นฐาน',                      en:'Basic Clinical Pharmacology',          emoji:'💊', mod:'M4', calc:false},
   {id:'hes1',  code:'HEN-1',  cr:1, name:'ระบบต่อมไร้ท่อของมนุษย์ 1',                    en:'Human Endocrine System 1',             emoji:'⚗️', mod:'M2', calc:false},
-  {id:'hcvs1', code:'HCVS-1', cr:2, name:'ระบบหัวใจและหลอดเลือดของมนุษย์ 1',            en:'Human Cardiovascular System 1',        emoji:'❤️', mod:'M2', calc:false},
   {id:'hrs1',  code:'HRS-1',  cr:1, name:'ระบบหายใจของมนุษย์ 1',                         en:'Human Respiratory System 1',           emoji:'🫁', mod:'M2', calc:false},
   {id:'hgb1',  code:'HGB-1',  cr:2, name:'ระบบทางเดินอาหารและน้ำดีของมนุษย์ 1',         en:'GI & Biliary Tract System 1',          emoji:'🍽️', mod:'M3', calc:false},
   {id:'hru1',  code:'HRU-1',  cr:2, name:'ระบบไตและทางเดินปัสสาวะของมนุษย์ 1',          en:'Renal & Urinary System 1',             emoji:'💧', mod:'M3', calc:false},
@@ -1667,6 +1760,66 @@ function resetHMS1(){
   calcHMS1();
 }
 
+/* ---------- HCVS-1 ---------- */
+var HCVS_W=[['hcvs-mcq',60],['hcvs-short-answer',18.2],['hcvs-mtf-pbl',5],['hcvs-group-conference',8],['hcvs-mtf-conference',4.8]];
+var hcvsChoices={quiz:null};
+var hcvsFormative=null;
+function setHCVSChoice(key,val){
+  hcvsChoices[key]=val;
+  var btns=document.querySelectorAll('[data-hcvs-group="'+key+'"]').forEach(function(btn){
+    var active=parseFloat(btn.getAttribute('data-hcvs-value'))===val;
+    btn.className='srb hms-choice hcvs-choice'+(active?(val===0?' no-on':' yes-on'):'' );
+  });
+  calcHCVS1();
+}
+function hcvsChoiceValue(key,useBest){
+  if(hcvsChoices[key]!==null) return hcvsChoices[key];
+  if(!useBest) return null;
+  return key==='quiz'?4:1;
+}
+function hcvsCompute(useBest){
+  var raw=0;
+  for(var i=0;i<HCVS_W.length;i++){
+    var id=HCVS_W[i][0], w=HCVS_W[i][1], v=gv(id);
+    if(v===null && useBest) v=4;
+    if(v!==null) raw+=w*v;
+  }
+  var quiz=hcvsChoiceValue('quiz',useBest);
+  var formative=hcvsFormative;
+  if(formative===null && useBest) formative=2;
+  if(quiz!==null) raw+=quiz*2;
+  if(formative!==null) raw+=formative*4;
+  return {raw:raw,gpa:raw/100};
+}
+function adjHCVSFormative(delta){
+  var current=hcvsFormative===null?0:hcvsFormative;
+  hcvsFormative=Math.max(0,Math.min(2,current+delta));
+  setText('hcvs-formative-val',hcvsFormative);
+  calcHCVS1();
+}
+function calcHCVS1(){
+  var r=hcvsCompute(false);
+  var sels=document.querySelectorAll('#hcvs1-input-panel select'), anyFilled=false;
+  for(var i=0;i<sels.length;i++){ markSel(sels[i]); if(sels[i].value!=='') anyFilled=true; }
+  for(var key in hcvsChoices){ if(hcvsChoices[key]!==null){ anyFilled=true; break; } }
+  if(hcvsFormative!==null) anyFilled=true;
+  var grade=anyFilled?gradeFromGPA(r.gpa).g:'-';
+  setText('hcvs-sum-gpa', anyFilled?r.gpa.toFixed(2):'–', true);
+  highlightTable('hcvs-grade-tbody', grade);
+  updateCalcHeader(r.gpa, anyFilled);
+  var best=hcvsCompute(true);
+  drawMiniChart('hcvs-mini-chart', anyFilled?r.gpa:0, best.gpa, anyFilled);
+}
+function resetHCVS1(){
+  var sels=document.querySelectorAll('#hcvs1-input-panel select');
+  for(var i=0;i<sels.length;i++){ sels[i].value=''; markSel(sels[i]); }
+  for(var key in hcvsChoices) hcvsChoices[key]=null;
+  hcvsFormative=null;
+  setText('hcvs-formative-val','0');
+  document.querySelectorAll('#hcvs1-input-panel .hcvs-choice').forEach(function(btn){ btn.className='srb hms-choice hcvs-choice'; });
+  calcHCVS1();
+}
+
 /* ============================================================
    EXAMPLE GRADE (fills current calc to hit target grade)
    ============================================================ */
@@ -1696,34 +1849,34 @@ function exampleGrade(g){
     setHMSChoice('form',pass?1:0); setHMSChoice('report1',pass?1:0); setHMSChoice('report2',pass?1:0);
     calcHMS1();
   }
+  else if(CURRENT_CALC==='hcvs1'){
+    var quiz=target<0.51?0:(target<2.51?2:(target<3.51?3:4));
+    hcvsFormative=target>=0.51?2:0;
+    setText('hcvs-formative-val',hcvsFormative);
+    setHCVSChoice('quiz',quiz);
+    calcHCVS1();
+  }
 }
 
 /* ============================================================
    SUBJECT SELECTOR + CALCULATOR OPEN/CLOSE
    ============================================================ */
 function renderSubjectCards(list){
-  var grid=$('subject-grid'), noR=$('no-results');
+  var grid=$('subject-grid');
   grid.innerHTML='';
-  if(!list.length){ noR.style.display='block'; return; }
-  noR.style.display='none';
+  if(!list.length) return;
   for(var i=0;i<list.length;i++){
     var s=list[i], av=s.calc;
     var div=document.createElement('div');
     div.className='subject-card'+(av?'':' cs');
     div.setAttribute('onclick', 'openCalculator("'+s.id+'")');
     div.innerHTML=
-      '<span class="sc-badge '+(av?'badge-av':'badge-cs')+'">'+(av?'พร้อมใช้งาน':'เร็ว ๆ นี้')+'</span>'+
       '<span class="sc-emoji">'+s.emoji+'</span>'+
       '<div class="sc-code">'+s.code+'<span class="sc-cr">'+s.cr+' Credits</span></div>'+
       '<div class="sc-name">'+s.en+'</div>'+
       '<div class="sc-cta'+(av?'':' cs')+'">'+'</div>';
     grid.appendChild(div);
   }
-}
-function filterSubjects(){
-  var q=$('sel-search').value.toLowerCase().trim();
-  var list=YEAR2.filter(function(s){ return !q || s.code.toLowerCase().indexOf(q)>=0 || s.name.toLowerCase().indexOf(q)>=0 || s.en.toLowerCase().indexOf(q)>=0; });
-  renderSubjectCards(list);
 }
 
 function openCalculator(id){
@@ -1733,11 +1886,11 @@ function openCalculator(id){
   $('calc-emoji').textContent=s.emoji;
   $('calc-code').textContent=s.code;
   $('calc-name').textContent=s.en;
-  ['hga','bhcb','ehp','him','hms1','cs'].forEach(function(m){ $('mount-'+m).style.display='none'; });
+  ['hga','bhcb','ehp','him','hms1','hcvs1','cs'].forEach(function(m){ $('mount-'+m).style.display='none'; });
   if(s.calc){
     CURRENT_CALC=id;
     $('mount-'+id).style.display='grid';
-    if(id==='hga') calcHGA(); else if(id==='bhcb') calcBHCB(); else if(id==='ehp') calcEHP(); else if(id==='him') calcHIM(); else if(id==='hms1') calcHMS1();
+    if(id==='hga') calcHGA(); else if(id==='bhcb') calcBHCB(); else if(id==='ehp') calcEHP(); else if(id==='him') calcHIM(); else if(id==='hms1') calcHMS1(); else if(id==='hcvs1') calcHCVS1();
   } else {
     CURRENT_CALC=null;
     $('mount-cs').style.display='block';
@@ -1762,12 +1915,27 @@ function closeCalculator(){
 
   // subject selector
   renderSubjectCards(YEAR2);
-  $('sel-search').addEventListener('input', filterSubjects);
+
+  var subjectSearch = $('subject-search-input');
+
+if(subjectSearch){
+  subjectSearch.addEventListener('input', function(){
+    
+    var keyword = this.value.toLowerCase().trim();
+
+    var filtered = YEAR2.filter(function(s){
+      return (s.code || '').toLowerCase().includes(keyword) ||
+             (s.en || '').toLowerCase().includes(keyword);
+    });
+
+    renderSubjectCards(filtered);
+  });
+}
 
   // calc dropdowns
   ['mcq1','mcq2','mcq3','mcq4','mcq5','tse1','tse2','tse3','tse4','tse5','bhcb-mcq','bhcb-saq',
    'ehp-mcq','ehp-brainstorm','ehp-demo1','ehp-demo2','ehp-assign1','ehp-assign2','ehp-assign3','ehp-groupconf','ehp-quiz',
-   'him-mcq','him-quiz','him-group','hms-mcq','hms-mtf'
+   'him-mcq','him-quiz','him-group','hms-mcq','hms-mtf','hcvs-mcq','hcvs-short-answer','hcvs-mtf-pbl','hcvs-group-conference','hcvs-mtf-conference'
   ].forEach(function(id){ var el=$(id); if(el) fillGradeOptions(el,false); });
   ['sdl','lab-dis'].forEach(function(id){ var el=$(id); if(el) fillGradeOptions(el,true); });
 
@@ -1776,6 +1944,7 @@ function closeCalculator(){
   buildGradeTable('ehp-grade-tbody');
   buildGradeTable('him-grade-tbody');
   buildGradeTable('hms-grade-tbody');
+  buildGradeTable('hcvs-grade-tbody');
 
   // bind HGA
   document.querySelectorAll('#hga-input-panel select').forEach(function(s){ s.addEventListener('change', calcHGA); });
@@ -1799,8 +1968,16 @@ function closeCalculator(){
     hmsSels[hi].addEventListener('blur', calcHMS1);
   }
   $('hms-reset-btn').addEventListener('click', resetHMS1);
+  // bind HCVS-1 (change, input, and blur support mobile browsers)
+  var hcvsSels=document.querySelectorAll('#hcvs1-input-panel select');
+  for(var ci=0;ci<hcvsSels.length;ci++){
+    hcvsSels[ci].addEventListener('change', calcHCVS1);
+    hcvsSels[ci].addEventListener('input', calcHCVS1);
+    hcvsSels[ci].addEventListener('blur', calcHCVS1);
+  }
+  $('hcvs-reset-btn').addEventListener('click', resetHCVS1);
 
-  calcHGA(); calcBHCB(); calcEHP(); calcHIM(); calcHMS1();
+  calcHGA(); calcBHCB(); calcEHP(); calcHIM(); calcHMS1(); calcHCVS1();
 })();
 </script>
 </body>

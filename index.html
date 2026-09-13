@@ -1166,6 +1166,46 @@ select.mini.has-val{ background-color:var(--pine-mist); border-color:transparent
       </div>
     </div>
 
+    <!-- HEN-1 -->
+    <div class="calc-layout" id="mount-hes1" style="display:none;">
+      <div class="calc-inputs" id="hes1-input-panel">
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">MCQ</div><div class="card-pct">85%</div></div>
+          <div class="row"><label class="row-label" for="hen-mcq">เกรด MCQ</label><select class="mini" id="hen-mcq"></select></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">MTF</div><div class="card-pct">5%</div></div>
+          <div class="row"><label class="row-label" for="hen-mtf">เกรด MTF</label><select class="mini" id="hen-mtf"></select></div>
+        </div>
+        <div class="card wide">
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">Quiz Attendance</div><div class="card-pct">2%</div></div>
+          <div class="row" style="flex-wrap:wrap;"><div class="row-label">ครั้งที่ 1</div><div class="hms-choice-wrap" role="group" aria-label="ครั้งที่ 1"><button type="button" class="srb hms-choice hen-choice" data-hen-group="q1" data-hen-value="1" aria-pressed="false" onclick="setHENChoice('q1',1)">เข้าทำ</button><button type="button" class="srb hms-choice hen-choice" data-hen-group="q1" data-hen-value="0" aria-pressed="false" onclick="setHENChoice('q1',0)">ไม่เข้าทำ</button></div></div>
+          <div class="row" style="flex-wrap:wrap;"><div class="row-label">ครั้งที่ 2</div><div class="hms-choice-wrap" role="group" aria-label="ครั้งที่ 2"><button type="button" class="srb hms-choice hen-choice" data-hen-group="q2" data-hen-value="1" aria-pressed="false" onclick="setHENChoice('q2',1)">เข้าทำ</button><button type="button" class="srb hms-choice hen-choice" data-hen-group="q2" data-hen-value="0" aria-pressed="false" onclick="setHENChoice('q2',0)">ไม่เข้าทำ</button></div></div>
+        </div>
+        <div class="card wide">
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">Quiz Knowledge</div><div class="card-pct">2%</div></div>
+          <div class="row"><label class="row-label" for="hen-knowledge">Quiz Knowledge</label><select class="mini" id="hen-knowledge"></select></div>
+        </div>
+        <div class="card wide">
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">Formative Assessment</div><div class="card-pct">2%</div></div>
+          <div class="row" style="flex-wrap:wrap;"><div class="row-label">Formative Assessment</div><div class="hms-choice-wrap" role="group" aria-label="Formative Assessment"><button type="button" class="srb hms-choice hen-choice" data-hen-group="form" data-hen-value="2" aria-pressed="false" onclick="setHENChoice('form',2)">เข้าทำ</button><button type="button" class="srb hms-choice hen-choice" data-hen-group="form" data-hen-value="0" aria-pressed="false" onclick="setHENChoice('form',0)">ไม่เข้าทำ</button></div></div>
+        </div>
+        <div class="card wide">
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">Class Attendance</div><div class="card-pct">4%</div></div>
+          <div class="row" style="flex-wrap:wrap;"><div class="row-label">Attendance</div><div class="hms-choice-wrap" role="group" aria-label="Attendance"><button type="button" class="srb hms-choice hen-choice" data-hen-group="att" data-hen-value="4" aria-pressed="false" onclick="setHENChoice('att',4)">S</button><button type="button" class="srb hms-choice hen-choice" data-hen-group="att" data-hen-value="0" aria-pressed="false" onclick="setHENChoice('att',0)">U</button></div></div>
+        </div>
+      </div>
+      <div class="calc-side">
+        <div class="summary-card">
+          <div class="sc-title">สรุปผล HEN-1</div>
+          <div class="gpa-display"><div class="gpa-value" id="hen-sum-gpa">-</div><div class="gpa-max">/ 4.00</div></div>
+        </div>
+        <div class="mini-chart-card"><div class="gtc-title"></div><svg class="chart-svg" id="hen-mini-chart" viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet"></svg></div>
+        <div class="grade-table-card"><div class="gtc-title">เกณฑ์การให้เกรด</div><table class="grade-table"><thead><tr><th>เกรด</th><th>ช่วง GPA</th><th></th></tr></thead><tbody id="hen-grade-tbody"></tbody></table></div>
+        <button class="reset-btn" id="hen-reset-btn">รีเซ็ตทั้งหมด</button>
+      </div>
+    </div>
+
     <!-- coming soon -->
     <div id="mount-cs" style="display:none;">
       <div class="cs-box">
@@ -1208,11 +1248,11 @@ var YEAR2 = [
   {id:'him',   code:'HIM',    cr:2, name:'ภูมิคุ้มกันวิทยาของมนุษย์',                     en:'Human Immunology',                     emoji:'🛡️', mod:'M1', calc:true},
   {id:'hms1',  code:'HMS-1',  cr:1, name:'ระบบกล้ามเนื้อและกระดูกของมนุษย์ 1',          en:'Human Musculoskeletal System 1',       emoji:'🦴', mod:'M1', calc:true},
   {id:'hcvs1', code:'HCVS-1', cr:2, name:'ระบบหัวใจและหลอดเลือดของมนุษย์ 1',            en:'Human Cardiovascular System 1',        emoji:'❤️', mod:'M2', calc:true},
+  {id:'hes1',  code:'HEN-1',  cr:1, name:'ระบบต่อมไร้ท่อของมนุษย์ 1',                    en:'Human Endocrine System 1',             emoji:'⚗️', mod:'M2', calc:true},
   {id:'mhi',   code:'MHI',    cr:2, name:'จุลชีววิทยาของโรคติดเชื้อในมนุษย์',            en:'Microbiology of Infectious Diseases',  emoji:'🦠', mod:'M4', calc:false},
   {id:'phi',   code:'PHI',    cr:1, name:'ปรสิตวิทยาของโรคติดเชื้อในมนุษย์',             en:'Parasitology of Infectious Diseases',  emoji:'🪱', mod:'M4', calc:false},
   {id:'bap',   code:'BAP',    cr:2, name:'พยาธิวิทยากายวิภาคพื้นฐานของมนุษย์',          en:'Basic Anatomical Pathology',           emoji:'🔴', mod:'M4', calc:false},
   {id:'bcp',   code:'BCP',    cr:2, name:'เภสัชวิทยาคลินิกพื้นฐาน',                      en:'Basic Clinical Pharmacology',          emoji:'💊', mod:'M4', calc:false},
-  {id:'hes1',  code:'HEN-1',  cr:1, name:'ระบบต่อมไร้ท่อของมนุษย์ 1',                    en:'Human Endocrine System 1',             emoji:'⚗️', mod:'M2', calc:false},
   {id:'hrs1',  code:'HRS-1',  cr:1, name:'ระบบหายใจของมนุษย์ 1',                         en:'Human Respiratory System 1',           emoji:'🫁', mod:'M2', calc:false},
   {id:'hgb1',  code:'HGB-1',  cr:2, name:'ระบบทางเดินอาหารและน้ำดีของมนุษย์ 1',         en:'GI & Biliary Tract System 1',          emoji:'🍽️', mod:'M3', calc:false},
   {id:'hru1',  code:'HRU-1',  cr:2, name:'ระบบไตและทางเดินปัสสาวะของมนุษย์ 1',          en:'Renal & Urinary System 1',             emoji:'💧', mod:'M3', calc:false},
@@ -1820,10 +1860,65 @@ function resetHCVS1(){
   calcHCVS1();
 }
 
+/* ---------- HEN-1 ---------- */
+var HEN_W=[['hen-mcq',85],['hen-mtf',5],['hen-knowledge',2]];
+var HEN_MAX={q1:1,q2:1,form:2,att:4};
+var henChoices={q1:null,q2:null,form:null,att:null};
+function setHENChoice(key,val){
+  henChoices[key]=val;
+  document.querySelectorAll('[data-hen-group="'+key+'"]').forEach(function(btn){
+    var active=parseFloat(btn.getAttribute('data-hen-value'))===val;
+    btn.className='srb hms-choice hen-choice'+(active?(val===0?' no-on':' yes-on'):'');
+    btn.setAttribute('aria-pressed',String(active));
+  });
+  calcHEN1();
+}
+function henCompute(useBest){
+  var raw=0;
+  for(var i=0;i<HEN_W.length;i++){
+    var v=gv(HEN_W[i][0]);
+    if(v===null && useBest) v=4;
+    if(v!==null) raw+=v*HEN_W[i][1];
+  }
+  for(var key in henChoices){
+    var awarded=henChoices[key];
+    if(awarded===null && useBest) awarded=HEN_MAX[key];
+    if(awarded!==null) raw+=awarded*4;
+  }
+  return {raw:raw,gpa:raw/100};
+}
+function calcHEN1(){
+  var r=henCompute(false), anyFilled=false;
+  document.querySelectorAll('#hes1-input-panel select').forEach(function(sel){
+    markSel(sel); if(sel.value!=='') anyFilled=true;
+  });
+  for(var key in henChoices){ if(henChoices[key]!==null) anyFilled=true; }
+  setText('hen-sum-gpa',anyFilled?r.gpa.toFixed(2):'–',true);
+  highlightTable('hen-grade-tbody',anyFilled?gradeFromGPA(r.gpa).g:'-');
+  updateCalcHeader(r.gpa,anyFilled);
+  drawMiniChart('hen-mini-chart',anyFilled?r.gpa:0,henCompute(true).gpa,anyFilled);
+}
+function resetHEN1(){
+  document.querySelectorAll('#hes1-input-panel select').forEach(function(sel){ sel.value=''; markSel(sel); });
+  for(var key in henChoices) henChoices[key]=null;
+  document.querySelectorAll('#hes1-input-panel .hen-choice').forEach(function(btn){
+    btn.className='srb hms-choice hen-choice'; btn.setAttribute('aria-pressed','false');
+  });
+  calcHEN1();
+}
+
 /* ============================================================
    EXAMPLE GRADE (fills current calc to hit target grade)
    ============================================================ */
 function exampleGrade(g){
+  if(CURRENT_CALC==='hes1'){
+    var point=GRADE_POINTS.filter(function(item){ return item.label===g; })[0];
+    if(!point) return;
+    HEN_W.forEach(function(item){ $(item[0]).value=String(point.v); });
+    for(var key in HEN_MAX) setHENChoice(key,g==='A'?HEN_MAX[key]:0);
+    calcHEN1();
+    return;
+  }
   var ranges={'A':[3.55,3.97],'B+':[3.05,3.47],'B':[2.55,2.97],'C+':[2.05,2.47],'C':[1.55,1.97],'D+':[1.05,1.47],'D':[0.55,0.97],'F':[0.05,0.42]};
   var rg=ranges[g]; if(!rg) return; var target=rg[0]+Math.random()*(rg[1]-rg[0]);
   var panelId=CURRENT_CALC+'-input-panel'; var panel=$(panelId); if(!panel) return;
@@ -1886,11 +1981,11 @@ function openCalculator(id){
   $('calc-emoji').textContent=s.emoji;
   $('calc-code').textContent=s.code;
   $('calc-name').textContent=s.en;
-  ['hga','bhcb','ehp','him','hms1','hcvs1','cs'].forEach(function(m){ $('mount-'+m).style.display='none'; });
+  ['hga','bhcb','ehp','him','hms1','hcvs1','hes1','cs'].forEach(function(m){ $('mount-'+m).style.display='none'; });
   if(s.calc){
     CURRENT_CALC=id;
     $('mount-'+id).style.display='grid';
-    if(id==='hga') calcHGA(); else if(id==='bhcb') calcBHCB(); else if(id==='ehp') calcEHP(); else if(id==='him') calcHIM(); else if(id==='hms1') calcHMS1(); else if(id==='hcvs1') calcHCVS1();
+    if(id==='hga') calcHGA(); else if(id==='bhcb') calcBHCB(); else if(id==='ehp') calcEHP(); else if(id==='him') calcHIM(); else if(id==='hms1') calcHMS1(); else if(id==='hcvs1') calcHCVS1(); else if(id==='hes1') calcHEN1();
   } else {
     CURRENT_CALC=null;
     $('mount-cs').style.display='block';
@@ -1935,7 +2030,7 @@ if(subjectSearch){
   // calc dropdowns
   ['mcq1','mcq2','mcq3','mcq4','mcq5','tse1','tse2','tse3','tse4','tse5','bhcb-mcq','bhcb-saq',
    'ehp-mcq','ehp-brainstorm','ehp-demo1','ehp-demo2','ehp-assign1','ehp-assign2','ehp-assign3','ehp-groupconf','ehp-quiz',
-   'him-mcq','him-quiz','him-group','hms-mcq','hms-mtf','hcvs-mcq','hcvs-short-answer','hcvs-mtf-pbl','hcvs-group-conference','hcvs-mtf-conference'
+   'hen-mcq','hen-mtf','hen-knowledge','him-mcq','him-quiz','him-group','hms-mcq','hms-mtf','hcvs-mcq','hcvs-short-answer','hcvs-mtf-pbl','hcvs-group-conference','hcvs-mtf-conference'
   ].forEach(function(id){ var el=$(id); if(el) fillGradeOptions(el,false); });
   ['sdl','lab-dis'].forEach(function(id){ var el=$(id); if(el) fillGradeOptions(el,true); });
 
@@ -1945,6 +2040,7 @@ if(subjectSearch){
   buildGradeTable('him-grade-tbody');
   buildGradeTable('hms-grade-tbody');
   buildGradeTable('hcvs-grade-tbody');
+  buildGradeTable('hen-grade-tbody');
 
   // bind HGA
   document.querySelectorAll('#hga-input-panel select').forEach(function(s){ s.addEventListener('change', calcHGA); });
@@ -1977,7 +2073,13 @@ if(subjectSearch){
   }
   $('hcvs-reset-btn').addEventListener('click', resetHCVS1);
 
-  calcHGA(); calcBHCB(); calcEHP(); calcHIM(); calcHMS1(); calcHCVS1();
+  // bind HEN-1
+  document.querySelectorAll('#hes1-input-panel select').forEach(function(sel){
+    ['change','input','blur'].forEach(function(event){ sel.addEventListener(event,calcHEN1); });
+  });
+  $('hen-reset-btn').addEventListener('click',resetHEN1);
+
+  calcHGA(); calcBHCB(); calcEHP(); calcHIM(); calcHMS1(); calcHCVS1(); calcHEN1();
 })();
 </script>
 </body>

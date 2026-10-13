@@ -1215,7 +1215,7 @@ select.mini.has-val{ background-color:var(--pine-mist); border-color:transparent
         </div>
         <div class="card">
           <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">MTF</div><div class="card-pct">5%</div></div>
-          <div class="row"><label class="row-label" for="hrs-mtf">เกรด MTF</label><select class="mini" id="hrs-mtf"></select></div>
+          <div class="row"><label class="row-label" for="hrs-mtf">คะแนน MTF</label><select class="mini" id="hrs-mtf"><option value=""></option><option value="0">0–5</option><option value="3">6</option><option value="3.5">7</option><option value="4">8</option><option value="4.5">9</option><option value="5">10</option></select></div>
         </div>
         <div class="card wide">
           <div class="card-header"><div class="ch-dot dot-gold"></div><div class="card-title">Quiz 1</div><div class="card-pct">5%</div></div>
@@ -1225,9 +1225,9 @@ select.mini.has-val{ background-color:var(--pine-mist); border-color:transparent
           <div class="card-header"><div class="ch-dot dot-gold"></div><div class="card-title">Quiz 2</div><div class="card-pct">5%</div></div>
           <div class="row" style="flex-wrap:wrap;"><div class="row-label">การเข้าทำ</div><div class="hms-choice-wrap" role="group" aria-label="Quiz 2"><button type="button" class="srb hms-choice hrs-choice" data-hrs-group="q2" data-hrs-value="5" aria-pressed="false" onclick="setHRSChoice('q2',5)">เข้าทำ</button><button type="button" class="srb hms-choice hrs-choice" data-hrs-group="q2" data-hrs-value="0" aria-pressed="false" onclick="setHRSChoice('q2',0)">ไม่เข้าทำ</button></div></div>
         </div>
-        <div class="card wide">
+        <div class="card">
           <div class="card-header"><div class="ch-dot dot-green"></div><div class="card-title">Report</div><div class="card-pct">5%</div></div>
-          <div class="row" style="flex-wrap:wrap;"><div class="row-label">การส่ง</div><div class="hms-choice-wrap" role="group" aria-label="Report"><button type="button" class="srb hms-choice hrs-choice" data-hrs-group="report" data-hrs-value="5" aria-pressed="false" onclick="setHRSChoice('report',5)">ส่ง</button><button type="button" class="srb hms-choice hrs-choice" data-hrs-group="report" data-hrs-value="0" aria-pressed="false" onclick="setHRSChoice('report',0)">ไม่ส่ง</button></div></div>
+          <div class="row"><label class="row-label" for="hrs-report">เกรด Report</label><select class="mini" id="hrs-report"></select></div>
         </div>
       </div>
       <div class="calc-side">
@@ -1902,9 +1902,9 @@ function resetHCVS1(){
 }
 
 /* ---------- HRS-1 ---------- */
-var HRS_W=[['hrs-mcq',80],['hrs-mtf',5]];
-var HRS_MAX={q1:5,q2:5,report:5};
-var hrsChoices={q1:null,q2:null,report:null};
+var HRS_W=[['hrs-mcq',80],['hrs-report',5]];
+var HRS_MAX={q1:5,q2:5};
+var hrsChoices={q1:null,q2:null};
 function setHRSChoice(key,val){
   hrsChoices[key]=val;
   document.querySelectorAll('[data-hrs-group="'+key+'"]').forEach(function(btn){
@@ -1921,6 +1921,9 @@ function hrsCompute(useBest){
     if(v===null && useBest) v=4;
     if(v!==null) raw+=v*HRS_W[i][1];
   }
+  var mtf=gv('hrs-mtf');
+  if(mtf===null && useBest) mtf=5;
+  if(mtf!==null) raw+=mtf*4;
   for(var key in hrsChoices){
     var awarded=hrsChoices[key];
     if(awarded===null && useBest) awarded=HRS_MAX[key];
@@ -2004,9 +2007,10 @@ function exampleGrade(g){
     if(!hrsPoint) return;
     HRS_W.forEach(function(item){ $(item[0]).value=String(hrsPoint.v); });
     for(var hrsKey in HRS_MAX){
-      var hrsAward=g==='A'||(hrsKey==='report'&&g!=='D'&&g!=='F')?HRS_MAX[hrsKey]:0;
+      var hrsAward=g==='A'?HRS_MAX[hrsKey]:0;
       setHRSChoice(hrsKey,hrsAward);
     }
+    $('hrs-mtf').value=String(g==='A'?5:(g==='B+'?3:0));
     calcHRS1();
     return;
   }
@@ -2129,7 +2133,7 @@ if(subjectSearch){
   // calc dropdowns
   ['mcq1','mcq2','mcq3','mcq4','mcq5','tse1','tse2','tse3','tse4','tse5','bhcb-mcq','bhcb-saq',
    'ehp-mcq','ehp-brainstorm','ehp-demo1','ehp-demo2','ehp-assign1','ehp-assign2','ehp-assign3','ehp-groupconf','ehp-quiz',
-   'hrs-mcq','hrs-mtf','hen-mcq','hen-mtf','hen-knowledge','him-mcq','him-quiz','him-group','hms-mcq','hms-mtf','hcvs-mcq','hcvs-short-answer','hcvs-mtf-pbl','hcvs-group-conference','hcvs-mtf-conference'
+   'hrs-mcq','hrs-report','hen-mcq','hen-mtf','hen-knowledge','him-mcq','him-quiz','him-group','hms-mcq','hms-mtf','hcvs-mcq','hcvs-short-answer','hcvs-mtf-pbl','hcvs-group-conference','hcvs-mtf-conference'
   ].forEach(function(id){ var el=$(id); if(el) fillGradeOptions(el,false); });
   ['sdl','lab-dis'].forEach(function(id){ var el=$(id); if(el) fillGradeOptions(el,true); });
 

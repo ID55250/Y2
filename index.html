@@ -1206,6 +1206,47 @@ select.mini.has-val{ background-color:var(--pine-mist); border-color:transparent
       </div>
     </div>
 
+    <!-- HRS-1 -->
+    <div class="calc-layout" id="mount-hrs1" style="display:none;">
+      <div class="calc-inputs" id="hrs1-input-panel">
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">MCQ</div><div class="card-pct">80%</div></div>
+          <div class="row"><label class="row-label" for="hrs-mcq">เกรด MCQ</label><select class="mini" id="hrs-mcq"></select></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="ch-dot dot-pine"></div><div class="card-title">MTF</div><div class="card-pct">5%</div></div>
+          <div class="row"><label class="row-label" for="hrs-mtf">เกรด MTF</label><select class="mini" id="hrs-mtf"></select></div>
+        </div>
+        <div class="card wide">
+          <div class="card-header"><div class="ch-dot dot-gold"></div><div class="card-title">Quiz 1</div><div class="card-pct">5%</div></div>
+          <div class="row" style="flex-wrap:wrap;"><div class="row-label">การเข้าทำ</div><div class="hms-choice-wrap" role="group" aria-label="Quiz 1"><button type="button" class="srb hms-choice hrs-choice" data-hrs-group="q1" data-hrs-value="5" aria-pressed="false" onclick="setHRSChoice('q1',5)">เข้าทำ</button><button type="button" class="srb hms-choice hrs-choice" data-hrs-group="q1" data-hrs-value="0" aria-pressed="false" onclick="setHRSChoice('q1',0)">ไม่เข้าทำ</button></div></div>
+        </div>
+        <div class="card wide">
+          <div class="card-header"><div class="ch-dot dot-gold"></div><div class="card-title">Quiz 2</div><div class="card-pct">5%</div></div>
+          <div class="row" style="flex-wrap:wrap;"><div class="row-label">การเข้าทำ</div><div class="hms-choice-wrap" role="group" aria-label="Quiz 2"><button type="button" class="srb hms-choice hrs-choice" data-hrs-group="q2" data-hrs-value="5" aria-pressed="false" onclick="setHRSChoice('q2',5)">เข้าทำ</button><button type="button" class="srb hms-choice hrs-choice" data-hrs-group="q2" data-hrs-value="0" aria-pressed="false" onclick="setHRSChoice('q2',0)">ไม่เข้าทำ</button></div></div>
+        </div>
+        <div class="card wide">
+          <div class="card-header"><div class="ch-dot dot-green"></div><div class="card-title">Report</div><div class="card-pct">5%</div></div>
+          <div class="row" style="flex-wrap:wrap;"><div class="row-label">การส่ง</div><div class="hms-choice-wrap" role="group" aria-label="Report"><button type="button" class="srb hms-choice hrs-choice" data-hrs-group="report" data-hrs-value="5" aria-pressed="false" onclick="setHRSChoice('report',5)">ส่ง</button><button type="button" class="srb hms-choice hrs-choice" data-hrs-group="report" data-hrs-value="0" aria-pressed="false" onclick="setHRSChoice('report',0)">ไม่ส่ง</button></div></div>
+        </div>
+      </div>
+      <div class="calc-side">
+        <div class="summary-card">
+          <div class="sc-title">สรุปผล HRS-1</div>
+          <div class="gpa-display"><div class="gpa-value" id="hrs-sum-gpa">–</div><div class="gpa-max">/ 4.00</div></div>
+        </div>
+        <div class="mini-chart-card">
+          <div class="gtc-title"></div>
+          <svg class="chart-svg" id="hrs-mini-chart" viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+        <div class="grade-table-card">
+          <div class="gtc-title">เกณฑ์การให้เกรด</div>
+          <table class="grade-table"><thead><tr><th>เกรด</th><th>ช่วง GPA</th><th></th></tr></thead><tbody id="hrs-grade-tbody"></tbody></table>
+        </div>
+        <button class="reset-btn" id="hrs-reset-btn">รีเซ็ตทั้งหมด</button>
+      </div>
+    </div>
+
     <!-- coming soon -->
     <div id="mount-cs" style="display:none;">
       <div class="cs-box">
@@ -1249,11 +1290,11 @@ var YEAR2 = [
   {id:'hms1',  code:'HMS-1',  cr:1, name:'ระบบกล้ามเนื้อและกระดูกของมนุษย์ 1',          en:'Human Musculoskeletal System 1',       emoji:'🦴', mod:'M1', calc:true},
   {id:'hcvs1', code:'HCVS-1', cr:2, name:'ระบบหัวใจและหลอดเลือดของมนุษย์ 1',            en:'Human Cardiovascular System 1',        emoji:'❤️', mod:'M2', calc:true},
   {id:'hes1',  code:'HEN-1',  cr:1, name:'ระบบต่อมไร้ท่อของมนุษย์ 1',                    en:'Human Endocrine System 1',             emoji:'⚗️', mod:'M2', calc:true},
+  {id:'hrs1',  code:'HRS-1',  cr:1, name:'ระบบหายใจของมนุษย์ 1',                         en:'Human Respiratory System 1',           emoji:'🫁', mod:'M2', calc:true},
   {id:'mhi',   code:'MHI',    cr:2, name:'จุลชีววิทยาของโรคติดเชื้อในมนุษย์',            en:'Microbiology of Infectious Diseases',  emoji:'🦠', mod:'M4', calc:false},
   {id:'phi',   code:'PHI',    cr:1, name:'ปรสิตวิทยาของโรคติดเชื้อในมนุษย์',             en:'Parasitology of Infectious Diseases',  emoji:'🪱', mod:'M4', calc:false},
   {id:'bap',   code:'BAP',    cr:2, name:'พยาธิวิทยากายวิภาคพื้นฐานของมนุษย์',          en:'Basic Anatomical Pathology',           emoji:'🔴', mod:'M4', calc:false},
   {id:'bcp',   code:'BCP',    cr:2, name:'เภสัชวิทยาคลินิกพื้นฐาน',                      en:'Basic Clinical Pharmacology',          emoji:'💊', mod:'M4', calc:false},
-  {id:'hrs1',  code:'HRS-1',  cr:1, name:'ระบบหายใจของมนุษย์ 1',                         en:'Human Respiratory System 1',           emoji:'🫁', mod:'M2', calc:false},
   {id:'hgb1',  code:'HGB-1',  cr:2, name:'ระบบทางเดินอาหารและน้ำดีของมนุษย์ 1',         en:'GI & Biliary Tract System 1',          emoji:'🍽️', mod:'M3', calc:false},
   {id:'hru1',  code:'HRU-1',  cr:2, name:'ระบบไตและทางเดินปัสสาวะของมนุษย์ 1',          en:'Renal & Urinary System 1',             emoji:'💧', mod:'M3', calc:false},
   {id:'hrp1',  code:'HRP-1',  cr:2, name:'ระบบสืบพันธุ์และระยะปริกำเนิดของมนุษย์ 1',    en:'Reproductive & Perinatal 1',           emoji:'🤱', mod:'M3', calc:false},
@@ -1860,6 +1901,53 @@ function resetHCVS1(){
   calcHCVS1();
 }
 
+/* ---------- HRS-1 ---------- */
+var HRS_W=[['hrs-mcq',80],['hrs-mtf',5]];
+var HRS_MAX={q1:5,q2:5,report:5};
+var hrsChoices={q1:null,q2:null,report:null};
+function setHRSChoice(key,val){
+  hrsChoices[key]=val;
+  document.querySelectorAll('[data-hrs-group="'+key+'"]').forEach(function(btn){
+    var active=parseFloat(btn.getAttribute('data-hrs-value'))===val;
+    btn.className='srb hms-choice hrs-choice'+(active?(val===0?' no-on':' yes-on'):'');
+    btn.setAttribute('aria-pressed',String(active));
+  });
+  calcHRS1();
+}
+function hrsCompute(useBest){
+  var raw=0;
+  for(var i=0;i<HRS_W.length;i++){
+    var v=gv(HRS_W[i][0]);
+    if(v===null && useBest) v=4;
+    if(v!==null) raw+=v*HRS_W[i][1];
+  }
+  for(var key in hrsChoices){
+    var awarded=hrsChoices[key];
+    if(awarded===null && useBest) awarded=HRS_MAX[key];
+    if(awarded!==null) raw+=awarded*4;
+  }
+  return {raw:raw,gpa:raw/100};
+}
+function calcHRS1(){
+  var r=hrsCompute(false), anyFilled=false;
+  document.querySelectorAll('#hrs1-input-panel select').forEach(function(sel){
+    markSel(sel); if(sel.value!=='') anyFilled=true;
+  });
+  for(var key in hrsChoices){ if(hrsChoices[key]!==null) anyFilled=true; }
+  setText('hrs-sum-gpa',anyFilled?r.gpa.toFixed(2):'–',true);
+  highlightTable('hrs-grade-tbody',anyFilled?gradeFromGPA(r.gpa).g:'-');
+  updateCalcHeader(r.gpa,anyFilled);
+  drawMiniChart('hrs-mini-chart',anyFilled?r.gpa:0,hrsCompute(true).gpa,anyFilled);
+}
+function resetHRS1(){
+  document.querySelectorAll('#hrs1-input-panel select').forEach(function(sel){ sel.value=''; markSel(sel); });
+  for(var key in hrsChoices) hrsChoices[key]=null;
+  document.querySelectorAll('#hrs1-input-panel .hrs-choice').forEach(function(btn){
+    btn.className='srb hms-choice hrs-choice'; btn.setAttribute('aria-pressed','false');
+  });
+  calcHRS1();
+}
+
 /* ---------- HEN-1 ---------- */
 var HEN_W=[['hen-mcq',85],['hen-mtf',5],['hen-knowledge',2]];
 var HEN_MAX={q1:1,q2:1,form:2,att:4};
@@ -1911,6 +1999,17 @@ function resetHEN1(){
    EXAMPLE GRADE (fills current calc to hit target grade)
    ============================================================ */
 function exampleGrade(g){
+  if(CURRENT_CALC==='hrs1'){
+    var hrsPoint=GRADE_POINTS.filter(function(item){ return item.label===g; })[0];
+    if(!hrsPoint) return;
+    HRS_W.forEach(function(item){ $(item[0]).value=String(hrsPoint.v); });
+    for(var hrsKey in HRS_MAX){
+      var hrsAward=g==='A'||(hrsKey==='report'&&g!=='D'&&g!=='F')?HRS_MAX[hrsKey]:0;
+      setHRSChoice(hrsKey,hrsAward);
+    }
+    calcHRS1();
+    return;
+  }
   if(CURRENT_CALC==='hes1'){
     var point=GRADE_POINTS.filter(function(item){ return item.label===g; })[0];
     if(!point) return;
@@ -1981,11 +2080,11 @@ function openCalculator(id){
   $('calc-emoji').textContent=s.emoji;
   $('calc-code').textContent=s.code;
   $('calc-name').textContent=s.en;
-  ['hga','bhcb','ehp','him','hms1','hcvs1','hes1','cs'].forEach(function(m){ $('mount-'+m).style.display='none'; });
+  ['hga','bhcb','ehp','him','hms1','hcvs1','hes1','hrs1','cs'].forEach(function(m){ $('mount-'+m).style.display='none'; });
   if(s.calc){
     CURRENT_CALC=id;
     $('mount-'+id).style.display='grid';
-    if(id==='hga') calcHGA(); else if(id==='bhcb') calcBHCB(); else if(id==='ehp') calcEHP(); else if(id==='him') calcHIM(); else if(id==='hms1') calcHMS1(); else if(id==='hcvs1') calcHCVS1(); else if(id==='hes1') calcHEN1();
+    if(id==='hga') calcHGA(); else if(id==='bhcb') calcBHCB(); else if(id==='ehp') calcEHP(); else if(id==='him') calcHIM(); else if(id==='hms1') calcHMS1(); else if(id==='hcvs1') calcHCVS1(); else if(id==='hes1') calcHEN1(); else if(id==='hrs1') calcHRS1();
   } else {
     CURRENT_CALC=null;
     $('mount-cs').style.display='block';
@@ -2030,7 +2129,7 @@ if(subjectSearch){
   // calc dropdowns
   ['mcq1','mcq2','mcq3','mcq4','mcq5','tse1','tse2','tse3','tse4','tse5','bhcb-mcq','bhcb-saq',
    'ehp-mcq','ehp-brainstorm','ehp-demo1','ehp-demo2','ehp-assign1','ehp-assign2','ehp-assign3','ehp-groupconf','ehp-quiz',
-   'hen-mcq','hen-mtf','hen-knowledge','him-mcq','him-quiz','him-group','hms-mcq','hms-mtf','hcvs-mcq','hcvs-short-answer','hcvs-mtf-pbl','hcvs-group-conference','hcvs-mtf-conference'
+   'hrs-mcq','hrs-mtf','hen-mcq','hen-mtf','hen-knowledge','him-mcq','him-quiz','him-group','hms-mcq','hms-mtf','hcvs-mcq','hcvs-short-answer','hcvs-mtf-pbl','hcvs-group-conference','hcvs-mtf-conference'
   ].forEach(function(id){ var el=$(id); if(el) fillGradeOptions(el,false); });
   ['sdl','lab-dis'].forEach(function(id){ var el=$(id); if(el) fillGradeOptions(el,true); });
 
@@ -2041,6 +2140,7 @@ if(subjectSearch){
   buildGradeTable('hms-grade-tbody');
   buildGradeTable('hcvs-grade-tbody');
   buildGradeTable('hen-grade-tbody');
+  buildGradeTable('hrs-grade-tbody');
 
   // bind HGA
   document.querySelectorAll('#hga-input-panel select').forEach(function(s){ s.addEventListener('change', calcHGA); });
@@ -2079,7 +2179,13 @@ if(subjectSearch){
   });
   $('hen-reset-btn').addEventListener('click',resetHEN1);
 
-  calcHGA(); calcBHCB(); calcEHP(); calcHIM(); calcHMS1(); calcHCVS1(); calcHEN1();
+  // bind HRS-1
+  document.querySelectorAll('#hrs1-input-panel select').forEach(function(sel){
+    ['change','input','blur'].forEach(function(event){ sel.addEventListener(event,calcHRS1); });
+  });
+  $('hrs-reset-btn').addEventListener('click',resetHRS1);
+
+  calcHGA(); calcBHCB(); calcEHP(); calcHIM(); calcHMS1(); calcHCVS1(); calcHEN1(); calcHRS1();
 })();
 </script>
 </body>
